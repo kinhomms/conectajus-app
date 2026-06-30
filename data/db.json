@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "name": "Administrador ConectaJus",
+      "email": "admin@conectajus.local",
+      "phone": "71999999999",
+      "passwordHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "role": "admin",
+      "city": "Salvador",
+      "state": "BA",
+      "createdAt": "2026-06-30T00:00:00.000Z"
+    }
+  ],
+  "cases": [],
+  "documents": [],
+  "notes": [],
+  "auditLogs": [
+    {
+      "id": "log-1782844312350-1d53fd67",
+      "userId": "admin-1",
+      "action": "USER_LOGIN",
+      "entityType": "User",
+      "entityId": "admin-1",
+      "meta": {},
+      "createdAt": "2026-06-30T18:31:52.350Z"
+    }
+  ],
+  "settings": {
+    "name": "ConectaJus",
+    "slogan": "Inteligência Jurídica que Conecta Soluções.",
+    "mode": "production-base"
+  }
+}
