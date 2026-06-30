@@ -12,10 +12,83 @@
       "createdAt": "2026-06-30T00:00:00.000Z"
     }
   ],
-  "cases": [],
+  "cases": [
+    {
+      "id": "case-1782850965961-340d689e",
+      "userId": "admin-1",
+      "internalNumber": "CJ-2026-000001",
+      "legalArea": "Outros",
+      "subject": "Declaração de realização de estágio presencial",
+      "description": "fiz faculdade e não recebi a documentação para o estagio presencial, agora a faculdade não quer dilatar o prazo para eu fazer o estagio e formar no tempo certo",
+      "city": "Salvador",
+      "state": "Bahia",
+      "urgencyLevel": "alta",
+      "maturityScore": 35,
+      "status": "closed",
+      "aiSummary": "A narrativa indica possível demanda relacionada a Outros. A análise é preliminar e depende da conferência dos documentos.",
+      "aiDiagnosis": {
+        "legalArea": "Outros",
+        "maturityScore": 35,
+        "urgencyLevel": "alta",
+        "summary": "A narrativa indica possível demanda relacionada a Outros. A análise é preliminar e depende da conferência dos documentos.",
+        "followUpQuestions": [
+          "Quem está envolvido?",
+          "Quando ocorreu?",
+          "Quais documentos possui?"
+        ],
+        "suggestedDocuments": [
+          "Documentos pessoais",
+          "Comprovantes",
+          "Conversas",
+          "Notificações"
+        ],
+        "riskAlerts": [
+          "Há possível urgência ou prazo. Recomenda-se análise rápida."
+        ],
+        "preliminaryTheses": [
+          "Possível medida jurídica relacionada a Outros, a depender da análise documental."
+        ],
+        "nextSteps": [
+          "Confirmar dados do cliente.",
+          "Solicitar documentos essenciais.",
+          "Verificar urgência e prazo.",
+          "Submeter à análise individual por advogado."
+        ],
+        "warning": "As informações apresentadas possuem caráter preliminar e informativo, não substituindo a análise individual por advogado habilitado."
+      },
+      "nextSteps": [
+        "Confirmar dados do cliente.",
+        "Solicitar documentos essenciais.",
+        "Verificar urgência e prazo.",
+        "Submeter à análise individual por advogado."
+      ],
+      "createdAt": "2026-06-30T20:22:45.962Z",
+      "updatedAt": "2026-06-30T20:23:37.718Z"
+    }
+  ],
   "documents": [],
   "notes": [],
   "auditLogs": [
+    {
+      "id": "log-1782851017718-22e0c8f0",
+      "userId": "admin-1",
+      "action": "CASE_STATUS_UPDATED",
+      "entityType": "LegalCase",
+      "entityId": "case-1782850965961-340d689e",
+      "meta": {
+        "status": "closed"
+      },
+      "createdAt": "2026-06-30T20:23:37.718Z"
+    },
+    {
+      "id": "log-1782850965962-5459aab0",
+      "userId": "admin-1",
+      "action": "CASE_CREATED",
+      "entityType": "LegalCase",
+      "entityId": "case-1782850965961-340d689e",
+      "meta": {},
+      "createdAt": "2026-06-30T20:22:45.962Z"
+    },
     {
       "id": "log-1782844312350-1d53fd67",
       "userId": "admin-1",
