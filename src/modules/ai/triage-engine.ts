@@ -65,7 +65,7 @@ export function generateTriageDossier(description: string): TriageDossier {
     executiveSummary: area
       ? `A narrativa indica possível demanda relacionada a ${area.name}. A análise ainda é preliminar e depende da conferência dos documentos e de informações complementares.`
       : "A narrativa ainda não permite definir com segurança a área jurídica principal. É necessário coletar mais informações.",
-    suggestedDocuments: area?.documents ?? ["Documentos pessoais", "Comprovantes", "Conversas", "Notificações", "Provas disponíveis"],
+    suggestedDocuments: area ? [...area.documents] : ["Documentos pessoais", "Comprovantes", "Conversas", "Notificações", "Provas disponíveis"],
     followUpQuestions: area?.questions ?? ["Quem está envolvido no problema?", "Quando os fatos ocorreram?", "Quais documentos você possui?", "Qual solução você deseja?"],
     riskAlerts: detectRisks(description),
     nextSteps: ["Confirmar dados pessoais e local dos fatos.", "Solicitar documentos essenciais.", "Verificar existência de prazo em andamento.", "Submeter o caso à análise individual por advogado."],
