@@ -1,0 +1,58 @@
+export const legalAreas = [
+  {
+    id: "banking",
+    name: "Direito Bancário",
+    description: "Empréstimos, descontos indevidos, juros abusivos, negativação e contratos bancários.",
+    documents: ["Contrato", "Extratos", "Comprovantes de desconto", "Prints", "Consulta Serasa/SPC"],
+    questions: ["Qual banco está envolvido?", "Existe contrato assinado?", "Há descontos?", "Houve negativação?"],
+  },
+  {
+    id: "consumer",
+    name: "Direito do Consumidor",
+    description: "Produtos, serviços, cobranças, cancelamentos e empresas.",
+    documents: ["Nota fiscal", "Contrato", "Comprovantes", "Protocolos", "Prints"],
+    questions: ["Qual empresa está envolvida?", "Quando ocorreu?", "Houve tentativa de solução?"],
+  },
+  {
+    id: "administrative",
+    name: "Direito Administrativo",
+    description: "Servidores públicos, atos administrativos, órgãos públicos e Fazenda Pública.",
+    documents: ["Processo administrativo", "Requerimentos", "Portarias", "Publicações", "Contracheques"],
+    questions: ["Qual órgão está envolvido?", "Existe processo administrativo?", "Há prazo?"],
+  },
+  {
+    id: "public-tenders",
+    name: "Concursos Públicos",
+    description: "Editais, classificação, nomeação, cotas, recursos e etapas.",
+    documents: ["Edital", "Resultado", "Espelho de correção", "Recurso administrativo"],
+    questions: ["Qual concurso e banca?", "Qual fase?", "Houve recurso?", "Existe prazo?"],
+  },
+  {
+    id: "family",
+    name: "Direito de Família",
+    description: "Divórcio, pensão, guarda, visitas e alimentos.",
+    documents: ["Certidões", "Comprovantes de renda", "Comprovantes de despesas", "Conversas"],
+    questions: ["Há filhos menores?", "Existe acordo?", "Há urgência?"],
+  },
+  {
+    id: "labor",
+    name: "Direito Trabalhista",
+    description: "Demissão, verbas rescisórias, FGTS, salário e horas extras.",
+    documents: ["CTPS", "Contracheques", "TRCT", "Comprovantes", "Conversas"],
+    questions: ["Qual período trabalhado?", "Havia carteira assinada?", "Recebeu rescisão?"],
+  },
+  {
+    id: "social-security",
+    name: "Direito Previdenciário",
+    description: "INSS, aposentadoria, benefícios, auxílio, BPC e perícias.",
+    documents: ["CNIS", "Carta de indeferimento", "Laudos", "Receitas"],
+    questions: ["Qual benefício?", "Houve indeferimento?", "Possui laudos?"],
+  },
+  {
+    id: "military",
+    name: "Direito Militar",
+    description: "Policiais militares, promoções, adicionais, atos administrativos e concursos militares.",
+    documents: ["Identidade funcional", "Contracheques", "Atos administrativos", "Publicações"],
+    questions: ["Qual corporação?", "Há ato administrativo?", "Existe prazo?"],
+  },
+] as const;
