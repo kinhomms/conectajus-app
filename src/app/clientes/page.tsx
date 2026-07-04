@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -30,7 +30,7 @@ const initialCaseForm = {
   practice_area: "",
   case_number: "",
   court: "",
-  status: "em análise",
+  status: "em anÃ¡lise",
   description: "",
 };
 
@@ -60,6 +60,7 @@ export default function ClientesPage() {
   const [savingDossier, setSavingDossier] = useState(false);
   const [message, setMessage] = useState("");
   const [dossierMessage, setDossierMessage] = useState("");
+  const [clientSearch, setClientSearch] = useState("");
 
   useEffect(() => {
     async function init() {
@@ -84,7 +85,7 @@ export default function ClientesPage() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      setMessage("Não foi possível carregar os clientes.");
+      setMessage("NÃ£o foi possÃ­vel carregar os clientes.");
       return;
     }
 
@@ -158,7 +159,7 @@ export default function ClientesPage() {
     setSavingClient(false);
 
     if (error) {
-      setMessage("Erro ao cadastrar cliente. Verifique os dados e as permissões do Supabase.");
+      setMessage("Erro ao cadastrar cliente. Verifique os dados e as permissÃµes do Supabase.");
       return;
     }
 
@@ -184,12 +185,12 @@ export default function ClientesPage() {
     setSavingDossier(false);
 
     if (error) {
-      setDossierMessage("Erro ao salvar anotação.");
+      setDossierMessage("Erro ao salvar anotaÃ§Ã£o.");
       return;
     }
 
     setNoteForm(initialNoteForm);
-    setDossierMessage("Anotação salva no dossiê.");
+    setDossierMessage("AnotaÃ§Ã£o salva no dossiÃª.");
     await loadNotes(selectedClient.id);
   }
 
@@ -206,7 +207,7 @@ export default function ClientesPage() {
       practice_area: caseForm.practice_area || null,
       case_number: caseForm.case_number || null,
       court: caseForm.court || null,
-      status: caseForm.status || "em análise",
+      status: caseForm.status || "em anÃ¡lise",
       description: caseForm.description || null,
     });
 
@@ -244,7 +245,7 @@ export default function ClientesPage() {
     }
 
     setDocumentForm(initialDocumentForm);
-    setDossierMessage("Documento registrado no dossiê.");
+    setDossierMessage("Documento registrado no dossiÃª.");
     await loadDocuments(selectedClient.id);
   }
 
@@ -252,6 +253,18 @@ export default function ClientesPage() {
     await supabase.auth.signOut();
     router.push("/");
   }
+
+  const filteredClients = clients.filter((client) => {
+    const search = clientSearch.toLowerCase();
+
+    return (
+      client.full_name.toLowerCase().includes(search) ||
+      (client.cpf ?? "").toLowerCase().includes(search) ||
+      (client.email ?? "").toLowerCase().includes(search) ||
+      (client.phone ?? "").toLowerCase().includes(search) ||
+      (client.city ?? "").toLowerCase().includes(search)
+    );
+  });
 
   if (loading) {
     return (
@@ -267,8 +280,8 @@ export default function ClientesPage() {
         <header className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#C9A227]">ConectaJus CRM</p>
-            <h1 className="mt-2 text-4xl font-black tracking-[-0.04em]">Dossiê Jurídico do Cliente</h1>
-            <p className="mt-2 text-slate-600">Clientes, atendimentos, documentos e processos em uma única visão.</p>
+            <h1 className="mt-2 text-4xl font-black tracking-[-0.04em]">DossiÃª JurÃ­dico do Cliente</h1>
+            <p className="mt-2 text-slate-600">Clientes, atendimentos, documentos e processos em uma Ãºnica visÃ£o.</p>
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -316,7 +329,7 @@ export default function ClientesPage() {
                 </div>
 
                 <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Observações iniciais</span>
+                  <span className="mb-2 block text-sm font-black text-slate-700">ObservaÃ§Ãµes iniciais</span>
                   <textarea value={clientForm.notes} onChange={(e) => updateClientField("notes", e.target.value)} rows={3} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
                 </label>
 
@@ -332,24 +345,30 @@ export default function ClientesPage() {
               <div className="mb-5 flex items-center justify-between gap-3">
                 <div>
                   <h2 className="text-2xl font-black">Clientes</h2>
-                  <p className="mt-2 text-sm text-slate-600">{clients.length} cliente(s).</p>
+                  <p className="mt-2 text-sm text-slate-600">{filteredClients.length} de {clients.length} cliente(s).</p>
+                  <input
+                    value={clientSearch}
+                    onChange={(e) => setClientSearch(e.target.value)}
+                    placeholder="Pesquisar por nome, CPF, e-mail, telefone ou cidade"
+                    className="mt-4 w-full rounded-2xl border border-slate-300 bg-white p-4 text-sm outline-none focus:border-[#C9A227]"
+                  />
                 </div>
                 <button onClick={loadClients} className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-black">
                   Atualizar
                 </button>
               </div>
 
-              {clients.length === 0 ? (
+              {filteredClients.length === 0 ? (
                 <div className="rounded-2xl bg-slate-50 p-6 text-slate-600">Nenhum cliente cadastrado ainda.</div>
               ) : (
                 <div className="space-y-3">
-                  {clients.map((client) => (
+                  {filteredClients.map((client) => (
                     <button key={client.id} onClick={() => selectClient(client)} className="w-full rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:border-[#C9A227] hover:bg-slate-50">
                       <div className="flex flex-col justify-between gap-2 md:flex-row">
                         <strong className="text-[#07182F]">{client.full_name}</strong>
                         <span className="text-xs font-bold text-slate-500">{new Date(client.created_at).toLocaleDateString("pt-BR")}</span>
                       </div>
-                      <div className="mt-2 text-sm text-slate-600">{client.phone || "Sem telefone"} • {client.email || "Sem e-mail"}</div>
+                      <div className="mt-2 text-sm text-slate-600">{client.phone || "Sem telefone"} â€¢ {client.email || "Sem e-mail"}</div>
                     </button>
                   ))}
                 </div>
@@ -359,17 +378,17 @@ export default function ClientesPage() {
 
           <section className="space-y-6">
             <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-black">Dossiê do cliente</h2>
+              <h2 className="text-2xl font-black">DossiÃª do cliente</h2>
 
               {!selectedClient ? (
-                <p className="mt-4 text-slate-600">Selecione um cliente para abrir o dossiê jurídico.</p>
+                <p className="mt-4 text-slate-600">Selecione um cliente para abrir o dossiÃª jurÃ­dico.</p>
               ) : (
                 <div className="mt-5 space-y-4">
                   <div className="rounded-2xl bg-slate-50 p-5">
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-[#C9A227]">Cliente selecionado</p>
                     <h3 className="mt-2 text-2xl font-black">{selectedClient.full_name}</h3>
                     <p className="mt-1 text-sm text-slate-600">
-                      CPF: {selectedClient.cpf || "não informado"} • WhatsApp: {selectedClient.phone || "não informado"}
+                      CPF: {selectedClient.cpf || "nÃ£o informado"} â€¢ WhatsApp: {selectedClient.phone || "nÃ£o informado"}
                     </p>
                   </div>
 
@@ -383,13 +402,13 @@ export default function ClientesPage() {
                     <div className="rounded-2xl border border-slate-200 p-5">
                       <h3 className="text-lg font-black">Atendimento</h3>
                       <form onSubmit={handleCreateNote} className="mt-4 space-y-3">
-                        <input required value={noteForm.title} onChange={(e) => setNoteForm({ ...noteForm, title: e.target.value })} placeholder="Título" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <input required value={noteForm.title} onChange={(e) => setNoteForm({ ...noteForm, title: e.target.value })} placeholder="TÃ­tulo" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
                         <select value={noteForm.note_type} onChange={(e) => setNoteForm({ ...noteForm, note_type: e.target.value })} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]">
                           <option value="atendimento">Atendimento</option>
-                          <option value="ligação">Ligação</option>
-                          <option value="reunião">Reunião</option>
-                          <option value="estratégia">Estratégia</option>
-                          <option value="pendência">Pendência</option>
+                          <option value="ligaÃ§Ã£o">LigaÃ§Ã£o</option>
+                          <option value="reuniÃ£o">ReuniÃ£o</option>
+                          <option value="estratÃ©gia">EstratÃ©gia</option>
+                          <option value="pendÃªncia">PendÃªncia</option>
                         </select>
                         <textarea value={noteForm.content} onChange={(e) => setNoteForm({ ...noteForm, content: e.target.value })} placeholder="Resumo" rows={4} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
                         <button className="w-full rounded-2xl bg-[#07182F] p-3 text-sm font-black text-white">{savingDossier ? "Salvando..." : "Salvar"}</button>
@@ -399,11 +418,11 @@ export default function ClientesPage() {
                     <div className="rounded-2xl border border-slate-200 p-5">
                       <h3 className="text-lg font-black">Processo</h3>
                       <form onSubmit={handleCreateCase} className="mt-4 space-y-3">
-                        <input required value={caseForm.case_title} onChange={(e) => setCaseForm({ ...caseForm, case_title: e.target.value })} placeholder="Título do caso" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
-                        <input value={caseForm.practice_area} onChange={(e) => setCaseForm({ ...caseForm, practice_area: e.target.value })} placeholder="Área do direito" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
-                        <input value={caseForm.case_number} onChange={(e) => setCaseForm({ ...caseForm, case_number: e.target.value })} placeholder="Número do processo" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <input required value={caseForm.case_title} onChange={(e) => setCaseForm({ ...caseForm, case_title: e.target.value })} placeholder="TÃ­tulo do caso" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <input value={caseForm.practice_area} onChange={(e) => setCaseForm({ ...caseForm, practice_area: e.target.value })} placeholder="Ãrea do direito" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <input value={caseForm.case_number} onChange={(e) => setCaseForm({ ...caseForm, case_number: e.target.value })} placeholder="NÃºmero do processo" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
                         <input value={caseForm.court} onChange={(e) => setCaseForm({ ...caseForm, court: e.target.value })} placeholder="Vara/Tribunal" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
-                        <textarea value={caseForm.description} onChange={(e) => setCaseForm({ ...caseForm, description: e.target.value })} placeholder="Descrição" rows={3} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <textarea value={caseForm.description} onChange={(e) => setCaseForm({ ...caseForm, description: e.target.value })} placeholder="DescriÃ§Ã£o" rows={3} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
                         <button className="w-full rounded-2xl bg-[#07182F] p-3 text-sm font-black text-white">{savingDossier ? "Salvando..." : "Vincular"}</button>
                       </form>
                     </div>
@@ -413,7 +432,7 @@ export default function ClientesPage() {
                       <form onSubmit={handleCreateDocument} className="mt-4 space-y-3">
                         <input required value={documentForm.document_name} onChange={(e) => setDocumentForm({ ...documentForm, document_name: e.target.value })} placeholder="Nome do documento" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
                         <input value={documentForm.document_type} onChange={(e) => setDocumentForm({ ...documentForm, document_type: e.target.value })} placeholder="Tipo" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
-                        <textarea value={documentForm.notes} onChange={(e) => setDocumentForm({ ...documentForm, notes: e.target.value })} placeholder="Observações" rows={4} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <textarea value={documentForm.notes} onChange={(e) => setDocumentForm({ ...documentForm, notes: e.target.value })} placeholder="ObservaÃ§Ãµes" rows={4} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
                         <button className="w-full rounded-2xl bg-[#07182F] p-3 text-sm font-black text-white">{savingDossier ? "Salvando..." : "Registrar"}</button>
                       </form>
                     </div>
@@ -425,7 +444,7 @@ export default function ClientesPage() {
             {selectedClient && (
               <div className="grid gap-6 lg:grid-cols-3">
                 <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
-                  <h3 className="text-xl font-black">Histórico</h3>
+                  <h3 className="text-xl font-black">HistÃ³rico</h3>
                   <div className="mt-4 space-y-3">
                     {notes.length === 0 ? <p className="text-sm text-slate-500">Sem registros.</p> : notes.map((note) => (
                       <div key={note.id} className="rounded-2xl bg-slate-50 p-4">
@@ -443,8 +462,8 @@ export default function ClientesPage() {
                     {cases.length === 0 ? <p className="text-sm text-slate-500">Sem processos.</p> : cases.map((item) => (
                       <div key={item.id} className="rounded-2xl bg-slate-50 p-4">
                         <p className="font-bold">{item.case_title}</p>
-                        <p className="mt-1 text-sm text-slate-600">{item.practice_area || "Área não informada"} • {item.status || "sem status"}</p>
-                        <p className="mt-1 text-xs text-slate-500">{item.case_number || "Sem número"}</p>
+                        <p className="mt-1 text-sm text-slate-600">{item.practice_area || "Ãrea nÃ£o informada"} â€¢ {item.status || "sem status"}</p>
+                        <p className="mt-1 text-xs text-slate-500">{item.case_number || "Sem nÃºmero"}</p>
                       </div>
                     ))}
                   </div>
@@ -456,8 +475,8 @@ export default function ClientesPage() {
                     {documents.length === 0 ? <p className="text-sm text-slate-500">Sem documentos.</p> : documents.map((doc) => (
                       <div key={doc.id} className="rounded-2xl bg-slate-50 p-4">
                         <p className="font-bold">{doc.document_name}</p>
-                        <p className="mt-1 text-sm text-slate-600">{doc.document_type || "Tipo não informado"}</p>
-                        <p className="mt-1 text-xs text-slate-500">{doc.notes || "Sem observações."}</p>
+                        <p className="mt-1 text-sm text-slate-600">{doc.document_type || "Tipo nÃ£o informado"}</p>
+                        <p className="mt-1 text-xs text-slate-500">{doc.notes || "Sem observaÃ§Ãµes."}</p>
                       </div>
                     ))}
                   </div>
@@ -470,3 +489,4 @@ export default function ClientesPage() {
     </main>
   );
 }
+
