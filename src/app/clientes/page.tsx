@@ -21,7 +21,37 @@ type Client = {
   created_at: string;
 };
 
-const initialForm = {
+type ClientNote = {
+  id: string;
+  client_id: string;
+  title: string;
+  content: string | null;
+  note_type: string | null;
+  created_at: string;
+};
+
+type ClientCase = {
+  id: string;
+  client_id: string;
+  case_title: string;
+  practice_area: string | null;
+  case_number: string | null;
+  court: string | null;
+  status: string | null;
+  description: string | null;
+  created_at: string;
+};
+
+type ClientDocument = {
+  id: string;
+  client_id: string;
+  document_name: string;
+  document_type: string | null;
+  notes: string | null;
+  created_at: string;
+};
+
+const initialClientForm = {
   full_name: "",
   cpf: "",
   rg: "",
@@ -36,31 +66,63 @@ const initialForm = {
   notes: "",
 };
 
+const initialNoteForm = {
+  title: "",
+  content: "",
+  note_type: "atendimento",
+};
+
+const initialCaseForm = {
+  case_title: "",
+  practice_area: "",
+  case_number: "",
+  court: "",
+  status: "em análise",
+  description: "",
+};
+
+const initialDocumentForm = {
+  document_name: "",
+  document_type: "",
+  notes: "",
+};
+
 export default function ClientesPage() {
   const router = useRouter();
+
   const [clients, setClients] = useState<Client[]>([]);
-  const [form, setForm] = useState(initialForm);
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+
+  const [clientForm, setClientForm] = useState(initialClientForm);
+  const [noteForm, setNoteForm] = useState(initialNoteForm);
+  const [caseForm, setCaseForm] = useState(initialCaseForm);
+  const [documentForm, setDocumentForm] = useState(initialDocumentForm);
+
+  const [notes, setNotes] = useState<ClientNote[]>([]);
+  const [cases, setCases] = useState<ClientCase[]>([]);
+  const [documents, setDocuments] = useState<ClientDocument[]>([]);
+
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [savingClient, setSavingClient] = useState(false);
+  const [savingDossier, setSavingDossier] = useState(false);
   const [message, setMessage] = useState("");
+  const [dossierMessage, setDossierMessage] = useState("");
 
   useEffect(() => {
     async function init() {
       const { data } = await supabase.auth.getUser();
+
       if (!data.user) {
         router.push("/login");
         return;
       }
+
       await loadClients();
       setLoading(false);
     }
+
     init();
   }, [router]);
-
-  function updateField(field: keyof typeof initialForm, value: string) {
-    setForm((current) => ({ ...current, [field]: value }));
-  }
 
   async function loadClients() {
     const { data, error } = await supabase
@@ -72,39 +134,165 @@ export default function ClientesPage() {
       setMessage("Não foi possível carregar os clientes.");
       return;
     }
+
     setClients(data ?? []);
+  }
+
+  async function selectClient(client: Client) {
+    setSelectedClient(client);
+    setDossierMessage("");
+    await Promise.all([
+      loadNotes(client.id),
+      loadCases(client.id),
+      loadDocuments(client.id),
+    ]);
+  }
+
+  async function loadNotes(clientId: string) {
+    const { data } = await supabase
+      .from("client_notes")
+      .select("id, client_id, title, content, note_type, created_at")
+      .eq("client_id", clientId)
+      .order("created_at", { ascending: false });
+
+    setNotes(data ?? []);
+  }
+
+  async function loadCases(clientId: string) {
+    const { data } = await supabase
+      .from("client_cases")
+      .select("id, client_id, case_title, practice_area, case_number, court, status, description, created_at")
+      .eq("client_id", clientId)
+      .order("created_at", { ascending: false });
+
+    setCases(data ?? []);
+  }
+
+  async function loadDocuments(clientId: string) {
+    const { data } = await supabase
+      .from("client_documents")
+      .select("id, client_id, document_name, document_type, notes, created_at")
+      .eq("client_id", clientId)
+      .order("created_at", { ascending: false });
+
+    setDocuments(data ?? []);
+  }
+
+  function updateClientField(field: keyof typeof initialClientForm, value: string) {
+    setClientForm((current) => ({ ...current, [field]: value }));
   }
 
   async function handleCreateClient(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSaving(true);
+    setSavingClient(true);
     setMessage("");
 
     const { error } = await supabase.from("clients").insert({
-      full_name: form.full_name,
-      cpf: form.cpf || null,
-      rg: form.rg || null,
-      birth_date: form.birth_date || null,
-      profession: form.profession || null,
-      marital_status: form.marital_status || null,
-      email: form.email || null,
-      phone: form.phone || null,
-      address: form.address || null,
-      city: form.city || null,
-      state: form.state || null,
-      notes: form.notes || null,
+      full_name: clientForm.full_name,
+      cpf: clientForm.cpf || null,
+      rg: clientForm.rg || null,
+      birth_date: clientForm.birth_date || null,
+      profession: clientForm.profession || null,
+      marital_status: clientForm.marital_status || null,
+      email: clientForm.email || null,
+      phone: clientForm.phone || null,
+      address: clientForm.address || null,
+      city: clientForm.city || null,
+      state: clientForm.state || null,
+      notes: clientForm.notes || null,
     });
 
-    setSaving(false);
+    setSavingClient(false);
 
     if (error) {
       setMessage("Erro ao cadastrar cliente. Verifique os dados e as permissões do Supabase.");
       return;
     }
 
-    setForm(initialForm);
+    setClientForm(initialClientForm);
     setMessage("Cliente cadastrado com sucesso.");
     await loadClients();
+  }
+
+  async function handleCreateNote(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selectedClient) return;
+
+    setSavingDossier(true);
+    setDossierMessage("");
+
+    const { error } = await supabase.from("client_notes").insert({
+      client_id: selectedClient.id,
+      title: noteForm.title,
+      content: noteForm.content || null,
+      note_type: noteForm.note_type || "atendimento",
+    });
+
+    setSavingDossier(false);
+
+    if (error) {
+      setDossierMessage("Erro ao salvar anotação.");
+      return;
+    }
+
+    setNoteForm(initialNoteForm);
+    setDossierMessage("Anotação salva no dossiê.");
+    await loadNotes(selectedClient.id);
+  }
+
+  async function handleCreateCase(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selectedClient) return;
+
+    setSavingDossier(true);
+    setDossierMessage("");
+
+    const { error } = await supabase.from("client_cases").insert({
+      client_id: selectedClient.id,
+      case_title: caseForm.case_title,
+      practice_area: caseForm.practice_area || null,
+      case_number: caseForm.case_number || null,
+      court: caseForm.court || null,
+      status: caseForm.status || "em análise",
+      description: caseForm.description || null,
+    });
+
+    setSavingDossier(false);
+
+    if (error) {
+      setDossierMessage("Erro ao salvar processo.");
+      return;
+    }
+
+    setCaseForm(initialCaseForm);
+    setDossierMessage("Processo vinculado ao cliente.");
+    await loadCases(selectedClient.id);
+  }
+
+  async function handleCreateDocument(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selectedClient) return;
+
+    setSavingDossier(true);
+    setDossierMessage("");
+
+    const { error } = await supabase.from("client_documents").insert({
+      client_id: selectedClient.id,
+      document_name: documentForm.document_name,
+      document_type: documentForm.document_type || null,
+      notes: documentForm.notes || null,
+    });
+
+    setSavingDossier(false);
+
+    if (error) {
+      setDossierMessage("Erro ao salvar documento.");
+      return;
+    }
+
+    setDocumentForm(initialDocumentForm);
+    setDossierMessage("Documento registrado no dossiê.");
+    await loadDocuments(selectedClient.id);
   }
 
   async function handleLogout() {
@@ -126,99 +314,84 @@ export default function ClientesPage() {
         <header className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#C9A227]">ConectaJus CRM</p>
-            <h1 className="mt-2 text-4xl font-black tracking-[-0.04em]">Clientes</h1>
-            <p className="mt-2 text-slate-600">Cadastro completo do cliente, com dados pessoais, contato, endereço e observações.</p>
+            <h1 className="mt-2 text-4xl font-black tracking-[-0.04em]">Dossiê Jurídico do Cliente</h1>
+            <p className="mt-2 text-slate-600">Clientes, atendimentos, documentos e processos em uma única visão.</p>
           </div>
+
           <div className="flex flex-wrap gap-3">
-            <a href="/dashboard" className="rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-black text-[#07182F]">Dashboard</a>
-            <button onClick={handleLogout} className="rounded-2xl bg-[#07182F] px-5 py-3 text-sm font-black text-white">Sair</button>
+            <a href="/dashboard" className="rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-black text-[#07182F]">
+              Painel
+            </a>
+            <button onClick={handleLogout} className="rounded-2xl bg-[#07182F] px-5 py-3 text-sm font-black text-white">
+              Sair
+            </button>
           </div>
         </header>
 
-        <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-2xl font-black">Novo cliente</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">Preencha os dados principais para formar a base do dossiê jurídico.</p>
-
-            <form onSubmit={handleCreateClient} className="mt-6 space-y-5">
-              <div className="grid gap-4 md:grid-cols-2">
-                <label className="block md:col-span-2">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Nome completo</span>
-                  <input required value={form.full_name} onChange={(e) => updateField("full_name", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">CPF</span>
-                  <input value={form.cpf} onChange={(e) => updateField("cpf", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">RG</span>
-                  <input value={form.rg} onChange={(e) => updateField("rg", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Data de nascimento</span>
-                  <input type="date" value={form.birth_date} onChange={(e) => updateField("birth_date", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Estado civil</span>
-                  <select value={form.marital_status} onChange={(e) => updateField("marital_status", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]">
-                    <option value="">Não informado</option>
-                    <option value="Solteiro(a)">Solteiro(a)</option>
-                    <option value="Casado(a)">Casado(a)</option>
-                    <option value="Divorciado(a)">Divorciado(a)</option>
-                    <option value="Viúvo(a)">Viúvo(a)</option>
-                    <option value="União estável">União estável</option>
-                  </select>
-                </label>
-                <label className="block md:col-span-2">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Profissão</span>
-                  <input value={form.profession} onChange={(e) => updateField("profession", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">E-mail</span>
-                  <input type="email" value={form.email} onChange={(e) => updateField("email", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">WhatsApp</span>
-                  <input value={form.phone} onChange={(e) => updateField("phone", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block md:col-span-2">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Endereço</span>
-                  <input value={form.address} onChange={(e) => updateField("address", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Cidade</span>
-                  <input value={form.city} onChange={(e) => updateField("city", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Estado</span>
-                  <input maxLength={2} value={form.state} onChange={(e) => updateField("state", e.target.value.toUpperCase())} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" placeholder="BA" />
-                </label>
-                <label className="block md:col-span-2">
-                  <span className="mb-2 block text-sm font-black text-slate-700">Observações</span>
-                  <textarea value={form.notes} onChange={(e) => updateField("notes", e.target.value)} rows={4} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
-                </label>
-              </div>
-
-              {message && <div className="rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700">{message}</div>}
-              <button className="w-full rounded-2xl bg-[#07182F] px-5 py-4 text-sm font-black text-white">{saving ? "Salvando..." : "Cadastrar cliente"}</button>
-            </form>
-          </section>
-
+        <div className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
           <section className="space-y-6">
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-black">Novo cliente</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">Cadastre a ficha principal do cliente.</p>
+
+              <form onSubmit={handleCreateClient} className="mt-6 space-y-4">
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-slate-700">Nome completo</span>
+                  <input required value={clientForm.full_name} onChange={(e) => updateClientField("full_name", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
+                </label>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <label className="block">
+                    <span className="mb-2 block text-sm font-black text-slate-700">CPF</span>
+                    <input value={clientForm.cpf} onChange={(e) => updateClientField("cpf", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
+                  </label>
+                  <label className="block">
+                    <span className="mb-2 block text-sm font-black text-slate-700">RG</span>
+                    <input value={clientForm.rg} onChange={(e) => updateClientField("rg", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
+                  </label>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <label className="block">
+                    <span className="mb-2 block text-sm font-black text-slate-700">E-mail</span>
+                    <input type="email" value={clientForm.email} onChange={(e) => updateClientField("email", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
+                  </label>
+                  <label className="block">
+                    <span className="mb-2 block text-sm font-black text-slate-700">WhatsApp</span>
+                    <input value={clientForm.phone} onChange={(e) => updateClientField("phone", e.target.value)} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
+                  </label>
+                </div>
+
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-slate-700">Observações iniciais</span>
+                  <textarea value={clientForm.notes} onChange={(e) => updateClientField("notes", e.target.value)} rows={3} className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]" />
+                </label>
+
+                {message && <div className="rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700">{message}</div>}
+
+                <button className="w-full rounded-2xl bg-[#07182F] px-5 py-4 text-sm font-black text-white">
+                  {savingClient ? "Salvando..." : "Cadastrar cliente"}
+                </button>
+              </form>
+            </div>
+
             <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
               <div className="mb-5 flex items-center justify-between gap-3">
                 <div>
-                  <h2 className="text-2xl font-black">Clientes cadastrados</h2>
-                  <p className="mt-2 text-sm text-slate-600">{clients.length} cliente(s) encontrado(s).</p>
+                  <h2 className="text-2xl font-black">Clientes</h2>
+                  <p className="mt-2 text-sm text-slate-600">{clients.length} cliente(s).</p>
                 </div>
-                <button onClick={loadClients} className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-black">Atualizar</button>
+                <button onClick={loadClients} className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-black">
+                  Atualizar
+                </button>
               </div>
+
               {clients.length === 0 ? (
                 <div className="rounded-2xl bg-slate-50 p-6 text-slate-600">Nenhum cliente cadastrado ainda.</div>
               ) : (
                 <div className="space-y-3">
                   {clients.map((client) => (
-                    <button key={client.id} onClick={() => setSelectedClient(client)} className="w-full rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:border-[#C9A227] hover:bg-slate-50">
+                    <button key={client.id} onClick={() => selectClient(client)} className="w-full rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:border-[#C9A227] hover:bg-slate-50">
                       <div className="flex flex-col justify-between gap-2 md:flex-row">
                         <strong className="text-[#07182F]">{client.full_name}</strong>
                         <span className="text-xs font-bold text-slate-500">{new Date(client.created_at).toLocaleDateString("pt-BR")}</span>
@@ -229,27 +402,115 @@ export default function ClientesPage() {
                 </div>
               )}
             </div>
+          </section>
 
+          <section className="space-y-6">
             <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
               <h2 className="text-2xl font-black">Dossiê do cliente</h2>
+
               {!selectedClient ? (
-                <p className="mt-4 text-slate-600">Clique em um cliente cadastrado para visualizar os detalhes.</p>
+                <p className="mt-4 text-slate-600">Selecione um cliente para abrir o dossiê jurídico.</p>
               ) : (
-                <div className="mt-5 space-y-4 text-sm">
-                  <div><p className="text-xs font-black uppercase text-slate-400">Nome</p><p className="font-bold">{selectedClient.full_name}</p></div>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div><p className="text-xs font-black uppercase text-slate-400">CPF</p><p>{selectedClient.cpf || "Não informado"}</p></div>
-                    <div><p className="text-xs font-black uppercase text-slate-400">RG</p><p>{selectedClient.rg || "Não informado"}</p></div>
-                    <div><p className="text-xs font-black uppercase text-slate-400">Nascimento</p><p>{selectedClient.birth_date ? new Date(selectedClient.birth_date).toLocaleDateString("pt-BR") : "Não informado"}</p></div>
-                    <div><p className="text-xs font-black uppercase text-slate-400">Estado civil</p><p>{selectedClient.marital_status || "Não informado"}</p></div>
-                    <div><p className="text-xs font-black uppercase text-slate-400">Profissão</p><p>{selectedClient.profession || "Não informado"}</p></div>
-                    <div><p className="text-xs font-black uppercase text-slate-400">Contato</p><p>{selectedClient.phone || "Sem telefone"}</p><p>{selectedClient.email || "Sem e-mail"}</p></div>
+                <div className="mt-5 space-y-4">
+                  <div className="rounded-2xl bg-slate-50 p-5">
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#C9A227]">Cliente selecionado</p>
+                    <h3 className="mt-2 text-2xl font-black">{selectedClient.full_name}</h3>
+                    <p className="mt-1 text-sm text-slate-600">
+                      CPF: {selectedClient.cpf || "não informado"} • WhatsApp: {selectedClient.phone || "não informado"}
+                    </p>
                   </div>
-                  <div><p className="text-xs font-black uppercase text-slate-400">Endereço</p><p>{selectedClient.address || "Não informado"}{selectedClient.city ? ` — ${selectedClient.city}` : ""}{selectedClient.state ? `/${selectedClient.state}` : ""}</p></div>
-                  <div><p className="text-xs font-black uppercase text-slate-400">Observações</p><p className="leading-6">{selectedClient.notes || "Sem observações"}</p></div>
+
+                  {dossierMessage && (
+                    <div className="rounded-2xl bg-slate-50 p-4 text-sm font-bold text-slate-700">
+                      {dossierMessage}
+                    </div>
+                  )}
+
+                  <div className="grid gap-5 lg:grid-cols-3">
+                    <div className="rounded-2xl border border-slate-200 p-5">
+                      <h3 className="text-lg font-black">Atendimento</h3>
+                      <form onSubmit={handleCreateNote} className="mt-4 space-y-3">
+                        <input required value={noteForm.title} onChange={(e) => setNoteForm({ ...noteForm, title: e.target.value })} placeholder="Título" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <select value={noteForm.note_type} onChange={(e) => setNoteForm({ ...noteForm, note_type: e.target.value })} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]">
+                          <option value="atendimento">Atendimento</option>
+                          <option value="ligação">Ligação</option>
+                          <option value="reunião">Reunião</option>
+                          <option value="estratégia">Estratégia</option>
+                          <option value="pendência">Pendência</option>
+                        </select>
+                        <textarea value={noteForm.content} onChange={(e) => setNoteForm({ ...noteForm, content: e.target.value })} placeholder="Resumo" rows={4} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <button className="w-full rounded-2xl bg-[#07182F] p-3 text-sm font-black text-white">{savingDossier ? "Salvando..." : "Salvar"}</button>
+                      </form>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 p-5">
+                      <h3 className="text-lg font-black">Processo</h3>
+                      <form onSubmit={handleCreateCase} className="mt-4 space-y-3">
+                        <input required value={caseForm.case_title} onChange={(e) => setCaseForm({ ...caseForm, case_title: e.target.value })} placeholder="Título do caso" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <input value={caseForm.practice_area} onChange={(e) => setCaseForm({ ...caseForm, practice_area: e.target.value })} placeholder="Área do direito" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <input value={caseForm.case_number} onChange={(e) => setCaseForm({ ...caseForm, case_number: e.target.value })} placeholder="Número do processo" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <input value={caseForm.court} onChange={(e) => setCaseForm({ ...caseForm, court: e.target.value })} placeholder="Vara/Tribunal" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <textarea value={caseForm.description} onChange={(e) => setCaseForm({ ...caseForm, description: e.target.value })} placeholder="Descrição" rows={3} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <button className="w-full rounded-2xl bg-[#07182F] p-3 text-sm font-black text-white">{savingDossier ? "Salvando..." : "Vincular"}</button>
+                      </form>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 p-5">
+                      <h3 className="text-lg font-black">Documento</h3>
+                      <form onSubmit={handleCreateDocument} className="mt-4 space-y-3">
+                        <input required value={documentForm.document_name} onChange={(e) => setDocumentForm({ ...documentForm, document_name: e.target.value })} placeholder="Nome do documento" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <input value={documentForm.document_type} onChange={(e) => setDocumentForm({ ...documentForm, document_type: e.target.value })} placeholder="Tipo" className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <textarea value={documentForm.notes} onChange={(e) => setDocumentForm({ ...documentForm, notes: e.target.value })} placeholder="Observações" rows={4} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]" />
+                        <button className="w-full rounded-2xl bg-[#07182F] p-3 text-sm font-black text-white">{savingDossier ? "Salvando..." : "Registrar"}</button>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
+
+            {selectedClient && (
+              <div className="grid gap-6 lg:grid-cols-3">
+                <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-xl font-black">Histórico</h3>
+                  <div className="mt-4 space-y-3">
+                    {notes.length === 0 ? <p className="text-sm text-slate-500">Sem registros.</p> : notes.map((note) => (
+                      <div key={note.id} className="rounded-2xl bg-slate-50 p-4">
+                        <p className="text-xs font-black uppercase text-[#C9A227]">{note.note_type}</p>
+                        <p className="font-bold">{note.title}</p>
+                        <p className="mt-1 text-sm text-slate-600">{note.content || "Sem resumo."}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-xl font-black">Processos</h3>
+                  <div className="mt-4 space-y-3">
+                    {cases.length === 0 ? <p className="text-sm text-slate-500">Sem processos.</p> : cases.map((item) => (
+                      <div key={item.id} className="rounded-2xl bg-slate-50 p-4">
+                        <p className="font-bold">{item.case_title}</p>
+                        <p className="mt-1 text-sm text-slate-600">{item.practice_area || "Área não informada"} • {item.status || "sem status"}</p>
+                        <p className="mt-1 text-xs text-slate-500">{item.case_number || "Sem número"}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-xl font-black">Documentos</h3>
+                  <div className="mt-4 space-y-3">
+                    {documents.length === 0 ? <p className="text-sm text-slate-500">Sem documentos.</p> : documents.map((doc) => (
+                      <div key={doc.id} className="rounded-2xl bg-slate-50 p-4">
+                        <p className="font-bold">{doc.document_name}</p>
+                        <p className="mt-1 text-sm text-slate-600">{doc.document_type || "Tipo não informado"}</p>
+                        <p className="mt-1 text-xs text-slate-500">{doc.notes || "Sem observações."}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         </div>
       </div>
