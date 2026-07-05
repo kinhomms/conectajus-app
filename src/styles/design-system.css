@@ -1,0 +1,19 @@
+﻿:root {
+  --cj-bg: #050a14;
+  --cj-bg-soft: #0b1220;
+  --cj-card: #101827;
+  --cj-card-soft: #151f32;
+  --cj-border: rgba(255, 255, 255, 0.1);
+
+  --cj-blue: #07182f;
+  --cj-blue-light: #102a4c;
+  --cj-gold: #c9a227;
+  --cj-gold-light: #f4c542;
+
+  --cj-text: #f8fafc;
+  --cj-muted: #94a3b8;
+  --cj-white: #ffffff;
+
+  --cj-radius-lg: 1.5rem;
+  --cj-radius-xl: 2rem;
+}

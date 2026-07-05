@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import type { Client, ClientNote, ClientCase, ClientDocument } from "@/features/clients/types/client.types";
+import { ClientCard } from "@/features/clients/components/ClientCard";
 const initialClientForm = {
   full_name: "",
   cpf: "",
