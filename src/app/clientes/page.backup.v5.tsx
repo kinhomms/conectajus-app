@@ -407,7 +407,7 @@ export default function ClientesPage() {
                         <select value={noteForm.note_type} onChange={(e) => setNoteForm({ ...noteForm, note_type: e.target.value })} className="w-full rounded-2xl border border-slate-300 p-3 text-sm outline-none focus:border-[#C9A227]">
                           <option value="atendimento">Atendimento</option>
                           <option value="ligação">Ligação</option>
-                          <option value="reuniÃ£o">ReuniÃ£o</option>
+                          <option value="reunião">reunião</option>
                           <option value="estratÃ©gia">EstratÃ©gia</option>
                           <option value="pendÃªncia">PendÃªncia</option>
                         </select>
