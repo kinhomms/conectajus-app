@@ -28,6 +28,7 @@ as $$
 $$;
 
 drop policy if exists "Authenticated users can view open marketplace opportunities" on public.marketplace_opportunities;
+drop policy if exists "Marketplace actors can view marketplace opportunities" on public.marketplace_opportunities;
 create policy "Marketplace actors can view marketplace opportunities"
   on public.marketplace_opportunities
   for select

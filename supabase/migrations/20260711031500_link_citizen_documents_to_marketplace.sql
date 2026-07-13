@@ -23,6 +23,7 @@ create policy "Lawyers can read unlocked citizen documents"
   );
 
 drop policy if exists "Citizens can read own storage documents" on storage.objects;
+drop policy if exists "Citizens and unlocked lawyers can read citizen storage documents" on storage.objects;
 create policy "Citizens and unlocked lawyers can read citizen storage documents"
   on storage.objects for select
   to authenticated

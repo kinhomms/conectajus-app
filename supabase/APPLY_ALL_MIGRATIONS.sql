@@ -796,6 +796,7 @@ as $$
 $$;
 
 drop policy if exists "Authenticated users can view open marketplace opportunities" on public.marketplace_opportunities;
+drop policy if exists "Marketplace actors can view marketplace opportunities" on public.marketplace_opportunities;
 create policy "Marketplace actors can view marketplace opportunities"
   on public.marketplace_opportunities
   for select
@@ -948,6 +949,7 @@ end;
 $$;
 
 drop policy if exists "Users can create own pending credit purchase requests" on public.lawyer_credit_purchase_requests;
+drop policy if exists "Marketplace actors can create own pending credit purchase requests" on public.lawyer_credit_purchase_requests;
 create policy "Marketplace actors can create own pending credit purchase requests"
   on public.lawyer_credit_purchase_requests
   for insert
@@ -1317,6 +1319,7 @@ create policy "Lawyers can read unlocked citizen documents"
   );
 
 drop policy if exists "Citizens can read own storage documents" on storage.objects;
+drop policy if exists "Citizens and unlocked lawyers can read citizen storage documents" on storage.objects;
 create policy "Citizens and unlocked lawyers can read citizen storage documents"
   on storage.objects for select
   to authenticated

@@ -1,10 +1,5 @@
--- ConectaJus — validacao pos-aplicacao das migrations Supabase
--- Data: 2026-07-13
---
--- Objetivo:
--- Executar este script no SQL Editor do Supabase depois de aplicar as migrations.
--- Ele NAO cria, altera ou remove objetos. Apenas consulta o catalogo para confirmar
--- se tabelas, colunas, funcoes, politicas RLS e bucket essenciais existem.
+-- ConectaJus — validacao compacta pos-aplicacao das migrations Supabase
+-- Retorna todos os checks em um unico resultset.
 
 with expected_tables(table_schema, table_name) as (
   values
@@ -20,18 +15,8 @@ with expected_tables(table_schema, table_name) as (
     ('public', 'admin_users'),
     ('public', 'lawyer_profiles'),
     ('public', 'account_deletion_requests')
-)
-select
-  'tables' as check_group,
-  expected_tables.table_schema || '.' || expected_tables.table_name as object_name,
-  case when information_schema.tables.table_name is null then 'missing' else 'ok' end as status
-from expected_tables
-left join information_schema.tables
-  on information_schema.tables.table_schema = expected_tables.table_schema
- and information_schema.tables.table_name = expected_tables.table_name
-order by object_name;
-
-with expected_columns(table_name, column_name) as (
+),
+expected_columns(table_name, column_name) as (
   values
     ('marketplace_opportunities', 'id'),
     ('marketplace_opportunities', 'created_by'),
@@ -67,19 +52,8 @@ with expected_columns(table_name, column_name) as (
     ('account_deletion_requests', 'reason'),
     ('account_deletion_requests', 'decided_at'),
     ('account_deletion_requests', 'decided_by')
-)
-select
-  'columns' as check_group,
-  expected_columns.table_name || '.' || expected_columns.column_name as object_name,
-  case when information_schema.columns.column_name is null then 'missing' else 'ok' end as status
-from expected_columns
-left join information_schema.columns
-  on information_schema.columns.table_schema = 'public'
- and information_schema.columns.table_name = expected_columns.table_name
- and information_schema.columns.column_name = expected_columns.column_name
-order by object_name;
-
-with expected_functions(function_name) as (
+),
+expected_functions(function_name) as (
   values
     ('unlock_marketplace_opportunity'),
     ('ensure_lawyer_credit_account'),
@@ -93,18 +67,8 @@ with expected_functions(function_name) as (
     ('is_current_user_marketplace_actor'),
     ('is_current_user_legal_operator'),
     ('handle_new_lawyer_profile')
-)
-select
-  'functions' as check_group,
-  'public.' || expected_functions.function_name as object_name,
-  case when routines.routine_name is null then 'missing' else 'ok' end as status
-from expected_functions
-left join information_schema.routines
-  on routines.specific_schema = 'public'
- and routines.routine_name = expected_functions.function_name
-order by object_name;
-
-with expected_policies(table_name, policy_name) as (
+),
+expected_policies(table_name, policy_name) as (
   values
     ('marketplace_opportunities', 'Marketplace actors can view marketplace opportunities'),
     ('marketplace_opportunities', 'Citizens can view own marketplace opportunities'),
@@ -133,66 +97,114 @@ with expected_policies(table_name, policy_name) as (
     ('account_deletion_requests', 'Users can create own pending account deletion request'),
     ('account_deletion_requests', 'Users can cancel own pending account deletion request'),
     ('account_deletion_requests', 'Admins can read account deletion requests')
-)
-select
-  'policies' as check_group,
-  expected_policies.table_name || ' / ' || expected_policies.policy_name as object_name,
-  case when pg_policies.policyname is null then 'missing' else 'ok' end as status
-from expected_policies
-left join pg_policies
-  on pg_policies.schemaname = 'public'
- and pg_policies.tablename = expected_policies.table_name
- and pg_policies.policyname = expected_policies.policy_name
-order by object_name;
-
-with forbidden_policies(table_name, policy_name) as (
+),
+forbidden_policies(table_name, policy_name) as (
   values
     ('lawyer_profiles', 'Admins can update lawyer OAB verification'),
     ('account_deletion_requests', 'Admins can decide account deletion requests')
+),
+expected_rls(table_name) as (
+  values
+    ('marketplace_opportunities'),
+    ('marketplace_opportunity_private_details'),
+    ('marketplace_opportunity_unlocks'),
+    ('marketplace_opportunity_crm_links'),
+    ('lawyer_credit_accounts'),
+    ('lawyer_credit_transactions'),
+    ('lawyer_credit_purchase_requests'),
+    ('agenda_events'),
+    ('citizen_documents'),
+    ('admin_users'),
+    ('lawyer_profiles'),
+    ('account_deletion_requests')
+),
+checks as (
+  select
+    'tables' as check_group,
+    expected_tables.table_schema || '.' || expected_tables.table_name as object_name,
+    case when information_schema.tables.table_name is null then 'missing' else 'ok' end as status
+  from expected_tables
+  left join information_schema.tables
+    on information_schema.tables.table_schema = expected_tables.table_schema
+   and information_schema.tables.table_name = expected_tables.table_name
+
+  union all
+
+  select
+    'columns' as check_group,
+    expected_columns.table_name || '.' || expected_columns.column_name as object_name,
+    case when information_schema.columns.column_name is null then 'missing' else 'ok' end as status
+  from expected_columns
+  left join information_schema.columns
+    on information_schema.columns.table_schema = 'public'
+   and information_schema.columns.table_name = expected_columns.table_name
+   and information_schema.columns.column_name = expected_columns.column_name
+
+  union all
+
+  select
+    'functions' as check_group,
+    'public.' || expected_functions.function_name as object_name,
+    case when routines.routine_name is null then 'missing' else 'ok' end as status
+  from expected_functions
+  left join information_schema.routines
+    on routines.specific_schema = 'public'
+   and routines.routine_name = expected_functions.function_name
+
+  union all
+
+  select
+    'policies' as check_group,
+    expected_policies.table_name || ' / ' || expected_policies.policy_name as object_name,
+    case when pg_policies.policyname is null then 'missing' else 'ok' end as status
+  from expected_policies
+  left join pg_policies
+    on pg_policies.schemaname = 'public'
+   and pg_policies.tablename = expected_policies.table_name
+   and pg_policies.policyname = expected_policies.policy_name
+
+  union all
+
+  select
+    'forbidden_policies_absent' as check_group,
+    forbidden_policies.table_name || ' / ' || forbidden_policies.policy_name as object_name,
+    case when pg_policies.policyname is null then 'ok' else 'unexpected_present' end as status
+  from forbidden_policies
+  left join pg_policies
+    on pg_policies.schemaname = 'public'
+   and pg_policies.tablename = forbidden_policies.table_name
+   and pg_policies.policyname = forbidden_policies.policy_name
+
+  union all
+
+  select
+    'storage' as check_group,
+    'storage.buckets / citizen-documents' as object_name,
+    case
+      when exists (
+        select 1
+        from storage.buckets
+        where id = 'citizen-documents'
+          and public = false
+      )
+      then 'ok'
+      else 'missing'
+    end as status
+
+  union all
+
+  select
+    'rls_enabled' as check_group,
+    'public.' || expected_rls.table_name as object_name,
+    case when coalesce(pg_tables.rowsecurity, false) then 'ok' else 'missing' end as status
+  from expected_rls
+  left join pg_tables
+    on pg_tables.schemaname = 'public'
+   and pg_tables.tablename = expected_rls.table_name
 )
-select
-  'forbidden_policies_absent' as check_group,
-  forbidden_policies.table_name || ' / ' || forbidden_policies.policy_name as object_name,
-  case when pg_policies.policyname is null then 'ok' else 'unexpected_present' end as status
-from forbidden_policies
-left join pg_policies
-  on pg_policies.schemaname = 'public'
- and pg_policies.tablename = forbidden_policies.table_name
- and pg_policies.policyname = forbidden_policies.policy_name
-order by object_name;
-
-select
-  'storage' as check_group,
-  'storage.buckets / citizen-documents' as object_name,
-  case
-    when exists (
-      select 1
-      from storage.buckets
-      where id = 'citizen-documents'
-        and public = false
-    )
-    then 'ok'
-    else 'missing'
-  end as status;
-
-select
-  'rls_enabled' as check_group,
-  schemaname || '.' || tablename as object_name,
-  case when rowsecurity then 'ok' else 'missing' end as status
-from pg_tables
-where schemaname = 'public'
-  and tablename in (
-    'marketplace_opportunities',
-    'marketplace_opportunity_private_details',
-    'marketplace_opportunity_unlocks',
-    'marketplace_opportunity_crm_links',
-    'lawyer_credit_accounts',
-    'lawyer_credit_transactions',
-    'lawyer_credit_purchase_requests',
-    'agenda_events',
-    'citizen_documents',
-    'admin_users',
-    'lawyer_profiles',
-    'account_deletion_requests'
-  )
-order by object_name;
+select *
+from checks
+order by
+  case when status = 'ok' then 1 else 0 end,
+  check_group,
+  object_name;

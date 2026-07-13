@@ -101,6 +101,17 @@ for (const fileName of migrationFiles) {
   }
 }
 
+for (const fileName of migrationFiles) {
+  const migrationSql = await readRequiredFile(join("supabase", "migrations", fileName));
+  const policyNames = [...migrationSql.matchAll(/create\s+policy\s+"([^"]+)"/gi)].map((match) => match[1]);
+
+  for (const policyName of policyNames) {
+    if (!migrationSql.includes(`drop policy if exists "${policyName}"`)) {
+      errors.push(`Migration ${fileName} cria policy sem drop idempotente: ${policyName}`);
+    }
+  }
+}
+
 for (const needle of validationNeedles) {
   if (!validationSql.includes(needle)) {
     errors.push(`Validação Supabase não cobre item crítico: ${needle}`);

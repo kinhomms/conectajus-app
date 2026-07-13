@@ -34,6 +34,7 @@ end;
 $$;
 
 drop policy if exists "Users can create own pending credit purchase requests" on public.lawyer_credit_purchase_requests;
+drop policy if exists "Marketplace actors can create own pending credit purchase requests" on public.lawyer_credit_purchase_requests;
 create policy "Marketplace actors can create own pending credit purchase requests"
   on public.lawyer_credit_purchase_requests
   for insert
