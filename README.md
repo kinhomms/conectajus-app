@@ -145,6 +145,12 @@ Guia de deploy Vercel:
 docs/VERCEL_DEPLOYMENT.md
 ```
 
+Readiness para preview:
+
+```text
+docs/PREVIEW_READINESS.md
+```
+
 Checklist de produção:
 
 ```text

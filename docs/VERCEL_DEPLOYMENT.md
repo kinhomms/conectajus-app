@@ -24,6 +24,15 @@ Diretório raiz esperado na Vercel:
 
 O `package.json` ativo deve estar na raiz do projeto `conectajus-core`.
 
+O projeto também possui `vercel.json` com configuração explícita:
+
+```text
+framework: nextjs
+installCommand: npm install
+buildCommand: npm run build
+devCommand: npm run dev
+```
+
 ## Variáveis obrigatórias
 
 Configurar no painel da Vercel em Project Settings > Environment Variables:
