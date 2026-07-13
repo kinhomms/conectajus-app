@@ -33,6 +33,8 @@ NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
 ```
 
+Localmente, use `.env.example` como modelo e copie para `.env.local`.
+
 Essas variáveis devem existir nos ambientes necessários:
 
 - Preview;

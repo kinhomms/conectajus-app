@@ -81,6 +81,8 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
+Você pode usar `.env.example` como base e copiar para `.env.local`.
+
 Não commitar `.env.local`.
 
 A aplicação ativa exige essas variáveis e falha explicitamente se elas não existirem.

@@ -33,6 +33,8 @@ NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
+Use `.env.example` como modelo, sem colocar valores reais no arquivo de exemplo.
+
 O arquivo `.env.local` não deve ser commitado.
 
 ### Vercel
@@ -85,6 +87,7 @@ Antes de commit/deploy:
 
 - Confirmar que `.env.local` não aparece no `git status`.
 - Confirmar que `.env*` está no `.gitignore`.
+- Confirmar que apenas `.env.example` pode ser versionado.
 - Confirmar que nenhuma service role key foi copiada para documentação, código ou issue pública.
 - Confirmar que o Supabase está protegido por RLS nas tabelas críticas.
 - Confirmar que o bucket `citizen-documents` é privado.
