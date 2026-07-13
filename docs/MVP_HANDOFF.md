@@ -17,7 +17,7 @@ https://github.com/kinhomms/conectajus-app.git
 Status estimado:
 
 ```text
-97%
+98%
 ```
 
 ## Estado atual
@@ -83,6 +83,8 @@ Páginas em `src/app` permanecem pequenas e delegam para workspaces/features.
 - Solicitação de compra de créditos.
 - Aprovação/rejeição administrativa.
 - Cancelamento de solicitação.
+- Fila administrativa de verificação de OAB.
+- Fila administrativa de solicitações de exclusão de conta.
 
 ### Agenda
 
@@ -102,7 +104,9 @@ Páginas em `src/app` permanecem pequenas e delegam para workspaces/features.
 ### Relatórios e Configurações
 
 - `/relatorios` com indicadores executivos.
-- `/configuracoes` com conta, perfil, privacidade, segurança e logout.
+- `/configuracoes` com conta, perfil, privacidade, segurança, preferências e logout.
+- Solicitação auditável de exclusão de conta pelo usuário.
+- Cancelamento de solicitação de exclusão pendente pelo usuário.
 
 ### Navegação e UX
 
@@ -218,6 +222,8 @@ Fluxos mínimos:
 - admin verifica ou rejeita OAB no painel Financeiro;
 - usuário edita nome/preferências em Configurações;
 - usuário solicita exclusão de conta por fluxo auditável;
+- usuário cancela solicitação pendente de exclusão, quando necessário;
+- admin aprova/rejeita solicitação pendente de exclusão no painel Financeiro;
 - advogado vê oportunidade mascarada;
 - advogado desbloqueia oportunidade com créditos;
 - advogado acessa dados privados apenas após desbloqueio;
@@ -291,6 +297,8 @@ Considerar o MVP como 100% apenas quando:
 - Supabase estiver validado;
 - preview Vercel estiver validado;
 - três perfis reais estiverem testados;
+- verificação OAB estiver validada com massa real ou controlada;
+- fila de exclusão de conta estiver validada com admin;
 - nenhum dado pessoal aparecer no Marketplace antes do desbloqueio;
 - documentos privados estiverem acessíveis apenas após autorização/desbloqueio;
 - decisão sobre legados estiver registrada.
