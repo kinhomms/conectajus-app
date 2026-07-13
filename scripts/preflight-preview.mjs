@@ -4,7 +4,9 @@ import { join } from "node:path";
 const root = process.cwd();
 
 const requiredFiles = [
+  ".env.example",
   "docs/APPLY_SUPABASE_MIGRATIONS.md",
+  "docs/ENVIRONMENT_VARIABLES.md",
   "docs/SUPABASE_MIGRATION_ORDER.md",
   "docs/SUPABASE_POST_APPLY_VALIDATION.sql",
   "docs/SUPABASE_TEST_PROFILES.md",
@@ -40,6 +42,8 @@ const previewNeedles = [
   "decided_by",
 ];
 
+const requiredEnvKeys = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"];
+
 const errors = [];
 
 async function readRequiredFile(relativePath) {
@@ -57,6 +61,8 @@ const migrationFiles = (await readdir(join(root, "supabase", "migrations")))
 
 const migrationOrder = await readRequiredFile("docs/SUPABASE_MIGRATION_ORDER.md");
 const applyGuide = await readRequiredFile("docs/APPLY_SUPABASE_MIGRATIONS.md");
+const envExample = await readRequiredFile(".env.example");
+const environmentGuide = await readRequiredFile("docs/ENVIRONMENT_VARIABLES.md");
 const validationSql = await readRequiredFile("docs/SUPABASE_POST_APPLY_VALIDATION.sql");
 const previewReadiness = await readRequiredFile("docs/PREVIEW_READINESS.md");
 const supabaseBundle = await readRequiredFile("supabase/APPLY_ALL_MIGRATIONS.sql");
@@ -101,6 +107,16 @@ for (const needle of validationNeedles) {
 for (const needle of previewNeedles) {
   if (!previewReadiness.includes(needle)) {
     errors.push(`Preview readiness não menciona item crítico: ${needle}`);
+  }
+}
+
+for (const envKey of requiredEnvKeys) {
+  if (!envExample.includes(`${envKey}=`)) {
+    errors.push(`.env.example não declara variável obrigatória: ${envKey}`);
+  }
+
+  if (!environmentGuide.includes(envKey)) {
+    errors.push(`docs/ENVIRONMENT_VARIABLES.md não documenta variável obrigatória: ${envKey}`);
   }
 }
 

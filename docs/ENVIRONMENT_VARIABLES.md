@@ -51,6 +51,25 @@ Ambientes recomendados:
 - Production;
 - Development, se usado.
 
+O build da Vercel roda:
+
+```bash
+npm run validate
+```
+
+Portanto, as variáveis precisam estar configuradas no ambiente usado para o Preview Deployment.
+
+## CI / GitHub Actions
+
+O GitHub Actions usa valores placeholder apenas para permitir build estático e validação de código.
+
+Esses valores não substituem a configuração real da Vercel nem validam conexão com o Supabase alvo. A validação real do banco continua sendo feita por:
+
+```text
+docs/SUPABASE_POST_APPLY_VALIDATION.sql
+supabase/TEST_PROFILE_CHECKS.sql
+```
+
 ## Variáveis proibidas no frontend
 
 Não configurar no frontend:
@@ -88,6 +107,7 @@ Antes de commit/deploy:
 - Confirmar que `.env.local` não aparece no `git status`.
 - Confirmar que `.env*` está no `.gitignore`.
 - Confirmar que apenas `.env.example` pode ser versionado.
+- Confirmar que `.env.example` contém apenas nomes de variáveis, sem valores reais.
 - Confirmar que nenhuma service role key foi copiada para documentação, código ou issue pública.
 - Confirmar que o Supabase está protegido por RLS nas tabelas críticas.
 - Confirmar que o bucket `citizen-documents` é privado.
