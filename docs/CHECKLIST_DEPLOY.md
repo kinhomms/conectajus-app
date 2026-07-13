@@ -108,6 +108,12 @@ Confirmar no Supabase Storage:
 
 ## 6. Fluxos principais para teste manual
 
+Modelo de relatório:
+
+```text
+docs/MANUAL_TEST_REPORT_TEMPLATE.md
+```
+
 ### Cidadão
 
 - Criar conta como cidadão.

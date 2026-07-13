@@ -187,6 +187,12 @@ Testar com:
 - advogado;
 - admin.
 
+Modelo de registro:
+
+```text
+docs/MANUAL_TEST_REPORT_TEMPLATE.md
+```
+
 Fluxos mínimos:
 
 - cidadão cria triagem;
