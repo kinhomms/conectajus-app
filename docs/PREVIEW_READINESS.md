@@ -28,6 +28,7 @@ https://github.com/kinhomms/conectajus-app.git
   - verificar/rejeitar OAB;
   - aprovar/rejeitar créditos;
   - aprovar/rejeitar solicitação de exclusão de conta.
+- Decisões administrativas de OAB, créditos e exclusão possuem trilha de auditoria.
 
 ## Bloqueadores externos para o link de teste
 
@@ -65,8 +66,11 @@ Antes de testar o preview, confirmar:
    - envio para CRM.
 4. Admin:
    - verificar/rejeitar OAB;
+   - confirmar `verified_by` e `verified_at`;
    - aprovar/rejeitar créditos;
+   - confirmar `decided_by` e `decided_at` em créditos;
    - aprovar/rejeitar exclusão de conta.
+   - confirmar `decided_by` e `decided_at` em exclusão.
 
 ## Documentos de apoio
 
@@ -76,6 +80,7 @@ docs/APPLY_SUPABASE_MIGRATIONS.md
 docs/SUPABASE_MIGRATION_ORDER.md
 docs/SUPABASE_POST_APPLY_VALIDATION.sql
 docs/SUPABASE_TEST_PROFILES.md
+docs/ADMIN_AUDIT_TRAIL.md
 docs/MANUAL_TEST_REPORT_TEMPLATE.md
 docs/MVP_HANDOFF.md
 ```

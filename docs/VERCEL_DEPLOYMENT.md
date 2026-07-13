@@ -107,6 +107,11 @@ docs/SUPABASE_POST_APPLY_VALIDATION.sql
 ```
 
 3. Confirmar que os grupos principais retornam `ok`.
+4. Preparar perfis de teste conforme:
+
+```text
+docs/SUPABASE_TEST_PROFILES.md
+```
 
 ## Smoke test do preview
 
@@ -151,9 +156,27 @@ Após a Vercel gerar o Preview Deployment, testar:
 - Confirmar que o usuário admin existe em `public.admin_users`.
 - Abrir `/financeiro`.
 - Verificar ou rejeitar OAB pendente.
+- Confirmar auditoria OAB com `verified_by` e `verified_at`.
 - Aprovar/rejeitar solicitação de crédito.
+- Confirmar auditoria de crédito com `decided_by` e `decided_at`.
 - Confirmar atualização de saldo do advogado.
 - Aprovar/rejeitar solicitação pendente de exclusão de conta.
+- Confirmar auditoria de exclusão com `decided_by` e `decided_at`.
+
+### Auditoria administrativa
+
+- Confirmar que decisões sensíveis usam RPCs protegidas:
+  - `public.decide_lawyer_oab_verification`;
+  - `public.approve_credit_purchase_request`;
+  - `public.reject_credit_purchase_request`;
+  - `public.decide_account_deletion_request`.
+- Confirmar que usuário não-admin não executa ações administrativas.
+
+Referência:
+
+```text
+docs/ADMIN_AUDIT_TRAIL.md
+```
 
 ## Critério de pronto para produção
 
@@ -163,6 +186,7 @@ O deploy pode ser promovido para produção quando:
 - Migrations estiverem aplicadas no Supabase alvo.
 - Checklist SQL pós-aplicação retornar `ok`.
 - Smoke test dos três perfis for concluído.
+- Trilha administrativa de OAB, créditos e exclusão for validada.
 - Nenhum dado pessoal aparecer em oportunidade bloqueada do Marketplace.
 - Variáveis de produção estiverem configuradas.
 
