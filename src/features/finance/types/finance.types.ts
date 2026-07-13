@@ -55,6 +55,9 @@ export type LawyerProfile = {
   verification_status: LawyerVerificationStatus;
   created_at: string;
   updated_at: string;
+  verified_at: string | null;
+  verified_by: string | null;
+  verification_notes: string | null;
 };
 
 export type AccountDeletionRequestStatus = "pending" | "approved" | "rejected" | "canceled";

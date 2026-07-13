@@ -19,7 +19,8 @@ O sistema:
 - cria registro em `public.lawyer_profiles`;
 - marca o cadastro como `pending`;
 - bloqueia Marketplace, Financeiro e desbloqueios até `verification_status = 'verified'`;
-- permite que admin aprove ou rejeite a OAB pelo painel Financeiro.
+- permite que admin aprove ou rejeite a OAB pelo painel Financeiro;
+- registra `verified_at` e `verified_by` quando a OAB é decidida pelo admin.
 
 ## Sobre consulta oficial externa
 

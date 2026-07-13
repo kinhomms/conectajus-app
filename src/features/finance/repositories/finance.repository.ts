@@ -17,7 +17,7 @@ const transactionFields = "id, user_id, amount, transaction_type, metadata, crea
 const purchaseRequestFields =
   "id, user_id, requested_credits, amount_cents, currency, status, notes, created_at, updated_at";
 const lawyerProfileFields =
-  "user_id, full_name, email, oab_number, oab_state, verification_status, created_at, updated_at";
+  "user_id, full_name, email, oab_number, oab_state, verification_status, created_at, updated_at, verified_at, verified_by, verification_notes";
 const accountDeletionRequestFields =
   "id, user_id, user_email, profile, reason, status, requested_at, decided_at, decided_by, decision_notes";
 
@@ -112,10 +112,11 @@ export async function listPendingLawyerProfiles() {
 
 export async function updateLawyerVerificationStatus(userId: string, status: LawyerVerificationStatus) {
   return supabase
-    .from("lawyer_profiles")
-    .update({ verification_status: status })
-    .eq("user_id", userId)
-    .select(lawyerProfileFields)
+    .rpc("decide_lawyer_oab_verification", {
+      target_notes: null,
+      target_status: status,
+      target_user_id: userId,
+    })
     .single<LawyerProfile>();
 }
 

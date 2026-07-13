@@ -84,6 +84,8 @@ select
   oab_number,
   oab_state,
   verification_status,
+  verified_by,
+  verified_at,
   created_at
 from public.lawyer_profiles
 order by created_at desc;
@@ -108,6 +110,8 @@ where email = 'advogado.teste@example.com';
 ```
 
 Use esse atalho apenas em ambiente de teste/preview.
+
+Quando a decisão for feita pelo painel admin, os campos `verified_by` e `verified_at` devem registrar quem decidiu e quando.
 
 ## 5. Confirmar solicitações de exclusão de conta
 
