@@ -1,0 +1,58 @@
+export type FinanceIntegrationStatus = {
+  configured: boolean;
+  message: string;
+  expectedSources: string[];
+};
+
+export type LawyerCreditAccount = {
+  user_id: string;
+  balance: number;
+  updated_at: string;
+};
+
+export type LawyerCreditTransaction = {
+  id: string;
+  user_id: string;
+  amount: number;
+  transaction_type: "purchase" | "consume" | "refund" | "adjustment";
+  metadata: Record<string, unknown> | null;
+  created_at: string;
+};
+
+export type CreditPurchaseRequestStatus = "pending" | "approved" | "rejected" | "canceled";
+
+export type CreditPurchaseRequest = {
+  id: string;
+  user_id: string;
+  requested_credits: number;
+  amount_cents: number | null;
+  currency: string;
+  status: CreditPurchaseRequestStatus;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type AdminCreditPurchaseRequest = CreditPurchaseRequest & {
+  requester_email: string | null;
+};
+
+export type CreditPackage = {
+  id: string;
+  label: string;
+  credits: number;
+  description: string;
+};
+
+export type EnsureCreditAccountResult = {
+  user_id: string;
+  balance: number;
+  updated_at: string;
+};
+
+export type CreditRequestDecisionResult = {
+  ok: boolean;
+  message: string;
+  request_id: string | null;
+  credited_balance: number | null;
+};

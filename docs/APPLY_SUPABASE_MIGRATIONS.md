@@ -1,0 +1,66 @@
+# Aplicação das migrations Supabase
+
+Este projeto ainda não possui `supabase/config.toml` nem Supabase CLI disponível no ambiente local verificado.
+
+Enquanto o projeto não estiver linkado ao Supabase CLI, aplique as migrations pelo Supabase Dashboard.
+
+## Opção A — Supabase Dashboard
+
+1. Abrir o projeto Supabase correto.
+2. Acessar SQL Editor.
+3. Executar as migrations pendentes em ordem cronológica.
+4. Confirmar que não houve erro.
+5. Testar os fluxos principais no app.
+
+Migration mais recente pendente:
+
+```text
+supabase/migrations/20260713100000_harden_complement_parent_ownership.sql
+```
+
+## Opção B — Supabase CLI
+
+Quando o projeto estiver linkado:
+
+```bash
+supabase link --project-ref <PROJECT_REF>
+supabase db push
+```
+
+## SQL da migration de hardening complementar
+
+```sql
+drop policy if exists "Authenticated users can create marketplace opportunities" on public.marketplace_opportunities;
+
+create policy "Authenticated users can create marketplace opportunities"
+on public.marketplace_opportunities
+for insert
+to authenticated
+with check (
+  created_by = auth.uid()
+  and status = 'open'
+  and summary is not null
+  and (
+    parent_opportunity_id is null
+    or exists (
+      select 1
+      from public.marketplace_opportunities parent
+      where parent.id = parent_opportunity_id
+        and parent.created_by = auth.uid()
+    )
+  )
+);
+
+notify pgrst, 'reload schema';
+```
+
+## Teste após aplicar
+
+Validar:
+
+- cidadão cria triagem principal;
+- cidadão cria complemento para caso próprio;
+- cidadão não consegue criar complemento apontando para oportunidade de outro usuário;
+- advogado continua conseguindo visualizar/desbloquear oportunidades conforme permissões;
+- `npm run lint`;
+- `npm run build`.

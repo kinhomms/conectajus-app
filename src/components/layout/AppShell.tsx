@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
+import { MobileNavigation } from "./MobileNavigation";
 
 const publicRoutes = ["/", "/login", "/cadastro"];
 
@@ -26,10 +27,12 @@ export function AppShell({ children }: AppShellProps) {
       <div className="min-h-screen lg:pl-72">
         <Topbar />
 
-        <main className="px-6 py-6">
+        <main className="px-4 pb-28 pt-6 sm:px-6 lg:pb-6">
           {children}
         </main>
       </div>
+
+      <MobileNavigation />
     </div>
   );
 }

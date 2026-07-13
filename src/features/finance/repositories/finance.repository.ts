@@ -1,0 +1,94 @@
+import { supabase } from "@/lib/supabase";
+import type {
+  AdminCreditPurchaseRequest,
+  CreditPurchaseRequest,
+  CreditRequestDecisionResult,
+  EnsureCreditAccountResult,
+  LawyerCreditAccount,
+  LawyerCreditTransaction,
+} from "@/features/finance/types/finance.types";
+
+const accountFields = "user_id, balance, updated_at";
+const transactionFields = "id, user_id, amount, transaction_type, metadata, created_at";
+const purchaseRequestFields =
+  "id, user_id, requested_credits, amount_cents, currency, status, notes, created_at, updated_at";
+
+export type CreateCreditPurchaseRequestInput = {
+  user_id: string;
+  requested_credits: number;
+  amount_cents: number | null;
+  currency: string;
+  status: "pending";
+  notes: string | null;
+};
+
+export async function ensureCreditAccount() {
+  return supabase
+    .rpc("ensure_lawyer_credit_account")
+    .single<EnsureCreditAccountResult>();
+}
+
+
+export async function isCurrentUserAdmin() {
+  return supabase
+    .rpc("is_current_user_admin")
+    .single<boolean>();
+}
+export async function getCreditAccount(userId: string) {
+  return supabase
+    .from("lawyer_credit_accounts")
+    .select(accountFields)
+    .eq("user_id", userId)
+    .maybeSingle<LawyerCreditAccount>();
+}
+
+export async function listCreditTransactions(userId: string) {
+  return supabase
+    .from("lawyer_credit_transactions")
+    .select(transactionFields)
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(25)
+    .returns<LawyerCreditTransaction[]>();
+}
+
+export async function listCreditPurchaseRequests(userId: string) {
+  return supabase
+    .from("lawyer_credit_purchase_requests")
+    .select(purchaseRequestFields)
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(10)
+    .returns<CreditPurchaseRequest[]>();
+}
+
+export async function createCreditPurchaseRequest(input: CreateCreditPurchaseRequestInput) {
+  return supabase
+    .from("lawyer_credit_purchase_requests")
+    .insert(input)
+    .select(purchaseRequestFields)
+    .single<CreditPurchaseRequest>();
+}
+
+export async function listAdminPendingCreditPurchaseRequests() {
+  return supabase
+    .rpc("list_pending_credit_purchase_requests")
+    .returns<AdminCreditPurchaseRequest[]>();
+}
+
+export async function approveCreditPurchaseRequest(requestId: string) {
+  return supabase
+    .rpc("approve_credit_purchase_request", { target_request_id: requestId })
+    .single<CreditRequestDecisionResult>();
+}
+
+export async function rejectCreditPurchaseRequest(requestId: string) {
+  return supabase
+    .rpc("reject_credit_purchase_request", { target_request_id: requestId })
+    .single<CreditRequestDecisionResult>();
+}
+export async function cancelCreditPurchaseRequest(requestId: string) {
+  return supabase
+    .rpc("cancel_credit_purchase_request", { target_request_id: requestId })
+    .single<CreditRequestDecisionResult>();
+}

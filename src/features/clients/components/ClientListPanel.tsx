@@ -4,6 +4,7 @@ import type { Client } from "@/features/clients/types/client.types";
 
 type ClientListPanelProps = {
   clients: Client[];
+  marketplaceClientIds?: string[];
   selectedClientId?: string | null;
   search: string;
   onSearchChange: (value: string) => void;
@@ -25,6 +26,7 @@ function getInitials(name?: string | null) {
 
 export function ClientListPanel({
   clients,
+  marketplaceClientIds = [],
   selectedClientId,
   search,
   onSearchChange,
@@ -59,7 +61,7 @@ export function ClientListPanel({
         type="search"
         value={search}
         onChange={(event) => onSearchChange(event.target.value)}
-        placeholder="Buscar cliente, CPF, telefone..."
+        placeholder="Buscar cliente, CPF, telefone ou marketplace..."
         className="mb-5 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-amber-400"
       />
 
@@ -76,6 +78,7 @@ export function ClientListPanel({
         ) : (
           clients.map((client) => {
             const active = selectedClientId === client.id;
+            const fromMarketplace = marketplaceClientIds.includes(client.id);
 
             return (
               <button
@@ -94,9 +97,16 @@ export function ClientListPanel({
                   </div>
 
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-white">
-                      {client.full_name || "Cliente sem nome"}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="truncate text-sm font-semibold text-white">
+                        {client.full_name || "Cliente sem nome"}
+                      </p>
+                      {fromMarketplace ? (
+                        <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wide text-emerald-200">
+                          Marketplace
+                        </span>
+                      ) : null}
+                    </div>
                     <p className="truncate text-xs text-slate-400">
                       CPF: {client.cpf || "não informado"}
                     </p>

@@ -1,4 +1,4 @@
-﻿export type Client = {
+export type Client = {
   id: string;
   full_name: string;
   cpf: string | null;
@@ -42,5 +42,14 @@ export type ClientDocument = {
   document_name: string;
   document_type: string | null;
   notes: string | null;
+  created_at: string;
+};
+
+export type ClientMarketplaceLink = {
+  id: string;
+  opportunity_id: string;
+  client_id: string;
+  case_id: string | null;
+  created_by: string;
   created_at: string;
 };
