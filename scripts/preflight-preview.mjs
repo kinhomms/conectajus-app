@@ -95,8 +95,8 @@ if (!vercelConfig.includes('"framework": "nextjs"')) {
   errors.push('vercel.json não declara "framework": "nextjs"');
 }
 
-if (!vercelConfig.includes('"buildCommand": "npm run build"')) {
-  errors.push('vercel.json não declara "buildCommand": "npm run build"');
+if (!vercelConfig.includes('"buildCommand": "npm run validate"')) {
+  errors.push('vercel.json não declara "buildCommand": "npm run validate"');
 }
 
 if (errors.length > 0) {

@@ -29,7 +29,7 @@ O projeto também possui `vercel.json` com configuração explícita:
 ```text
 framework: nextjs
 installCommand: npm install
-buildCommand: npm run build
+buildCommand: npm run validate
 devCommand: npm run dev
 ```
 
@@ -67,7 +67,7 @@ npm install
 Build command:
 
 ```bash
-npm run build
+npm run validate
 ```
 
 Output:

@@ -191,7 +191,7 @@ Antes de publicar:
 - Configurar `NEXT_PUBLIC_SUPABASE_URL`.
 - Configurar `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 - Garantir comando de instalação: `npm install`.
-- Garantir comando de build: `npm run build`.
+- Garantir comando de build: `npm run validate`.
 - Validar preview deploy antes de promover para produção.
 
 Guia detalhado:

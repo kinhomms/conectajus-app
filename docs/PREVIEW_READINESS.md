@@ -45,7 +45,7 @@ Antes de testar o preview, confirmar:
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`;
 - branch selecionada na Vercel: `ui-v6-premium`;
 - root directory do projeto na Vercel apontando para a raiz onde está o `package.json`.
-- `vercel.json` reconhecido com framework `nextjs`, install `npm install` e build `npm run build`.
+- `vercel.json` reconhecido com framework `nextjs`, install `npm install` e build `npm run validate`.
 
 ## Roteiro mínimo assim que o link existir
 
