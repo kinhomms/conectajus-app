@@ -24,10 +24,12 @@ Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do
 18. `20260712090000_allow_citizen_document_complements.sql`
 19. `20260712093000_link_complementary_marketplace_opportunities.sql`
 20. `20260713100000_harden_complement_parent_ownership.sql`
+21. `20260713113000_create_lawyer_profiles_oab_validation.sql`
 
 ## Observações importantes
 
 - A migration mais recente protege `parent_opportunity_id` para impedir que uma triagem complementar seja vinculada a oportunidade de outro cidadão.
+- A migration de OAB cria `lawyer_profiles`, registra advogados a partir do cadastro Auth e impede duplicidade de OAB/UF.
 - Todas as migrations devem ser aplicadas no projeto Supabase alvo antes do deploy final.
 - Se uma migration já tiver sido aplicada, o SQL foi escrito para ser majoritariamente idempotente, usando `if not exists`, `drop policy if exists` e `add column if not exists` quando aplicável.
 - Após aplicar, confirmar no app:

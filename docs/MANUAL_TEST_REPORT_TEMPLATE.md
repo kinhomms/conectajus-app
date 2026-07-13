@@ -80,6 +80,8 @@ Observações:
 ## Teste — Cidadão
 
 - [ ] Fazer login como cidadão.
+- [ ] Tentar criar nova conta como advogado usando o mesmo e-mail do cidadão.
+- [ ] Confirmar que o sistema bloqueia o e-mail já cadastrado.
 - [ ] Abrir `/dashboard`.
 - [ ] Confirmar que o portal não mostra áreas internas indevidas.
 - [ ] Abrir `/triagem`.
@@ -109,6 +111,10 @@ Observações:
 ## Teste — Advogado
 
 - [ ] Fazer login como advogado.
+- [ ] Confirmar que cadastro de advogado exige número da OAB.
+- [ ] Confirmar que cadastro de advogado exige UF da OAB.
+- [ ] Tentar cadastrar outro advogado com a mesma OAB/UF.
+- [ ] Confirmar bloqueio de OAB/UF duplicada.
 - [ ] Abrir `/dashboard`.
 - [ ] Abrir `/marketplace`.
 - [ ] Ver oportunidades mascaradas.

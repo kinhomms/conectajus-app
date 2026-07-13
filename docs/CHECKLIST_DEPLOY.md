@@ -72,11 +72,12 @@ Antes do deploy final, confirmar que todas as migrations foram aplicadas no proj
 - Complementos de documentos pós-triagem.
 - Relação estruturada entre oportunidade original e triagem complementar.
 - Hardening de propriedade da oportunidade original em triagens complementares.
+- Cadastro de advogado com OAB/UF e validação de duplicidade por OAB/UF.
 
 Migration mais recente a confirmar/aplicar:
 
 ```text
-supabase/migrations/20260713100000_harden_complement_parent_ownership.sql
+supabase/migrations/20260713113000_create_lawyer_profiles_oab_validation.sql
 ```
 
 Guia de aplicação:

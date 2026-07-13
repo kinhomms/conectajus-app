@@ -14,7 +14,15 @@ export function useRegisterWorkspace() {
   const [loading, setLoading] = useState(false);
 
   function updateField(field: keyof RegisterFormState, value: string) {
-    setForm((current) => ({ ...current, [field]: value }));
+    setForm((current) => {
+      const next = { ...current, [field]: value };
+
+      if (field === "profile" && value === "cliente") {
+        return { ...next, oabNumber: "", oabState: "" };
+      }
+
+      return next;
+    });
   }
 
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {

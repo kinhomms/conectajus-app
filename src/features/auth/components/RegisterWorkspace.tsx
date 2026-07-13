@@ -44,6 +44,40 @@ export function RegisterWorkspace() {
 
             <ProfileNotice profile={register.form.profile} />
 
+            {register.form.profile === "advogado" && (
+              <div className="grid gap-4 md:grid-cols-[1fr_8rem]">
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-slate-700">Número da OAB</span>
+                  <input
+                    required
+                    inputMode="numeric"
+                    pattern="\d{3,8}"
+                    value={register.form.oabNumber}
+                    onChange={(event) => register.updateField("oabNumber", event.target.value)}
+                    placeholder="Somente números"
+                    className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-slate-700">UF</span>
+                  <select
+                    required
+                    value={register.form.oabState}
+                    onChange={(event) => register.updateField("oabState", event.target.value)}
+                    className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]"
+                  >
+                    <option value="">UF</option>
+                    {brazilianStates.map((state) => (
+                      <option key={state} value={state}>
+                        {state}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            )}
+
             <label className="block">
               <span className="mb-2 block text-sm font-black text-slate-700">E-mail</span>
               <input
@@ -97,7 +131,7 @@ function ProfileNotice({ profile }: { profile: "cliente" | "advogado" }) {
       <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
         <p className="font-black">Perfil advogado</p>
         <p className="mt-1">
-          Você terá acesso ao ambiente operacional: Marketplace com dados mascarados, CRM jurídico, créditos, agenda, processos e documentos liberados após desbloqueio.
+          Você terá acesso ao ambiente operacional: Marketplace com dados mascarados, CRM jurídico, créditos, agenda, processos e documentos liberados após desbloqueio. O cadastro exige OAB e fica marcado para validação cadastral.
         </p>
       </div>
     );
@@ -112,3 +146,33 @@ function ProfileNotice({ profile }: { profile: "cliente" | "advogado" }) {
     </div>
   );
 }
+
+const brazilianStates = [
+  "AC",
+  "AL",
+  "AP",
+  "AM",
+  "BA",
+  "CE",
+  "DF",
+  "ES",
+  "GO",
+  "MA",
+  "MT",
+  "MS",
+  "MG",
+  "PA",
+  "PB",
+  "PR",
+  "PE",
+  "PI",
+  "RJ",
+  "RN",
+  "RS",
+  "RO",
+  "RR",
+  "SC",
+  "SP",
+  "SE",
+  "TO",
+];

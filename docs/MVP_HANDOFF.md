@@ -205,6 +205,9 @@ Fluxos mínimos:
 - cidadão cria triagem;
 - cidadão acompanha demanda publicada;
 - cidadão envia documento complementar;
+- sistema bloqueia tentativa de criar outra conta com e-mail já cadastrado;
+- advogado informa OAB/UF no cadastro;
+- sistema impede duplicidade de OAB/UF entre advogados;
 - advogado vê oportunidade mascarada;
 - advogado desbloqueia oportunidade com créditos;
 - advogado acessa dados privados apenas após desbloqueio;

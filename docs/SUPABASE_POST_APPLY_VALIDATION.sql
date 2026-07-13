@@ -17,7 +17,8 @@ with expected_tables(table_schema, table_name) as (
     ('public', 'lawyer_credit_purchase_requests'),
     ('public', 'agenda_events'),
     ('public', 'citizen_documents'),
-    ('public', 'admin_users')
+    ('public', 'admin_users'),
+    ('public', 'lawyer_profiles')
 )
 select
   'tables' as check_group,
@@ -51,7 +52,11 @@ with expected_columns(table_name, column_name) as (
     ('agenda_events', 'user_id'),
     ('agenda_events', 'starts_at'),
     ('citizen_documents', 'user_id'),
-    ('citizen_documents', 'storage_path')
+    ('citizen_documents', 'storage_path'),
+    ('lawyer_profiles', 'user_id'),
+    ('lawyer_profiles', 'oab_number'),
+    ('lawyer_profiles', 'oab_state'),
+    ('lawyer_profiles', 'verification_status')
 )
 select
   'columns' as check_group,
@@ -74,7 +79,8 @@ with expected_functions(function_name) as (
     ('list_pending_credit_purchase_requests'),
     ('is_current_user_admin'),
     ('is_current_user_marketplace_actor'),
-    ('is_current_user_legal_operator')
+    ('is_current_user_legal_operator'),
+    ('handle_new_lawyer_profile')
 )
 select
   'functions' as check_group,
@@ -108,7 +114,10 @@ with expected_policies(table_name, policy_name) as (
     ('citizen_documents', 'Citizens can read own documents'),
     ('citizen_documents', 'Citizens can insert own documents'),
     ('citizen_documents', 'Lawyers can read unlocked citizen documents'),
-    ('admin_users', 'Admin users can view own admin marker')
+    ('admin_users', 'Admin users can view own admin marker'),
+    ('lawyer_profiles', 'Lawyers can read own OAB profile'),
+    ('lawyer_profiles', 'Admins can read lawyer OAB profiles'),
+    ('lawyer_profiles', 'Admins can update lawyer OAB verification')
 )
 select
   'policies' as check_group,
@@ -151,6 +160,7 @@ where schemaname = 'public'
     'lawyer_credit_purchase_requests',
     'agenda_events',
     'citizen_documents',
-    'admin_users'
+    'admin_users',
+    'lawyer_profiles'
   )
 order by object_name;

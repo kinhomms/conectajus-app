@@ -18,6 +18,8 @@ export const initialRegisterForm: RegisterFormState = {
   profile: "cliente",
   email: "",
   password: "",
+  oabNumber: "",
+  oabState: "",
 };
 
 export async function getCurrentUser() {
@@ -47,9 +49,72 @@ export async function login(input: LoginFormState) {
 }
 
 export async function register(input: RegisterFormState) {
-  return authRepository.signUp(input);
+  const normalizedInput = {
+    ...input,
+    email: input.email.trim().toLowerCase(),
+    name: input.name.trim(),
+    oabNumber: input.oabNumber.trim().replace(/\D/g, ""),
+    oabState: input.oabState.trim().toUpperCase(),
+  };
+
+  if (normalizedInput.profile === "advogado") {
+    if (!normalizedInput.oabNumber || !normalizedInput.oabState) {
+      return { data: null, error: new Error("Informe número da OAB e UF para cadastro como advogado.") };
+    }
+
+    if (!/^\d{3,8}$/.test(normalizedInput.oabNumber)) {
+      return { data: null, error: new Error("Informe um número de OAB válido, somente com dígitos.") };
+    }
+
+    if (!isValidBrazilianState(normalizedInput.oabState)) {
+      return { data: null, error: new Error("Informe uma UF válida da OAB.") };
+    }
+  }
+
+  const result = await authRepository.signUp(normalizedInput);
+
+  if (!result.error && result.data.user && result.data.user.identities?.length === 0) {
+    return {
+      data: null,
+      error: new Error("Este e-mail já possui uma conta no ConectaJus. Entre com a conta existente ou use outro e-mail."),
+    };
+  }
+
+  return result;
 }
 
 export async function logout() {
   return authRepository.signOut();
+}
+
+function isValidBrazilianState(value: string) {
+  return [
+    "AC",
+    "AL",
+    "AP",
+    "AM",
+    "BA",
+    "CE",
+    "DF",
+    "ES",
+    "GO",
+    "MA",
+    "MT",
+    "MS",
+    "MG",
+    "PA",
+    "PB",
+    "PR",
+    "PE",
+    "PI",
+    "RJ",
+    "RN",
+    "RS",
+    "RO",
+    "RR",
+    "SC",
+    "SP",
+    "SE",
+    "TO",
+  ].includes(value);
 }
