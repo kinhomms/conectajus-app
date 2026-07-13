@@ -9,6 +9,7 @@ import {
   getFinanceIntegrationStatus,
 } from "@/features/finance/services/finance.service";
 import type {
+  AccountDeletionRequest,
   AdminCreditPurchaseRequest,
   CreditPurchaseRequest,
   LawyerProfile,
@@ -157,6 +158,39 @@ export function FinanceWorkspace() {
                       onReject={(userId) => finance.handleDecideLawyerVerification(userId, "rejected")}
                       onVerify={(userId) => finance.handleDecideLawyerVerification(userId, "verified")}
                       profile={profile}
+                    />
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
+
+          {finance.isAdmin && (
+            <section className="rounded-3xl border border-red-400/20 bg-[#111827] p-6 shadow-xl shadow-black/20">
+              <div className="mb-5">
+                <p className="text-xs uppercase tracking-[0.25em] text-red-200">
+                  Privacidade e LGPD
+                </p>
+                <h2 className="mt-2 text-2xl font-bold">Solicitações de exclusão de conta</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-400">
+                  Aprovar aqui não apaga automaticamente o usuário do Auth. A aprovação registra a decisão para tratamento administrativo de retenções legais, documentos, créditos, auditoria e dados vinculados.
+                </p>
+              </div>
+
+              {finance.accountDeletionRequests.length === 0 ? (
+                <EmptyState
+                  title="Nenhuma exclusão pendente"
+                  description="Solicitações feitas pelos usuários aparecerão aqui para análise administrativa."
+                />
+              ) : (
+                <div className="space-y-3">
+                  {finance.accountDeletionRequests.map((request) => (
+                    <AccountDeletionRequestCard
+                      key={request.id}
+                      deciding={finance.decidingDeletionRequestId === request.id}
+                      onApprove={(requestId) => finance.handleDecideAccountDeletion(requestId, "approved")}
+                      onReject={(requestId) => finance.handleDecideAccountDeletion(requestId, "rejected")}
+                      request={request}
                     />
                   ))}
                 </div>
@@ -512,6 +546,58 @@ function LawyerVerificationCard({
             className="rounded-xl bg-sky-300 px-3 py-2 text-xs font-black text-black hover:bg-sky-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {deciding ? "Processando..." : "Verificar OAB"}
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function AccountDeletionRequestCard({
+  deciding,
+  onApprove,
+  onReject,
+  request,
+}: {
+  deciding: boolean;
+  onApprove: (requestId: string) => void;
+  onReject: (requestId: string) => void;
+  request: AccountDeletionRequest;
+}) {
+  return (
+    <article className="rounded-2xl border border-white/10 bg-[#0B0F19] p-4">
+      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
+        <div>
+          <p className="font-bold text-white">{request.user_email || request.user_id}</p>
+          <p className="mt-1 text-xs text-slate-500">Perfil: {request.profile}</p>
+          <p className="mt-2 text-xs text-slate-500">
+            Solicitada em {new Date(request.requested_at).toLocaleString("pt-BR")}
+          </p>
+          {request.reason ? (
+            <p className="mt-3 rounded-2xl bg-white/5 p-3 text-sm leading-6 text-slate-300">
+              {request.reason}
+            </p>
+          ) : (
+            <p className="mt-3 text-sm text-slate-500">Sem motivo informado.</p>
+          )}
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => onReject(request.id)}
+            disabled={deciding}
+            className="rounded-xl border border-white/10 px-3 py-2 text-xs font-black text-slate-200 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            Rejeitar
+          </button>
+          <button
+            type="button"
+            onClick={() => onApprove(request.id)}
+            disabled={deciding}
+            className="rounded-xl bg-red-300 px-3 py-2 text-xs font-black text-black hover:bg-red-200 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {deciding ? "Processando..." : "Aprovar análise"}
           </button>
         </div>
       </div>

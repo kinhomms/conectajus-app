@@ -1,5 +1,6 @@
 import * as financeRepository from "@/features/finance/repositories/finance.repository";
 import type {
+  AccountDeletionRequestStatus,
   CreditPackage,
   FinanceIntegrationStatus,
   LawyerVerificationStatus,
@@ -81,6 +82,14 @@ export async function updateLawyerVerificationStatus(userId: string, status: Law
   return financeRepository.updateLawyerVerificationStatus(userId, status);
 }
 
+export async function listPendingAccountDeletionRequests() {
+  return financeRepository.listPendingAccountDeletionRequests();
+}
+
+export async function updateAccountDeletionRequestStatus(requestId: string, status: AccountDeletionRequestStatus) {
+  return financeRepository.updateAccountDeletionRequestStatus(requestId, status);
+}
+
 export function getFinanceIntegrationStatus(): FinanceIntegrationStatus {
   return {
     configured: true,
@@ -90,6 +99,7 @@ export function getFinanceIntegrationStatus(): FinanceIntegrationStatus {
       "Tabela lawyer_credit_purchase_requests com solicitações pendentes de compra.",
       "RPCs administrativas para aprovação/rejeição segura de créditos.",
       "Tabela lawyer_profiles para validação administrativa de OAB antes de liberar Marketplace.",
+      "Tabela account_deletion_requests para análise auditável de exclusão de conta.",
       "Tabela marketplace_opportunity_unlocks com auditoria de desbloqueios.",
       "Integração futura com provedor de pagamento para compra automática.",
     ],

@@ -10,15 +10,19 @@ import {
   ensureCreditAccount,
   getCreditAccount,
   isCurrentUserAdmin,
+  listPendingAccountDeletionRequests,
   listPendingLawyerProfiles,
   listAdminPendingCreditPurchaseRequests,
   listCreditPurchaseRequests,
   listCreditTransactions,
   rejectCreditPurchaseRequest,
   requestCreditPurchase,
+  updateAccountDeletionRequestStatus,
   updateLawyerVerificationStatus,
 } from "@/features/finance/services/finance.service";
 import type {
+  AccountDeletionRequest,
+  AccountDeletionRequestStatus,
   AdminCreditPurchaseRequest,
   CreditPackage,
   CreditPurchaseRequest,
@@ -31,11 +35,13 @@ import type {
 export function useFinanceWorkspace() {
   const router = useRouter();
   const [account, setAccount] = useState<LawyerCreditAccount | null>(null);
+  const [accountDeletionRequests, setAccountDeletionRequests] = useState<AccountDeletionRequest[]>([]);
   const [adminPendingRequests, setAdminPendingRequests] = useState<AdminCreditPurchaseRequest[]>([]);
   const [canAccessFinance, setCanAccessFinance] = useState(false);
   const [cancelingRequestId, setCancelingRequestId] = useState("");
   const [decidingRequestId, setDecidingRequestId] = useState("");
   const [decidingLawyerId, setDecidingLawyerId] = useState("");
+  const [decidingDeletionRequestId, setDecidingDeletionRequestId] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [lawyerProfilesPendingVerification, setLawyerProfilesPendingVerification] = useState<LawyerProfile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,12 +54,13 @@ export function useFinanceWorkspace() {
   const refreshFinance = useCallback(async (targetUserId: string, adminMode = isAdmin) => {
     setMessage("");
 
-    const [accountResponse, transactionsResponse, purchaseRequestsResponse, adminRequestsResponse, lawyerProfilesResponse] = await Promise.all([
+    const [accountResponse, transactionsResponse, purchaseRequestsResponse, adminRequestsResponse, lawyerProfilesResponse, deletionRequestsResponse] = await Promise.all([
       getCreditAccount(targetUserId),
       listCreditTransactions(targetUserId),
       listCreditPurchaseRequests(targetUserId),
       adminMode ? listAdminPendingCreditPurchaseRequests() : Promise.resolve({ data: [], error: null }),
       adminMode ? listPendingLawyerProfiles() : Promise.resolve({ data: [], error: null }),
+      adminMode ? listPendingAccountDeletionRequests() : Promise.resolve({ data: [], error: null }),
     ]);
 
     if (accountResponse.error) {
@@ -87,6 +94,12 @@ export function useFinanceWorkspace() {
       setLawyerProfilesPendingVerification([]);
     } else {
       setLawyerProfilesPendingVerification((lawyerProfilesResponse.data as LawyerProfile[] | null) ?? []);
+    }
+
+    if (deletionRequestsResponse.error) {
+      setAccountDeletionRequests([]);
+    } else {
+      setAccountDeletionRequests((deletionRequestsResponse.data as AccountDeletionRequest[] | null) ?? []);
     }
   }, [isAdmin]);
 
@@ -253,17 +266,39 @@ export function useFinanceWorkspace() {
     await refreshFinance(userId, true);
   }
 
+  async function handleDecideAccountDeletion(requestId: string, status: AccountDeletionRequestStatus) {
+    if (!isAdmin) return;
+
+    setMessage("");
+    setDecidingDeletionRequestId(requestId);
+
+    const { error } = await updateAccountDeletionRequestStatus(requestId, status);
+
+    setDecidingDeletionRequestId("");
+
+    if (error) {
+      setMessage("Não foi possível atualizar a solicitação de exclusão.");
+      return;
+    }
+
+    setMessage(status === "approved" ? "Solicitação de exclusão aprovada para tratamento administrativo." : "Solicitação de exclusão rejeitada.");
+    await refreshFinance(userId, true);
+  }
+
   return {
     account,
+    accountDeletionRequests,
     adminPendingRequests,
     canAccessFinance,
     cancelingRequestId,
     consumedCredits,
     decidingRequestId,
     decidingLawyerId,
+    decidingDeletionRequestId,
     financeInsights,
     handleApproveRequest,
     handleCancelRequest,
+    handleDecideAccountDeletion,
     handleDecideLawyerVerification,
     handleRejectRequest,
     handleRequestCreditPurchase,

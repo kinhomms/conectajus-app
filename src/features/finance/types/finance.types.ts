@@ -57,6 +57,21 @@ export type LawyerProfile = {
   updated_at: string;
 };
 
+export type AccountDeletionRequestStatus = "pending" | "approved" | "rejected" | "canceled";
+
+export type AccountDeletionRequest = {
+  id: string;
+  user_id: string;
+  user_email: string | null;
+  profile: string;
+  reason: string | null;
+  status: AccountDeletionRequestStatus;
+  requested_at: string;
+  decided_at: string | null;
+  decided_by: string | null;
+  decision_notes: string | null;
+};
+
 export type EnsureCreditAccountResult = {
   user_id: string;
   balance: number;

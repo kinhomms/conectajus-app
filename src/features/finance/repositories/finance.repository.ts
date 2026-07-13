@@ -1,6 +1,8 @@
 import { supabase } from "@/lib/supabase";
 import type {
   AdminCreditPurchaseRequest,
+  AccountDeletionRequest,
+  AccountDeletionRequestStatus,
   CreditPurchaseRequest,
   CreditRequestDecisionResult,
   EnsureCreditAccountResult,
@@ -16,6 +18,8 @@ const purchaseRequestFields =
   "id, user_id, requested_credits, amount_cents, currency, status, notes, created_at, updated_at";
 const lawyerProfileFields =
   "user_id, full_name, email, oab_number, oab_state, verification_status, created_at, updated_at";
+const accountDeletionRequestFields =
+  "id, user_id, user_email, profile, reason, status, requested_at, decided_at, decided_by, decision_notes";
 
 export type CreateCreditPurchaseRequestInput = {
   user_id: string;
@@ -113,4 +117,25 @@ export async function updateLawyerVerificationStatus(userId: string, status: Law
     .eq("user_id", userId)
     .select(lawyerProfileFields)
     .single<LawyerProfile>();
+}
+
+export async function listPendingAccountDeletionRequests() {
+  return supabase
+    .from("account_deletion_requests")
+    .select(accountDeletionRequestFields)
+    .eq("status", "pending")
+    .order("requested_at", { ascending: true })
+    .returns<AccountDeletionRequest[]>();
+}
+
+export async function updateAccountDeletionRequestStatus(requestId: string, status: AccountDeletionRequestStatus) {
+  return supabase
+    .from("account_deletion_requests")
+    .update({
+      decided_at: new Date().toISOString(),
+      status,
+    })
+    .eq("id", requestId)
+    .select(accountDeletionRequestFields)
+    .single<AccountDeletionRequest>();
 }

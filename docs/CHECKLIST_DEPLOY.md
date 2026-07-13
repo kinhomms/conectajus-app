@@ -75,6 +75,7 @@ Antes do deploy final, confirmar que todas as migrations foram aplicadas no proj
 - Cadastro de advogado com OAB/UF e validação de duplicidade por OAB/UF.
 - Bloqueio automático de Marketplace/Financeiro até a OAB do advogado ser marcada como verificada.
 - Configurações de conta com edição de nome/preferências e solicitação auditável de exclusão de conta.
+- Fila administrativa para aprovar ou rejeitar solicitações pendentes de exclusão de conta.
 
 Migration mais recente a confirmar/aplicar:
 
@@ -162,6 +163,8 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 - Ver solicitações pendentes de crédito.
 - Aprovar e rejeitar solicitações.
 - Confirmar que saldo do advogado é atualizado após aprovação.
+- Ver solicitações pendentes de exclusão de conta.
+- Aprovar ou rejeitar solicitações de exclusão para tratamento administrativo.
 
 ## 7. Vercel
 

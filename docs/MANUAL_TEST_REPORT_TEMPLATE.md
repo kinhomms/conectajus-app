@@ -157,6 +157,9 @@ Observações:
 - [ ] Aprovar uma solicitação.
 - [ ] Confirmar atualização do saldo do advogado.
 - [ ] Rejeitar uma solicitação, se houver massa de teste.
+- [ ] Visualizar solicitações pendentes de exclusão de conta.
+- [ ] Aprovar uma solicitação de exclusão para tratamento administrativo.
+- [ ] Rejeitar uma solicitação de exclusão, se houver massa de teste.
 - [ ] Confirmar que usuário não-admin não acessa ações administrativas.
 
 Observações:
@@ -171,6 +174,7 @@ Observações:
 - [ ] Usuário consegue ajustar preferências em `/configuracoes`.
 - [ ] Usuário consegue solicitar exclusão da conta.
 - [ ] Usuário consegue cancelar solicitação pendente de exclusão.
+- [ ] Admin consegue aprovar/rejeitar solicitação pendente de exclusão.
 - [ ] Marketplace não mostra nome do cidadão antes do desbloqueio.
 - [ ] Marketplace não mostra telefone antes do desbloqueio.
 - [ ] Marketplace não mostra WhatsApp antes do desbloqueio.
