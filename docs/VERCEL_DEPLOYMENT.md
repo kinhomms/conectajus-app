@@ -117,12 +117,18 @@ Após a Vercel gerar o Preview Deployment, testar:
 - Publicar uma demanda.
 - Confirmar que a demanda publicada não expõe dados pessoais no Marketplace.
 - Enviar documento complementar em `/documentos`.
+- Abrir `/configuracoes`.
+- Editar nome/preferências.
+- Solicitar exclusão de conta por fluxo auditável.
+- Cancelar solicitação pendente de exclusão, se aplicável.
 - Confirmar que há botões de voltar/início nas páginas do portal.
 - Tentar abrir `/marketplace`, `/financeiro` e `/relatorios` por URL direta e confirmar bloqueio ou experiência restrita.
 
 ### Advogado
 
-- Fazer login como advogado.
+- Criar/login como advogado.
+- Confirmar que o cadastro exige número e UF da OAB.
+- Confirmar que advogado com OAB pendente não acessa `/marketplace` nem `/financeiro`.
 - Abrir `/marketplace`.
 - Ver oportunidades mascaradas.
 - Desbloquear uma oportunidade usando créditos.
@@ -135,8 +141,10 @@ Após a Vercel gerar o Preview Deployment, testar:
 
 - Confirmar que o usuário admin existe em `public.admin_users`.
 - Abrir `/financeiro`.
+- Verificar ou rejeitar OAB pendente.
 - Aprovar/rejeitar solicitação de crédito.
 - Confirmar atualização de saldo do advogado.
+- Aprovar/rejeitar solicitação pendente de exclusão de conta.
 
 ## Critério de pronto para produção
 
