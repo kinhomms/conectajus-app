@@ -144,6 +144,12 @@ Antes de publicar:
 - Garantir comando de build: `npm run build`.
 - Validar preview deploy antes de promover para produção.
 
+Guia detalhado:
+
+```text
+docs/VERCEL_DEPLOYMENT.md
+```
+
 ## 8. Atenções antes de commit/deploy
 
 - Existe uma pasta aninhada `conectajus-core/conectajus-core` com aparência de cópia antiga. Não remover sem autorização explícita.
