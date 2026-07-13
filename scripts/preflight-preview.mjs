@@ -5,6 +5,7 @@ const root = process.cwd();
 
 const requiredFiles = [
   ".env.example",
+  ".gitignore",
   "docs/APPLY_SUPABASE_MIGRATIONS.md",
   "docs/ENVIRONMENT_VARIABLES.md",
   "docs/SUPABASE_MIGRATION_ORDER.md",
@@ -43,6 +44,7 @@ const previewNeedles = [
 ];
 
 const requiredEnvKeys = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"];
+const forbiddenEnvKeys = ["SUPABASE_SERVICE_ROLE_KEY", "DATABASE_URL", "POSTGRES_PASSWORD", "JWT_SECRET"];
 
 const errors = [];
 
@@ -62,6 +64,7 @@ const migrationFiles = (await readdir(join(root, "supabase", "migrations")))
 const migrationOrder = await readRequiredFile("docs/SUPABASE_MIGRATION_ORDER.md");
 const applyGuide = await readRequiredFile("docs/APPLY_SUPABASE_MIGRATIONS.md");
 const envExample = await readRequiredFile(".env.example");
+const gitignore = await readRequiredFile(".gitignore");
 const environmentGuide = await readRequiredFile("docs/ENVIRONMENT_VARIABLES.md");
 const validationSql = await readRequiredFile("docs/SUPABASE_POST_APPLY_VALIDATION.sql");
 const previewReadiness = await readRequiredFile("docs/PREVIEW_READINESS.md");
@@ -111,13 +114,33 @@ for (const needle of previewNeedles) {
 }
 
 for (const envKey of requiredEnvKeys) {
-  if (!envExample.includes(`${envKey}=`)) {
+  const envLine = envExample
+    .split(/\r?\n/)
+    .find((line) => line.trim().startsWith(`${envKey}=`));
+
+  if (!envLine) {
     errors.push(`.env.example não declara variável obrigatória: ${envKey}`);
+  } else if (envLine.trim() !== `${envKey}=`) {
+    errors.push(`.env.example deve manter ${envKey} sem valor real`);
   }
 
   if (!environmentGuide.includes(envKey)) {
     errors.push(`docs/ENVIRONMENT_VARIABLES.md não documenta variável obrigatória: ${envKey}`);
   }
+}
+
+for (const envKey of forbiddenEnvKeys) {
+  if (envExample.includes(envKey)) {
+    errors.push(`.env.example não deve declarar variável sensível/proibida: ${envKey}`);
+  }
+}
+
+if (!gitignore.split(/\r?\n/).some((line) => line.trim() === ".env*")) {
+  errors.push(".gitignore deve ignorar .env*");
+}
+
+if (!gitignore.split(/\r?\n/).some((line) => line.trim() === "!.env.example")) {
+  errors.push(".gitignore deve permitir versionar apenas .env.example");
 }
 
 if (!vercelConfig.includes('"framework": "nextjs"')) {
