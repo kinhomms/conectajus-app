@@ -37,6 +37,7 @@ Antes de testar o preview, confirmar:
 
 - migrations aplicadas no Supabase alvo;
 - `docs/SUPABASE_POST_APPLY_VALIDATION.sql` retornando `ok`;
+- perfis de teste preparados conforme `docs/SUPABASE_TEST_PROFILES.md`;
 - variáveis configuradas na Vercel:
   - `NEXT_PUBLIC_SUPABASE_URL`;
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`;
@@ -74,6 +75,7 @@ docs/VERCEL_DEPLOYMENT.md
 docs/APPLY_SUPABASE_MIGRATIONS.md
 docs/SUPABASE_MIGRATION_ORDER.md
 docs/SUPABASE_POST_APPLY_VALIDATION.sql
+docs/SUPABASE_TEST_PROFILES.md
 docs/MANUAL_TEST_REPORT_TEMPLATE.md
 docs/MVP_HANDOFF.md
 ```

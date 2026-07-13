@@ -107,6 +107,12 @@ Política de verificação OAB:
 docs/OAB_VERIFICATION.md
 ```
 
+Perfis de teste:
+
+```text
+docs/SUPABASE_TEST_PROFILES.md
+```
+
 ## 5. Buckets e políticas de Storage
 
 Confirmar no Supabase Storage:
@@ -198,13 +204,14 @@ docs/VERCEL_DEPLOYMENT.md
 - `npm run build` passando.
 - `npm run validate` passando.
 - Migrations aplicadas no Supabase alvo.
+- Perfis de teste preparados no Supabase alvo.
 - Variáveis configuradas no Vercel.
 - Teste manual dos fluxos cidadão, advogado e admin concluído.
 - Deploy preview validado.
 
 ## 10. Percentual estimado
 
-Status atual estimado: 97%.
+Status atual estimado: 98%.
 
 O projeto está funcional em build local, com lint e build passando, e próximo de readiness para preview/deploy. Ainda depende de:
 

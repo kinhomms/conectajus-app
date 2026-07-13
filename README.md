@@ -131,6 +131,12 @@ Checklist SQL pós-aplicação:
 docs/SUPABASE_POST_APPLY_VALIDATION.sql
 ```
 
+Perfis de teste:
+
+```text
+docs/SUPABASE_TEST_PROFILES.md
+```
+
 Guia operacional:
 
 ```text
