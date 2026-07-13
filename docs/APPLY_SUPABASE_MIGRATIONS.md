@@ -18,6 +18,12 @@ Migration mais recente pendente:
 supabase/migrations/20260713100000_harden_complement_parent_ownership.sql
 ```
 
+Ordem completa de execução:
+
+```text
+docs/SUPABASE_MIGRATION_ORDER.md
+```
+
 ## Opção B — Supabase CLI
 
 Quando o projeto estiver linkado:

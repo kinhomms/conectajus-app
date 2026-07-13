@@ -71,6 +71,12 @@ Guia de aplicação:
 docs/APPLY_SUPABASE_MIGRATIONS.md
 ```
 
+Ordem completa:
+
+```text
+docs/SUPABASE_MIGRATION_ORDER.md
+```
+
 ## 5. Buckets e políticas de Storage
 
 Confirmar no Supabase Storage:

@@ -1,0 +1,55 @@
+# Ordem de aplicação das migrations Supabase
+
+Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do Supabase ou validar a ordem antes de usar `supabase db push`.
+
+## Ordem cronológica
+
+1. `20260710120000_create_marketplace_opportunities.sql`
+2. `20260710123000_allow_authenticated_marketplace_opportunity_insert.sql`
+3. `20260710130000_create_marketplace_credit_unlock_flow.sql`
+4. `20260711001000_create_ensure_lawyer_credit_account_rpc.sql`
+5. `20260711003000_create_credit_purchase_requests.sql`
+6. `20260711005000_create_marketplace_private_details.sql`
+7. `20260711010000_create_admin_credit_request_approval.sql`
+8. `20260711013000_harden_admin_credit_approval.sql`
+9. `20260711014500_cancel_credit_purchase_request.sql`
+10. `20260711020000_restrict_marketplace_to_lawyers.sql`
+11. `20260711021500_restrict_finance_to_marketplace_actors.sql`
+12. `20260711023000_create_agenda_events.sql`
+13. `20260711024500_harden_crm_citizen_data_access.sql`
+14. `20260711030000_create_citizen_document_uploads.sql`
+15. `20260711031500_link_citizen_documents_to_marketplace.sql`
+16. `20260711033000_allow_citizens_to_track_own_opportunities.sql`
+17. `20260711034500_create_marketplace_opportunity_crm_links.sql`
+18. `20260712090000_allow_citizen_document_complements.sql`
+19. `20260712093000_link_complementary_marketplace_opportunities.sql`
+20. `20260713100000_harden_complement_parent_ownership.sql`
+
+## Observações importantes
+
+- A migration mais recente protege `parent_opportunity_id` para impedir que uma triagem complementar seja vinculada a oportunidade de outro cidadão.
+- Todas as migrations devem ser aplicadas no projeto Supabase alvo antes do deploy final.
+- Se uma migration já tiver sido aplicada, o SQL foi escrito para ser majoritariamente idempotente, usando `if not exists`, `drop policy if exists` e `add column if not exists` quando aplicável.
+- Após aplicar, confirmar no app:
+  - cidadão cria triagem principal;
+  - cidadão cria complemento para caso próprio;
+  - cidadão não acessa áreas internas por URL direta;
+  - advogado desbloqueia oportunidade;
+  - advogado abre documento privado apenas após desbloqueio;
+  - admin aprova/rejeita créditos.
+
+## Validação após aplicar
+
+No projeto local:
+
+```bash
+npm run lint
+npm run build
+```
+
+No app:
+
+- testar login como cidadão;
+- testar login como advogado;
+- testar login como admin;
+- testar `/dashboard`, `/triagem`, `/documentos`, `/marketplace`, `/financeiro`, `/relatorios` e `/configuracoes`.
