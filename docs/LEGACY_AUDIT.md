@@ -162,8 +162,7 @@ Ordem sugerida de limpeza:
 4. Rodar:
 
 ```bash
-npm run lint
-npm run build
+npm run validate
 ```
 
 5. Fazer commit da limpeza em uma etapa isolada.

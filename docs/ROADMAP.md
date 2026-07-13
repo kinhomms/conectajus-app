@@ -55,8 +55,7 @@ Remover apenas com autorização explícita:
 Recomendação:
 
 - fazer limpeza em commit separado;
-- rodar `npm run lint`;
-- rodar `npm run build`;
+- rodar `npm run validate`;
 - conferir diff antes do push.
 
 ## Prioridade 4 — Pós-MVP

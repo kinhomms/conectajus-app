@@ -75,8 +75,7 @@ Todos os grupos devem retornar `ok` para os objetos esperados.
 No projeto local:
 
 ```bash
-npm run lint
-npm run build
+npm run validate
 ```
 
 No app:

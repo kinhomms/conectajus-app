@@ -106,5 +106,4 @@ Validar:
 - admin consegue verificar ou rejeitar OAB pendente;
 - usuário consegue editar preferências e solicitar/cancelar exclusão de conta;
 - advogado continua conseguindo visualizar/desbloquear oportunidades conforme permissões;
-- `npm run lint`;
-- `npm run build`.
+- `npm run validate`.

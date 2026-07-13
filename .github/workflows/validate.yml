@@ -12,7 +12,7 @@ on:
 
 jobs:
   validate:
-    name: Lint and build
+    name: Preflight, lint and build
     runs-on: ubuntu-latest
 
     env:
