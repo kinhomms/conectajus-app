@@ -21,6 +21,7 @@ npm install
 npm run dev
 npm run lint
 npm run build
+npm run validate
 ```
 
 URL local:

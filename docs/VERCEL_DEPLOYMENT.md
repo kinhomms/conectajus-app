@@ -70,8 +70,7 @@ Next.js default
 Antes de publicar:
 
 ```bash
-npm run lint
-npm run build
+npm run validate
 ```
 
 Última validação local registrada:

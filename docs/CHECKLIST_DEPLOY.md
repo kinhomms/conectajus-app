@@ -19,6 +19,7 @@ docs/MVP_HANDOFF.md
 - `src/lib/supabase.ts` exige variáveis reais de ambiente e não usa fallback placeholder.
 - `npm run lint` passando.
 - `npm run build` passando.
+- `npm run validate` passando.
 
 ## 2. Rotas ativas no build
 
@@ -180,6 +181,7 @@ docs/VERCEL_DEPLOYMENT.md
 
 - `npm run lint` passando.
 - `npm run build` passando.
+- `npm run validate` passando.
 - Migrations aplicadas no Supabase alvo.
 - Variáveis configuradas no Vercel.
 - Teste manual dos fluxos cidadão, advogado e admin concluído.

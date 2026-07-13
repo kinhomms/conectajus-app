@@ -119,9 +119,10 @@ Páginas em `src/app` permanecem pequenas e delegam para workspaces/features.
 Últimas validações executadas com sucesso:
 
 ```bash
-npm run lint
-npm run build
+npm run validate
 ```
+
+Esse comando executa lint e build de produção.
 
 Build atual confirma 16 rotas:
 

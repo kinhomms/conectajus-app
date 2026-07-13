@@ -96,9 +96,10 @@ docs/ENVIRONMENT_VARIABLES.md
 Antes de commit/deploy:
 
 ```bash
-npm run lint
-npm run build
+npm run validate
 ```
+
+Esse comando executa `npm run lint` e `npm run build`.
 
 Última rodada documentada:
 
