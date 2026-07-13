@@ -120,6 +120,12 @@ Perfis de teste:
 docs/SUPABASE_TEST_PROFILES.md
 ```
 
+Conferência SQL dos perfis de teste:
+
+```text
+supabase/TEST_PROFILE_CHECKS.sql
+```
+
 Trilha de auditoria administrativa:
 
 ```text

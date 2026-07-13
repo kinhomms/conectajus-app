@@ -11,6 +11,7 @@ const requiredFiles = [
   "docs/PREVIEW_READINESS.md",
   "docs/VERCEL_DEPLOYMENT.md",
   "supabase/APPLY_ALL_MIGRATIONS.sql",
+  "supabase/TEST_PROFILE_CHECKS.sql",
   "vercel.json",
 ];
 

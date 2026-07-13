@@ -53,6 +53,8 @@ Troque os e-mails acima pelos e-mails reais de teste.
 
 Depois de criar o usuário admin pela aplicação, inserir o `id` dele em `public.admin_users`.
 
+Importante: o perfil visual `admin` no metadata não basta para as ações sensíveis. As RPCs administrativas usam `public.admin_users` como fonte de autorização.
+
 ```sql
 insert into public.admin_users (user_id)
 select id
@@ -99,17 +101,7 @@ pending
 
 O admin deve validar pelo painel `/financeiro`.
 
-Se for necessário preparar massa controlada para teste manual, é possível marcar como verificado pelo SQL Editor:
-
-```sql
-update public.lawyer_profiles
-set
-  verification_status = 'verified',
-  updated_at = now()
-where email = 'advogado.teste@example.com';
-```
-
-Use esse atalho apenas em ambiente de teste/preview.
+Evite marcar OAB como verificada diretamente pelo SQL Editor, porque isso contorna a RPC administrativa e pode deixar `verified_by`/`verified_at` vazios. Para validar a auditoria real, faça a decisão pelo painel admin.
 
 Quando a decisão for feita pelo painel admin, os campos `verified_by` e `verified_at` devem registrar quem decidiu e quando.
 
@@ -163,8 +155,9 @@ Depois de preparar os perfis:
 
 1. executar `docs/SUPABASE_POST_APPLY_VALIDATION.sql`;
 2. confirmar todos os grupos críticos como `ok`;
-3. abrir o preview Vercel;
-4. preencher `docs/MANUAL_TEST_REPORT_TEMPLATE.md`.
+3. executar `supabase/TEST_PROFILE_CHECKS.sql`, trocando os e-mails de exemplo pelos e-mails reais;
+4. abrir o preview Vercel;
+5. preencher `docs/MANUAL_TEST_REPORT_TEMPLATE.md`.
 
 ## Observação LGPD
 

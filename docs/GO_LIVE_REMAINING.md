@@ -117,4 +117,10 @@ Depois executar:
 docs/SUPABASE_POST_APPLY_VALIDATION.sql
 ```
 
+Após criar os usuários de teste, executar também:
+
+```text
+supabase/TEST_PROFILE_CHECKS.sql
+```
+
 Se o resultado retornar `ok`, a próxima etapa é gerar o preview na Vercel e testar os três perfis.
