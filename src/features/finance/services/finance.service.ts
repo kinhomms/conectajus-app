@@ -97,13 +97,14 @@ export function getFinanceIntegrationStatus(): FinanceIntegrationStatus {
       "Tabela lawyer_credit_accounts com saldo por usuário.",
       "Tabela lawyer_credit_transactions com histórico de créditos.",
       "Tabela lawyer_credit_purchase_requests com solicitações pendentes de compra.",
-      "RPCs administrativas para aprovação/rejeição segura de créditos.",
-      "Tabela lawyer_profiles para validação administrativa de OAB antes de liberar Marketplace.",
+      "RPCs administrativas auditáveis para aprovação/rejeição segura de créditos.",
+      "Tabela lawyer_profiles para validação administrativa auditável de OAB antes de liberar Marketplace.",
       "Tabela account_deletion_requests para análise auditável de exclusão de conta.",
+      "Campos decided_by/decided_at e verified_by/verified_at para rastrear decisões sensíveis.",
       "Tabela marketplace_opportunity_unlocks com auditoria de desbloqueios.",
       "Integração futura com provedor de pagamento para compra automática.",
     ],
     message:
-      "O financeiro já lê saldo, histórico e solicitações reais de créditos. A aprovação manual administrativa já pode creditar saldo; cobrança automática ainda será integrada em etapa futura.",
+      "O financeiro já lê saldo, histórico e solicitações reais de créditos. A aprovação manual administrativa já pode creditar saldo com auditoria; cobrança automática ainda será integrada em etapa futura.",
   };
 }
