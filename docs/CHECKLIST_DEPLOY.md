@@ -74,11 +74,12 @@ Antes do deploy final, confirmar que todas as migrations foram aplicadas no proj
 - Hardening de propriedade da oportunidade original em triagens complementares.
 - Cadastro de advogado com OAB/UF e validação de duplicidade por OAB/UF.
 - Bloqueio automático de Marketplace/Financeiro até a OAB do advogado ser marcada como verificada.
+- Configurações de conta com edição de nome/preferências e solicitação auditável de exclusão de conta.
 
 Migration mais recente a confirmar/aplicar:
 
 ```text
-supabase/migrations/20260713114500_require_verified_oab_for_marketplace.sql
+supabase/migrations/20260713120000_create_account_deletion_requests.sql
 ```
 
 Guia de aplicação:

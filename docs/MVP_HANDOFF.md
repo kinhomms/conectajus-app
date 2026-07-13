@@ -216,6 +216,8 @@ Fluxos mínimos:
 - sistema impede duplicidade de OAB/UF entre advogados;
 - advogado com OAB pendente fica bloqueado de Marketplace/Financeiro;
 - admin verifica ou rejeita OAB no painel Financeiro;
+- usuário edita nome/preferências em Configurações;
+- usuário solicita exclusão de conta por fluxo auditável;
 - advogado vê oportunidade mascarada;
 - advogado desbloqueia oportunidade com créditos;
 - advogado acessa dados privados apenas após desbloqueio;

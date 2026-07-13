@@ -18,7 +18,8 @@ with expected_tables(table_schema, table_name) as (
     ('public', 'agenda_events'),
     ('public', 'citizen_documents'),
     ('public', 'admin_users'),
-    ('public', 'lawyer_profiles')
+    ('public', 'lawyer_profiles'),
+    ('public', 'account_deletion_requests')
 )
 select
   'tables' as check_group,
@@ -56,7 +57,10 @@ with expected_columns(table_name, column_name) as (
     ('lawyer_profiles', 'user_id'),
     ('lawyer_profiles', 'oab_number'),
     ('lawyer_profiles', 'oab_state'),
-    ('lawyer_profiles', 'verification_status')
+    ('lawyer_profiles', 'verification_status'),
+    ('account_deletion_requests', 'user_id'),
+    ('account_deletion_requests', 'status'),
+    ('account_deletion_requests', 'reason')
 )
 select
   'columns' as check_group,
@@ -117,7 +121,12 @@ with expected_policies(table_name, policy_name) as (
     ('admin_users', 'Admin users can view own admin marker'),
     ('lawyer_profiles', 'Lawyers can read own OAB profile'),
     ('lawyer_profiles', 'Admins can read lawyer OAB profiles'),
-    ('lawyer_profiles', 'Admins can update lawyer OAB verification')
+    ('lawyer_profiles', 'Admins can update lawyer OAB verification'),
+    ('account_deletion_requests', 'Users can read own account deletion requests'),
+    ('account_deletion_requests', 'Users can create own pending account deletion request'),
+    ('account_deletion_requests', 'Users can cancel own pending account deletion request'),
+    ('account_deletion_requests', 'Admins can read account deletion requests'),
+    ('account_deletion_requests', 'Admins can decide account deletion requests')
 )
 select
   'policies' as check_group,
@@ -161,6 +170,7 @@ where schemaname = 'public'
     'agenda_events',
     'citizen_documents',
     'admin_users',
-    'lawyer_profiles'
+    'lawyer_profiles',
+    'account_deletion_requests'
   )
 order by object_name;

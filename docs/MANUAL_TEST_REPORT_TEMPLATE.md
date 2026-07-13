@@ -167,6 +167,10 @@ Observações:
 
 ## Teste — Segurança e privacidade
 
+- [ ] Usuário consegue editar nome em `/configuracoes`.
+- [ ] Usuário consegue ajustar preferências em `/configuracoes`.
+- [ ] Usuário consegue solicitar exclusão da conta.
+- [ ] Usuário consegue cancelar solicitação pendente de exclusão.
 - [ ] Marketplace não mostra nome do cidadão antes do desbloqueio.
 - [ ] Marketplace não mostra telefone antes do desbloqueio.
 - [ ] Marketplace não mostra WhatsApp antes do desbloqueio.

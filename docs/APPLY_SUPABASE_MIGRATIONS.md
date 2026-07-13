@@ -15,7 +15,7 @@ Enquanto o projeto não estiver linkado ao Supabase CLI, aplique as migrations p
 Migration mais recente pendente:
 
 ```text
-supabase/migrations/20260713114500_require_verified_oab_for_marketplace.sql
+supabase/migrations/20260713120000_create_account_deletion_requests.sql
 ```
 
 Ordem completa de execução:
@@ -80,6 +80,7 @@ Validar:
 - OAB/UF duplicada é bloqueada para outro advogado;
 - advogado com OAB pendente não acessa Marketplace/Financeiro;
 - admin consegue verificar ou rejeitar OAB pendente;
+- usuário consegue editar preferências e solicitar/cancelar exclusão de conta;
 - advogado continua conseguindo visualizar/desbloquear oportunidades conforme permissões;
 - `npm run lint`;
 - `npm run build`.
