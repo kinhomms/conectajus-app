@@ -4,7 +4,7 @@ O ConectaJus é um Ecossistema Jurídico Inteligente, não apenas um CRM.
 
 ## Fase atual — Pré-MVP funcional
 
-Status estimado: 93%.
+Status estimado: 97%.
 
 Objetivo desta fase:
 

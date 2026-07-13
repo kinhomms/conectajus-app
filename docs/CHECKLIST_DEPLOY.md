@@ -39,6 +39,12 @@ Configurar no ambiente de produção:
 
 Se essas variáveis faltarem, a aplicação falhará explicitamente para evitar deploy silenciosamente quebrado.
 
+Guia detalhado:
+
+```text
+docs/ENVIRONMENT_VARIABLES.md
+```
+
 ## 4. Supabase
 
 Antes do deploy final, confirmar que todas as migrations foram aplicadas no projeto Supabase de produção.

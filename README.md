@@ -85,6 +85,12 @@ Não commitar `.env.local`.
 
 A aplicação ativa exige essas variáveis e falha explicitamente se elas não existirem.
 
+Guia completo:
+
+```text
+docs/ENVIRONMENT_VARIABLES.md
+```
+
 ## Validação local
 
 Antes de commit/deploy:
