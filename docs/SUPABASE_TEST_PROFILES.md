@@ -138,7 +138,26 @@ Status esperados:
 
 Quando a decisão for tomada pelo painel admin, o campo `decided_by` deve registrar o `auth.uid()` do administrador que decidiu.
 
-## 6. Validação final
+## 6. Confirmar decisões de crédito
+
+Depois de o admin aprovar ou rejeitar créditos em `/financeiro`:
+
+```sql
+select
+  id,
+  user_id,
+  requested_credits,
+  status,
+  decided_by,
+  decided_at,
+  decision_notes
+from public.lawyer_credit_purchase_requests
+order by created_at desc;
+```
+
+Quando a decisão for feita pelo painel admin, os campos `decided_by` e `decided_at` devem registrar quem decidiu e quando.
+
+## 7. Validação final
 
 Depois de preparar os perfis:
 

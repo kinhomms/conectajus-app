@@ -15,7 +15,7 @@ import type {
 const accountFields = "user_id, balance, updated_at";
 const transactionFields = "id, user_id, amount, transaction_type, metadata, created_at";
 const purchaseRequestFields =
-  "id, user_id, requested_credits, amount_cents, currency, status, notes, created_at, updated_at";
+  "id, user_id, requested_credits, amount_cents, currency, status, notes, created_at, updated_at, decided_at, decided_by, decision_notes";
 const lawyerProfileFields =
   "user_id, full_name, email, oab_number, oab_state, verification_status, created_at, updated_at, verified_at, verified_by, verification_notes";
 const accountDeletionRequestFields =

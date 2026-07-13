@@ -29,6 +29,7 @@ Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do
 23. `20260713120000_create_account_deletion_requests.sql`
 24. `20260713123000_decide_account_deletion_request_rpc.sql`
 25. `20260713124500_audit_lawyer_oab_verification.sql`
+26. `20260713130000_audit_credit_purchase_request_decisions.sql`
 
 ## Observações importantes
 
@@ -38,6 +39,7 @@ Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do
 - A migration de exclusão cria fila auditável `account_deletion_requests`; a exclusão não é instantânea para preservar análise jurídica, auditoria e retenções obrigatórias.
 - A RPC de decisão de exclusão registra `decided_by = auth.uid()` e evita update administrativo direto pela API pública.
 - A RPC de verificação OAB registra `verified_by = auth.uid()` e evita update administrativo direto pela API pública.
+- As RPCs de aprovação/rejeição de créditos registram `decided_by` e `decided_at` na solicitação administrativa.
 - Todas as migrations devem ser aplicadas no projeto Supabase alvo antes do deploy final.
 - Se uma migration já tiver sido aplicada, o SQL foi escrito para ser majoritariamente idempotente, usando `if not exists`, `drop policy if exists` e `add column if not exists` quando aplicável.
 - Após aplicar, confirmar no app:

@@ -31,6 +31,9 @@ export type CreditPurchaseRequest = {
   notes: string | null;
   created_at: string;
   updated_at: string;
+  decided_at: string | null;
+  decided_by: string | null;
+  decision_notes: string | null;
 };
 
 export type AdminCreditPurchaseRequest = CreditPurchaseRequest & {

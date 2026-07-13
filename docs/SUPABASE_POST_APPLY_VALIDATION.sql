@@ -50,6 +50,7 @@ with expected_columns(table_name, column_name) as (
     ('lawyer_credit_accounts', 'user_id'),
     ('lawyer_credit_accounts', 'balance'),
     ('lawyer_credit_purchase_requests', 'status'),
+    ('lawyer_credit_purchase_requests', 'decided_by'),
     ('agenda_events', 'user_id'),
     ('agenda_events', 'starts_at'),
     ('citizen_documents', 'user_id'),

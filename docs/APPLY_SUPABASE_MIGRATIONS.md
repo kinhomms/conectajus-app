@@ -15,7 +15,7 @@ Enquanto o projeto não estiver linkado ao Supabase CLI, aplique as migrations p
 Migration mais recente pendente:
 
 ```text
-supabase/migrations/20260713124500_audit_lawyer_oab_verification.sql
+supabase/migrations/20260713130000_audit_credit_purchase_request_decisions.sql
 ```
 
 Ordem completa de execução:

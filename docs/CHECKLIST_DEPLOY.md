@@ -80,7 +80,7 @@ Antes do deploy final, confirmar que todas as migrations foram aplicadas no proj
 Migration mais recente a confirmar/aplicar:
 
 ```text
-supabase/migrations/20260713124500_audit_lawyer_oab_verification.sql
+supabase/migrations/20260713130000_audit_credit_purchase_request_decisions.sql
 ```
 
 Guia de aplicação:
