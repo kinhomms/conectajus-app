@@ -117,7 +117,11 @@ Antes de executar, trocar os e-mails de exemplo pelos e-mails reais.
 Status em 2026-07-13:
 
 ```text
-Pendente. O painel da Vercel solicitou login.
+Concluído.
+Preview pronto:
+https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app
+
+Smoke test de rotas online aprovado.
 ```
 
 No painel da Vercel:
@@ -136,7 +140,7 @@ NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
 ```
 
-Configurar pelo menos no ambiente `Preview`.
+Configuradas no ambiente `Production and Preview`.
 
 ## 4. Teste mínimo do link
 
@@ -145,6 +149,8 @@ Configurar pelo menos no ambiente `Preview`.
 - `/`
 - `/login`
 - `/cadastro`
+- `/triagem`
+- rotas protegidas redirecionam para `/login` quando não há sessão.
 
 ### Cidadão
 
@@ -181,8 +187,9 @@ O preview pode ser considerado aprovado quando:
 
 - `npm run go-live:check` passou;
 - SQL de validação pós-migrations retornou `ok`;
-- perfis de teste foram conferidos;
 - Vercel gerou preview sem erro;
+- rotas públicas e redirecionamentos protegidos passaram no smoke test;
+- perfis de teste foram conferidos;
 - três perfis foram testados;
 - Marketplace não expôs dados pessoais antes do desbloqueio;
 - documento privado só abriu depois de autorização/desbloqueio;

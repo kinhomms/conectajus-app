@@ -5,19 +5,18 @@ Data: 2026-07-13
 Status estimado do projeto:
 
 ```text
-98%
+99,5%
 ```
 
 ## Resposta objetiva
 
 Não falta muita coisa de desenvolvimento para concluir o MVP.
 
-O código local está validado, versionado e publicado na branch `ui-v6-premium`. O que falta para considerar o projeto 100% pronto é principalmente validação externa em ambiente real:
+O código local está validado, versionado e publicado na branch `ui-v6-premium`. O Supabase real foi aplicado/validado e o preview Vercel está pronto. O que falta para considerar o projeto 100% pronto é a validação logada dos perfis reais:
 
-1. Variáveis configuradas na Vercel.
-2. Preview deploy gerado.
-3. Teste manual com cidadão, advogado e admin.
-4. Decisão final sobre legados documentados.
+1. Confirmar usuários de teste no Supabase ou usar contas reais já confirmadas.
+2. Teste manual com cidadão, advogado e admin.
+3. Decisão final sobre legados documentados.
 
 ## Já pronto localmente
 
@@ -40,37 +39,26 @@ O código local está validado, versionado e publicado na branch `ui-v6-premium`
 
 ### 1. Supabase real
 
-Ainda precisa confirmar no projeto Supabase alvo:
-
-- migrations aplicadas em ordem;
-- bucket `citizen-documents`;
-- policies de Storage;
-- tabela `admin_users`;
-- funções RPC administrativas;
-- RLS nas tabelas críticas;
-- colunas de auditoria.
-
-Comando/documento de referência:
-
 ```text
-docs/SUPABASE_POST_APPLY_VALIDATION.sql
+Concluído.
+Validação compacta retornou status ok / count 100.
 ```
 
 ### 2. Preview Vercel
 
-Ainda precisa confirmar:
-
-- repositório `kinhomms/conectajus-app`;
-- branch `ui-v6-premium`;
-- variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`;
-- build na Vercel;
-- link de preview.
-
-Guia:
-
 ```text
-docs/VERCEL_DEPLOYMENT.md
+Concluído.
+Preview pronto:
+https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app
 ```
+
+Smoke test online aprovado para:
+
+- `/`;
+- `/login`;
+- `/cadastro`;
+- `/triagem`;
+- redirecionamento de rotas protegidas para `/login`.
 
 ### 3. Teste manual real
 
@@ -98,7 +86,7 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 | Auditoria administrativa | 98% |
 | Documentação de deploy/testes | 99% |
 | Supabase real validado | concluído |
-| Preview Vercel validado | pendente |
+| Preview Vercel validado | concluído |
 | Teste manual dos 3 perfis | pendente |
 
 ## Próxima ação recomendada
@@ -109,22 +97,12 @@ Seguir a execução acelerada:
 docs/GO_LIVE_EXECUTION.md
 ```
 
-Aplicar ou confirmar as migrations no Supabase alvo e executar:
+Como o cadastro online exige confirmação por e-mail, a próxima etapa é confirmar usuários de teste no Supabase ou usar contas reais confirmadas.
 
-```text
-supabase/APPLY_ALL_MIGRATIONS.sql
-```
-
-Depois executar:
-
-```text
-docs/SUPABASE_POST_APPLY_VALIDATION.sql
-```
-
-Após criar os usuários de teste, executar também:
+Após criar/confirmar os usuários de teste, executar:
 
 ```text
 supabase/TEST_PROFILE_CHECKS.sql
 ```
 
-Se o resultado retornar `ok`, a próxima etapa é gerar o preview na Vercel e testar os três perfis.
+Se o resultado retornar `ok`, testar os três painéis no preview Vercel.
