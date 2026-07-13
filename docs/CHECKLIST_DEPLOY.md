@@ -113,6 +113,12 @@ Perfis de teste:
 docs/SUPABASE_TEST_PROFILES.md
 ```
 
+Trilha de auditoria administrativa:
+
+```text
+docs/ADMIN_AUDIT_TRAIL.md
+```
+
 ## 5. Buckets e políticas de Storage
 
 Confirmar no Supabase Storage:
@@ -166,11 +172,14 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 - Confirmar presença na tabela `admin_users`.
 - Login como admin.
 - Verificar/rejeitar OAB pendente no painel Financeiro.
+- Confirmar `verified_by` e `verified_at` após decisão de OAB.
 - Ver solicitações pendentes de crédito.
 - Aprovar e rejeitar solicitações.
+- Confirmar `decided_by` e `decided_at` após decisão de crédito.
 - Confirmar que saldo do advogado é atualizado após aprovação.
 - Ver solicitações pendentes de exclusão de conta.
 - Aprovar ou rejeitar solicitações de exclusão para tratamento administrativo.
+- Confirmar `decided_by` e `decided_at` após decisão de exclusão.
 
 ## 7. Vercel
 

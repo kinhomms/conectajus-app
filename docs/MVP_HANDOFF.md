@@ -85,6 +85,7 @@ Páginas em `src/app` permanecem pequenas e delegam para workspaces/features.
 - Cancelamento de solicitação.
 - Fila administrativa de verificação de OAB.
 - Fila administrativa de solicitações de exclusão de conta.
+- Trilha auditável para decisões administrativas de OAB, créditos e exclusão.
 
 ### Agenda
 
@@ -210,6 +211,12 @@ Política de OAB:
 docs/OAB_VERIFICATION.md
 ```
 
+Trilha de auditoria administrativa:
+
+```text
+docs/ADMIN_AUDIT_TRAIL.md
+```
+
 Fluxos mínimos:
 
 - cidadão cria triagem;
@@ -220,15 +227,18 @@ Fluxos mínimos:
 - sistema impede duplicidade de OAB/UF entre advogados;
 - advogado com OAB pendente fica bloqueado de Marketplace/Financeiro;
 - admin verifica ou rejeita OAB no painel Financeiro;
+- decisão de OAB registra administrador e data;
 - usuário edita nome/preferências em Configurações;
 - usuário solicita exclusão de conta por fluxo auditável;
 - usuário cancela solicitação pendente de exclusão, quando necessário;
 - admin aprova/rejeita solicitação pendente de exclusão no painel Financeiro;
+- decisão de exclusão registra administrador e data;
 - advogado vê oportunidade mascarada;
 - advogado desbloqueia oportunidade com créditos;
 - advogado acessa dados privados apenas após desbloqueio;
 - advogado envia oportunidade para CRM;
 - admin aprova/rejeita solicitação de créditos.
+- decisão de crédito registra administrador e data.
 
 ### 3. Vercel
 
@@ -299,6 +309,7 @@ Considerar o MVP como 100% apenas quando:
 - três perfis reais estiverem testados;
 - verificação OAB estiver validada com massa real ou controlada;
 - fila de exclusão de conta estiver validada com admin;
+- auditoria administrativa estiver validada em OAB, créditos e exclusão;
 - nenhum dado pessoal aparecer no Marketplace antes do desbloqueio;
 - documentos privados estiverem acessíveis apenas após autorização/desbloqueio;
 - decisão sobre legados estiver registrada.

@@ -165,6 +165,7 @@ docs/CHECKLIST_DEPLOY.md
 
 ## Documentação útil
 
+- `docs/ADMIN_AUDIT_TRAIL.md`
 - `docs/MVP_HANDOFF.md`
 - `docs/CHANGELOG.md`
 - `docs/ROADMAP.md`
