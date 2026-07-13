@@ -10,6 +10,7 @@ const requiredFiles = [
   "docs/SUPABASE_TEST_PROFILES.md",
   "docs/PREVIEW_READINESS.md",
   "docs/VERCEL_DEPLOYMENT.md",
+  "supabase/APPLY_ALL_MIGRATIONS.sql",
   "vercel.json",
 ];
 
@@ -57,6 +58,7 @@ const migrationOrder = await readRequiredFile("docs/SUPABASE_MIGRATION_ORDER.md"
 const applyGuide = await readRequiredFile("docs/APPLY_SUPABASE_MIGRATIONS.md");
 const validationSql = await readRequiredFile("docs/SUPABASE_POST_APPLY_VALIDATION.sql");
 const previewReadiness = await readRequiredFile("docs/PREVIEW_READINESS.md");
+const supabaseBundle = await readRequiredFile("supabase/APPLY_ALL_MIGRATIONS.sql");
 const vercelConfig = await readRequiredFile("vercel.json");
 
 await Promise.all(requiredFiles.map((relativePath) => readRequiredFile(relativePath)));
@@ -77,6 +79,16 @@ for (const fileName of documentedMigrations) {
 const latestMigration = migrationFiles.at(-1);
 if (latestMigration && !applyGuide.includes(latestMigration)) {
   errors.push(`docs/APPLY_SUPABASE_MIGRATIONS.md não menciona a migration mais recente: ${latestMigration}`);
+}
+
+if (latestMigration && !supabaseBundle.includes(latestMigration)) {
+  errors.push(`supabase/APPLY_ALL_MIGRATIONS.sql não menciona a migration mais recente: ${latestMigration}`);
+}
+
+for (const fileName of migrationFiles) {
+  if (!supabaseBundle.includes(fileName)) {
+    errors.push(`Bundle Supabase não inclui migration: ${fileName}`);
+  }
 }
 
 for (const needle of validationNeedles) {

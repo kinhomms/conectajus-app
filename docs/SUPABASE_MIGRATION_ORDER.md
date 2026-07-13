@@ -2,6 +2,18 @@
 
 Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do Supabase ou validar a ordem antes de usar `supabase db push`.
 
+Para aplicação manual mais simples, use também:
+
+```text
+supabase/APPLY_ALL_MIGRATIONS.sql
+```
+
+Esse bundle pode ser regenerado com:
+
+```bash
+npm run supabase:bundle
+```
+
 ## Ordem cronológica
 
 1. `20260710120000_create_marketplace_opportunities.sql`

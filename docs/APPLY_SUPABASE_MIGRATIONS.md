@@ -4,6 +4,30 @@ Este projeto ainda não possui `supabase/config.toml` nem Supabase CLI disponív
 
 Enquanto o projeto não estiver linkado ao Supabase CLI, aplique as migrations pelo Supabase Dashboard.
 
+## Caminho recomendado — bundle manual
+
+Para reduzir erro manual de ordem, este repositório possui um bundle consolidado:
+
+```text
+supabase/APPLY_ALL_MIGRATIONS.sql
+```
+
+Esse arquivo é gerado a partir das migrations originais com:
+
+```bash
+npm run supabase:bundle
+```
+
+Uso recomendado:
+
+1. Abrir o projeto Supabase correto.
+2. Acessar SQL Editor.
+3. Executar `supabase/APPLY_ALL_MIGRATIONS.sql`.
+4. Depois executar `docs/SUPABASE_POST_APPLY_VALIDATION.sql`.
+5. Confirmar que os grupos principais retornam `ok`.
+
+As migrations originais em `supabase/migrations` continuam sendo a fonte de verdade.
+
 ## Opção A — Supabase Dashboard
 
 1. Abrir o projeto Supabase correto.

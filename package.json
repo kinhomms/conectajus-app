@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "preflight:preview": "node scripts/preflight-preview.mjs",
+    "supabase:bundle": "node scripts/build-supabase-bundle.mjs",
     "validate": "npm run preflight:preview && npm run lint && npm run build"
   },
   "dependencies": {

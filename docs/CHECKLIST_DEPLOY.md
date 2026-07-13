@@ -90,6 +90,12 @@ Guia de aplicação:
 docs/APPLY_SUPABASE_MIGRATIONS.md
 ```
 
+Bundle manual consolidado:
+
+```text
+supabase/APPLY_ALL_MIGRATIONS.sql
+```
+
 Ordem completa:
 
 ```text

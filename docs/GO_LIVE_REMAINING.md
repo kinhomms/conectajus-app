@@ -108,6 +108,12 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 Aplicar ou confirmar as migrations no Supabase alvo e executar:
 
 ```text
+supabase/APPLY_ALL_MIGRATIONS.sql
+```
+
+Depois executar:
+
+```text
 docs/SUPABASE_POST_APPLY_VALIDATION.sql
 ```
 
