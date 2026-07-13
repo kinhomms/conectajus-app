@@ -2,6 +2,7 @@ import * as financeRepository from "@/features/finance/repositories/finance.repo
 import type {
   CreditPackage,
   FinanceIntegrationStatus,
+  LawyerVerificationStatus,
 } from "@/features/finance/types/finance.types";
 
 export const creditPackages: CreditPackage[] = [
@@ -72,6 +73,14 @@ export async function rejectCreditPurchaseRequest(requestId: string) {
   return financeRepository.rejectCreditPurchaseRequest(requestId);
 }
 
+export async function listPendingLawyerProfiles() {
+  return financeRepository.listPendingLawyerProfiles();
+}
+
+export async function updateLawyerVerificationStatus(userId: string, status: LawyerVerificationStatus) {
+  return financeRepository.updateLawyerVerificationStatus(userId, status);
+}
+
 export function getFinanceIntegrationStatus(): FinanceIntegrationStatus {
   return {
     configured: true,
@@ -80,6 +89,7 @@ export function getFinanceIntegrationStatus(): FinanceIntegrationStatus {
       "Tabela lawyer_credit_transactions com histórico de créditos.",
       "Tabela lawyer_credit_purchase_requests com solicitações pendentes de compra.",
       "RPCs administrativas para aprovação/rejeição segura de créditos.",
+      "Tabela lawyer_profiles para validação administrativa de OAB antes de liberar Marketplace.",
       "Tabela marketplace_opportunity_unlocks com auditoria de desbloqueios.",
       "Integração futura com provedor de pagamento para compra automática.",
     ],

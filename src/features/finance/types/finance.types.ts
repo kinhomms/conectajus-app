@@ -44,6 +44,19 @@ export type CreditPackage = {
   description: string;
 };
 
+export type LawyerVerificationStatus = "pending" | "verified" | "rejected";
+
+export type LawyerProfile = {
+  user_id: string;
+  full_name: string;
+  email: string;
+  oab_number: string;
+  oab_state: string;
+  verification_status: LawyerVerificationStatus;
+  created_at: string;
+  updated_at: string;
+};
+
 export type EnsureCreditAccountResult = {
   user_id: string;
   balance: number;

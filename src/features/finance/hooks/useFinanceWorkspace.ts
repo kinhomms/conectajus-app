@@ -10,18 +10,22 @@ import {
   ensureCreditAccount,
   getCreditAccount,
   isCurrentUserAdmin,
+  listPendingLawyerProfiles,
   listAdminPendingCreditPurchaseRequests,
   listCreditPurchaseRequests,
   listCreditTransactions,
   rejectCreditPurchaseRequest,
   requestCreditPurchase,
+  updateLawyerVerificationStatus,
 } from "@/features/finance/services/finance.service";
 import type {
   AdminCreditPurchaseRequest,
   CreditPackage,
   CreditPurchaseRequest,
   LawyerCreditAccount,
+  LawyerProfile,
   LawyerCreditTransaction,
+  LawyerVerificationStatus,
 } from "@/features/finance/types/finance.types";
 
 export function useFinanceWorkspace() {
@@ -31,7 +35,9 @@ export function useFinanceWorkspace() {
   const [canAccessFinance, setCanAccessFinance] = useState(false);
   const [cancelingRequestId, setCancelingRequestId] = useState("");
   const [decidingRequestId, setDecidingRequestId] = useState("");
+  const [decidingLawyerId, setDecidingLawyerId] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [lawyerProfilesPendingVerification, setLawyerProfilesPendingVerification] = useState<LawyerProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [purchaseRequests, setPurchaseRequests] = useState<CreditPurchaseRequest[]>([]);
@@ -42,11 +48,12 @@ export function useFinanceWorkspace() {
   const refreshFinance = useCallback(async (targetUserId: string, adminMode = isAdmin) => {
     setMessage("");
 
-    const [accountResponse, transactionsResponse, purchaseRequestsResponse, adminRequestsResponse] = await Promise.all([
+    const [accountResponse, transactionsResponse, purchaseRequestsResponse, adminRequestsResponse, lawyerProfilesResponse] = await Promise.all([
       getCreditAccount(targetUserId),
       listCreditTransactions(targetUserId),
       listCreditPurchaseRequests(targetUserId),
       adminMode ? listAdminPendingCreditPurchaseRequests() : Promise.resolve({ data: [], error: null }),
+      adminMode ? listPendingLawyerProfiles() : Promise.resolve({ data: [], error: null }),
     ]);
 
     if (accountResponse.error) {
@@ -74,6 +81,12 @@ export function useFinanceWorkspace() {
       setAdminPendingRequests([]);
     } else {
       setAdminPendingRequests((adminRequestsResponse.data as AdminCreditPurchaseRequest[] | null) ?? []);
+    }
+
+    if (lawyerProfilesResponse.error) {
+      setLawyerProfilesPendingVerification([]);
+    } else {
+      setLawyerProfilesPendingVerification((lawyerProfilesResponse.data as LawyerProfile[] | null) ?? []);
     }
   }, [isAdmin]);
 
@@ -221,6 +234,25 @@ export function useFinanceWorkspace() {
     await refreshFinance(userId, true);
   }
 
+  async function handleDecideLawyerVerification(userIdToVerify: string, status: LawyerVerificationStatus) {
+    if (!isAdmin) return;
+
+    setMessage("");
+    setDecidingLawyerId(userIdToVerify);
+
+    const { error } = await updateLawyerVerificationStatus(userIdToVerify, status);
+
+    setDecidingLawyerId("");
+
+    if (error) {
+      setMessage("Não foi possível atualizar a validação da OAB.");
+      return;
+    }
+
+    setMessage(status === "verified" ? "OAB verificada. Advogado liberado para Marketplace." : "OAB rejeitada. Advogado permanece bloqueado.");
+    await refreshFinance(userId, true);
+  }
+
   return {
     account,
     adminPendingRequests,
@@ -228,12 +260,15 @@ export function useFinanceWorkspace() {
     cancelingRequestId,
     consumedCredits,
     decidingRequestId,
+    decidingLawyerId,
     financeInsights,
     handleApproveRequest,
     handleCancelRequest,
+    handleDecideLawyerVerification,
     handleRejectRequest,
     handleRequestCreditPurchase,
     isAdmin,
+    lawyerProfilesPendingVerification,
     loading,
     message,
     pendingCredits,

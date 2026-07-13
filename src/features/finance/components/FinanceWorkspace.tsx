@@ -11,6 +11,7 @@ import {
 import type {
   AdminCreditPurchaseRequest,
   CreditPurchaseRequest,
+  LawyerProfile,
   LawyerCreditTransaction,
 } from "@/features/finance/types/finance.types";
 
@@ -123,6 +124,39 @@ export function FinanceWorkspace() {
                       onApprove={finance.handleApproveRequest}
                       onReject={finance.handleRejectRequest}
                       request={request}
+                    />
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
+
+          {finance.isAdmin && (
+            <section className="rounded-3xl border border-sky-400/20 bg-[#111827] p-6 shadow-xl shadow-black/20">
+              <div className="mb-5">
+                <p className="text-xs uppercase tracking-[0.25em] text-sky-300">
+                  Validação OAB
+                </p>
+                <h2 className="mt-2 text-2xl font-bold">Advogados aguardando conferência</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-400">
+                  O Marketplace e o Financeiro ficam bloqueados até a OAB ser marcada como verificada. Confira nome, UF e número em fonte externa confiável antes de aprovar.
+                </p>
+              </div>
+
+              {finance.lawyerProfilesPendingVerification.length === 0 ? (
+                <EmptyState
+                  title="Nenhuma OAB pendente"
+                  description="Cadastros de advogados aguardando validação aparecerão aqui."
+                />
+              ) : (
+                <div className="space-y-3">
+                  {finance.lawyerProfilesPendingVerification.map((profile) => (
+                    <LawyerVerificationCard
+                      key={profile.user_id}
+                      deciding={finance.decidingLawyerId === profile.user_id}
+                      onReject={(userId) => finance.handleDecideLawyerVerification(userId, "rejected")}
+                      onVerify={(userId) => finance.handleDecideLawyerVerification(userId, "verified")}
+                      profile={profile}
                     />
                   ))}
                 </div>
@@ -254,7 +288,7 @@ function RestrictedFinance() {
         </p>
         <h1 className="mt-3 text-3xl font-black">Financeiro exclusivo para advogados parceiros</h1>
         <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-400">
-          Créditos são usados para desbloquear oportunidades jurídicas no Marketplace. Se você é cidadão, continue pela triagem para organizar seu caso.
+          Créditos são usados para desbloquear oportunidades jurídicas no Marketplace. Advogados recém-cadastrados precisam aguardar a validação administrativa da OAB antes de acessar créditos. Se você é cidadão, continue pela triagem para organizar seu caso.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link
@@ -430,6 +464,54 @@ function AdminPurchaseRequestCard({
             className="rounded-xl bg-emerald-400 px-3 py-2 text-xs font-black text-black hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {deciding ? "Processando..." : "Aprovar"}
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function LawyerVerificationCard({
+  deciding,
+  onReject,
+  onVerify,
+  profile,
+}: {
+  deciding: boolean;
+  onReject: (userId: string) => void;
+  onVerify: (userId: string) => void;
+  profile: LawyerProfile;
+}) {
+  return (
+    <article className="rounded-2xl border border-white/10 bg-[#0B0F19] p-4">
+      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
+        <div>
+          <p className="font-bold text-white">{profile.full_name}</p>
+          <p className="mt-1 text-xs text-slate-500">{profile.email}</p>
+          <p className="mt-3 inline-flex rounded-full bg-sky-400/10 px-3 py-1 text-xs font-black text-sky-200">
+            OAB {profile.oab_state} {profile.oab_number}
+          </p>
+          <p className="mt-2 text-xs text-slate-500">
+            Cadastro: {new Date(profile.created_at).toLocaleString("pt-BR")}
+          </p>
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => onReject(profile.user_id)}
+            disabled={deciding}
+            className="rounded-xl border border-red-400/30 px-3 py-2 text-xs font-black text-red-200 hover:bg-red-400/10 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            Rejeitar
+          </button>
+          <button
+            type="button"
+            onClick={() => onVerify(profile.user_id)}
+            disabled={deciding}
+            className="rounded-xl bg-sky-300 px-3 py-2 text-xs font-black text-black hover:bg-sky-200 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {deciding ? "Processando..." : "Verificar OAB"}
           </button>
         </div>
       </div>

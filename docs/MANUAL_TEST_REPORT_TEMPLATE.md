@@ -115,6 +115,8 @@ Observações:
 - [ ] Confirmar que cadastro de advogado exige UF da OAB.
 - [ ] Tentar cadastrar outro advogado com a mesma OAB/UF.
 - [ ] Confirmar bloqueio de OAB/UF duplicada.
+- [ ] Confirmar que advogado com OAB pendente não acessa `/marketplace`.
+- [ ] Confirmar que advogado com OAB pendente não acessa `/financeiro`.
 - [ ] Abrir `/dashboard`.
 - [ ] Abrir `/marketplace`.
 - [ ] Ver oportunidades mascaradas.
@@ -147,6 +149,10 @@ Observações:
 - [ ] Confirmar usuário admin em `public.admin_users`.
 - [ ] Fazer login como admin.
 - [ ] Abrir `/financeiro`.
+- [ ] Visualizar fila de OABs pendentes.
+- [ ] Aprovar OAB após conferência externa de nome/UF/número.
+- [ ] Rejeitar OAB em massa de teste.
+- [ ] Confirmar que advogado verificado acessa Marketplace/Financeiro.
 - [ ] Visualizar solicitações pendentes de crédito.
 - [ ] Aprovar uma solicitação.
 - [ ] Confirmar atualização do saldo do advogado.

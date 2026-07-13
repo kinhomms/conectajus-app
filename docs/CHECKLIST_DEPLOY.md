@@ -73,11 +73,12 @@ Antes do deploy final, confirmar que todas as migrations foram aplicadas no proj
 - Relação estruturada entre oportunidade original e triagem complementar.
 - Hardening de propriedade da oportunidade original em triagens complementares.
 - Cadastro de advogado com OAB/UF e validação de duplicidade por OAB/UF.
+- Bloqueio automático de Marketplace/Financeiro até a OAB do advogado ser marcada como verificada.
 
 Migration mais recente a confirmar/aplicar:
 
 ```text
-supabase/migrations/20260713113000_create_lawyer_profiles_oab_validation.sql
+supabase/migrations/20260713114500_require_verified_oab_for_marketplace.sql
 ```
 
 Guia de aplicação:
@@ -96,6 +97,12 @@ Checklist SQL pós-aplicação:
 
 ```text
 docs/SUPABASE_POST_APPLY_VALIDATION.sql
+```
+
+Política de verificação OAB:
+
+```text
+docs/OAB_VERIFICATION.md
 ```
 
 ## 5. Buckets e políticas de Storage
@@ -134,6 +141,7 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 ### Advogado
 
 - Criar/login como advogado.
+- Confirmar que advogado com OAB pendente não acessa Marketplace/Financeiro.
 - Acessar Dashboard executivo.
 - Ver Marketplace.
 - Filtrar oportunidades por original/complemento.
@@ -149,6 +157,7 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 
 - Confirmar presença na tabela `admin_users`.
 - Login como admin.
+- Verificar/rejeitar OAB pendente no painel Financeiro.
 - Ver solicitações pendentes de crédito.
 - Aprovar e rejeitar solicitações.
 - Confirmar que saldo do advogado é atualizado após aprovação.

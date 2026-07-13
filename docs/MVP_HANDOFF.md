@@ -200,6 +200,12 @@ Modelo de registro:
 docs/MANUAL_TEST_REPORT_TEMPLATE.md
 ```
 
+Política de OAB:
+
+```text
+docs/OAB_VERIFICATION.md
+```
+
 Fluxos mínimos:
 
 - cidadão cria triagem;
@@ -208,6 +214,8 @@ Fluxos mínimos:
 - sistema bloqueia tentativa de criar outra conta com e-mail já cadastrado;
 - advogado informa OAB/UF no cadastro;
 - sistema impede duplicidade de OAB/UF entre advogados;
+- advogado com OAB pendente fica bloqueado de Marketplace/Financeiro;
+- admin verifica ou rejeita OAB no painel Financeiro;
 - advogado vê oportunidade mascarada;
 - advogado desbloqueia oportunidade com créditos;
 - advogado acessa dados privados apenas após desbloqueio;

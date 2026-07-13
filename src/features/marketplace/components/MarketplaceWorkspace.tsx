@@ -221,7 +221,7 @@ function RestrictedMarketplace() {
         </p>
         <h1 className="mt-3 text-3xl font-black">Marketplace exclusivo para advogados parceiros</h1>
         <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-400">
-          O Marketplace exibe oportunidades jurídicas mascaradas para advogados habilitados. Se você é cidadão, continue pela triagem para organizar seu caso com segurança.
+          O Marketplace exibe oportunidades jurídicas mascaradas para advogados com OAB verificada. Se você é advogado recém-cadastrado, aguarde a validação administrativa da OAB. Se você é cidadão, continue pela triagem para organizar seu caso com segurança.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link

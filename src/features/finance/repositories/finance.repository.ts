@@ -5,6 +5,8 @@ import type {
   CreditRequestDecisionResult,
   EnsureCreditAccountResult,
   LawyerCreditAccount,
+  LawyerProfile,
+  LawyerVerificationStatus,
   LawyerCreditTransaction,
 } from "@/features/finance/types/finance.types";
 
@@ -12,6 +14,8 @@ const accountFields = "user_id, balance, updated_at";
 const transactionFields = "id, user_id, amount, transaction_type, metadata, created_at";
 const purchaseRequestFields =
   "id, user_id, requested_credits, amount_cents, currency, status, notes, created_at, updated_at";
+const lawyerProfileFields =
+  "user_id, full_name, email, oab_number, oab_state, verification_status, created_at, updated_at";
 
 export type CreateCreditPurchaseRequestInput = {
   user_id: string;
@@ -91,4 +95,22 @@ export async function cancelCreditPurchaseRequest(requestId: string) {
   return supabase
     .rpc("cancel_credit_purchase_request", { target_request_id: requestId })
     .single<CreditRequestDecisionResult>();
+}
+
+export async function listPendingLawyerProfiles() {
+  return supabase
+    .from("lawyer_profiles")
+    .select(lawyerProfileFields)
+    .eq("verification_status", "pending")
+    .order("created_at", { ascending: true })
+    .returns<LawyerProfile[]>();
+}
+
+export async function updateLawyerVerificationStatus(userId: string, status: LawyerVerificationStatus) {
+  return supabase
+    .from("lawyer_profiles")
+    .update({ verification_status: status })
+    .eq("user_id", userId)
+    .select(lawyerProfileFields)
+    .single<LawyerProfile>();
 }
