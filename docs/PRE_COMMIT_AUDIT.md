@@ -251,6 +251,6 @@ Observação:
 
 ## Status estimado
 
-Andamento estimado: 93%.
+Andamento estimado: 97%.
 
-O projeto está próximo de preview/deploy, mas ainda depende de validação Supabase e decisão sobre limpeza de legados.
+O projeto está aprovado em validação local de lint/build e próximo de preview/deploy, mas ainda depende de validação Supabase, testes com perfis reais e decisão sobre limpeza de legados.

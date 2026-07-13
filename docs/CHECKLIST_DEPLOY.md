@@ -157,9 +157,9 @@ Antes de publicar:
 
 ## 10. Percentual estimado
 
-Status atual estimado: 93%.
+Status atual estimado: 97%.
 
-O projeto está funcional em build local e próximo de readiness para preview/deploy, mas ainda depende de:
+O projeto está funcional em build local, com lint e build passando, e próximo de readiness para preview/deploy. Ainda depende de:
 
 - aplicação/validação das migrations no Supabase alvo;
 - teste manual com perfis reais;
