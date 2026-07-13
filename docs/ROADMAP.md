@@ -4,7 +4,7 @@ O ConectaJus é um Ecossistema Jurídico Inteligente, não apenas um CRM.
 
 ## Fase atual — Pré-MVP funcional
 
-Status estimado: 97%.
+Status estimado: 98%.
 
 Objetivo desta fase:
 
@@ -12,6 +12,7 @@ Objetivo desta fase:
 - consolidar operação jurídica;
 - validar Marketplace com créditos;
 - proteger dados pessoais;
+- consolidar auditoria administrativa;
 - preparar preview/deploy.
 
 ## Prioridade 1 — Validação Supabase e perfis reais
@@ -20,11 +21,13 @@ Objetivo desta fase:
 - Confirmar bucket `citizen-documents`.
 - Confirmar policies de Storage.
 - Confirmar tabela `admin_users`.
+- Confirmar trilha auditável de OAB, créditos e exclusão.
 - Testar usuário cidadão.
 - Testar usuário advogado.
 - Testar usuário admin.
 - Testar bloqueio de rotas por URL direta.
 - Testar desbloqueio de oportunidade e abertura de documento privado.
+- Testar decisões administrativas com `verified_by`, `decided_by`, `verified_at` e `decided_at`.
 
 ## Prioridade 2 — Preview deploy
 
@@ -92,6 +95,7 @@ Recomendação:
 - Gestão de usuários.
 - Gestão de advogados parceiros.
 - Auditoria de desbloqueios.
+- Relatórios administrativos de decisões sensíveis.
 - Métricas globais de conversão.
 
 ## Critério de pronto para MVP
@@ -101,4 +105,5 @@ Recomendação:
 - Supabase validado.
 - Perfis reais testados.
 - Preview deploy validado.
+- Auditoria administrativa validada.
 - Legados decididos ou documentados.

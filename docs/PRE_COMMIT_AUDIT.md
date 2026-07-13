@@ -65,6 +65,7 @@ Inclui:
 - pacotes;
 - solicitações;
 - aprovação/rejeição administrativa;
+- auditoria de decisões administrativas de créditos;
 - indicadores de saúde do saldo.
 
 ### Agenda
@@ -127,6 +128,8 @@ Inclui:
 - perfil;
 - privacidade;
 - segurança;
+- preferências;
+- solicitação/cancelamento de exclusão de conta;
 - atalhos por perfil;
 - logout.
 
@@ -163,12 +166,16 @@ Inclui migrations para:
 - vínculo Marketplace → CRM;
 - documentos complementares;
 - parent/child de triagens complementares;
-- hardening de ownership do `parent_opportunity_id`.
+- hardening de ownership do `parent_opportunity_id`;
+- cadastro de advogado com OAB/UF e bloqueio até validação;
+- auditoria administrativa de OAB;
+- solicitação e decisão auditável de exclusão de conta;
+- auditoria administrativa de decisões de crédito.
 
 Migration mais recente:
 
 ```text
-20260713100000_harden_complement_parent_ownership.sql
+20260713130000_audit_credit_purchase_request_decisions.sql
 ```
 
 ## Documentação adicionada/atualizada
@@ -178,6 +185,9 @@ Migration mais recente:
 - `docs/LEGACY_AUDIT.md`
 - `docs/PROFILE_ACCESS_AUDIT.md`
 - `docs/SUPABASE_RLS_AUDIT.md`
+- `docs/ADMIN_AUDIT_TRAIL.md`
+- `docs/SUPABASE_TEST_PROFILES.md`
+- `docs/PREVIEW_READINESS.md`
 - `docs/PRE_COMMIT_AUDIT.md`
 
 ## Arquivos legados identificados
@@ -251,6 +261,6 @@ Observação:
 
 ## Status estimado
 
-Andamento estimado: 97%.
+Andamento estimado: 98%.
 
-O projeto está aprovado em validação local de lint/build e próximo de preview/deploy, mas ainda depende de validação Supabase, testes com perfis reais e decisão sobre limpeza de legados.
+O projeto está aprovado em validação local de lint/build e próximo de preview/deploy, mas ainda depende de validação Supabase, testes com perfis reais, preview Vercel e decisão sobre limpeza de legados.
