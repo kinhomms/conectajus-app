@@ -18,9 +18,12 @@ Objetivo desta fase:
 ## Prioridade 1 — Validação Supabase e perfis reais
 
 - Aplicar migrations pendentes no Supabase alvo.
+- Usar `supabase/APPLY_ALL_MIGRATIONS.sql` para reduzir erro manual de ordem, quando aplicar pelo SQL Editor.
 - Confirmar bucket `citizen-documents`.
 - Confirmar policies de Storage.
 - Confirmar tabela `admin_users`.
+- Executar `docs/SUPABASE_POST_APPLY_VALIDATION.sql`.
+- Executar `supabase/TEST_PROFILE_CHECKS.sql` após criar os usuários de teste.
 - Confirmar trilha auditável de OAB, créditos e exclusão.
 - Testar usuário cidadão.
 - Testar usuário advogado.
@@ -36,6 +39,7 @@ Objetivo desta fase:
 - Configurar variáveis:
   - `NEXT_PUBLIC_SUPABASE_URL`;
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- Confirmar que a Vercel usa `npm run validate` como build command.
 - Rodar preview deploy.
 - Validar rotas principais.
 

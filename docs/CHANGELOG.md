@@ -10,8 +10,12 @@ Todas as mudanças relevantes deste ciclo estão agrupadas por área funcional.
 - Removida dependência de download externo de Google Fonts no build, deixando fontes com fallback local/sistema.
 - Criado guia `docs/PREVIEW_READINESS.md`.
 - Criado runbook `docs/SUPABASE_TEST_PROFILES.md`.
+- Criado bundle `supabase/APPLY_ALL_MIGRATIONS.sql` para aplicação manual das migrations em ordem.
+- Criado SQL `supabase/TEST_PROFILE_CHECKS.sql` para diagnosticar perfis reais de preview.
 - Criado documento `docs/ADMIN_AUDIT_TRAIL.md`.
 - Atualizado roteiro de teste manual com checks de auditoria administrativa.
+- Vercel configurada para rodar `npm run validate` no build de preview.
+- `npm run validate` passou a executar preflight de preview antes de lint/build.
 - Status de readiness sincronizado para 98%.
 
 ### Adicionado
@@ -70,13 +74,15 @@ Todas as mudanças relevantes deste ciclo estão agrupadas por área funcional.
 ### Validação
 
 - `npm run validate` passando.
+- `npm run preflight:preview` conferindo migrations, bundle Supabase, guias críticos e configuração Vercel.
 - Build atual com 16 rotas.
 - GitHub Actions configurado para validar `main` e `ui-v6-premium`.
 
 ## Pendências conhecidas
 
-- Aplicar/confirmar migrations no Supabase alvo.
+- Aplicar/confirmar migrations no Supabase alvo usando `supabase/APPLY_ALL_MIGRATIONS.sql` ou migrations individuais.
 - Executar `docs/SUPABASE_POST_APPLY_VALIDATION.sql`.
+- Executar `supabase/TEST_PROFILE_CHECKS.sql` após criar os usuários de teste.
 - Gerar e validar preview Vercel.
 - Testar fluxos com perfis reais: cidadão, advogado e admin.
 - Validar trilha administrativa em OAB, créditos e exclusão.

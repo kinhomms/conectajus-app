@@ -37,9 +37,10 @@ Este ambiente local não possui CLI da Vercel, Supabase ou GitHub disponível. P
 Antes de testar o preview, confirmar:
 
 - `npm run validate` aprovado, incluindo `preflight:preview`;
-- migrations aplicadas no Supabase alvo;
+- migrations aplicadas no Supabase alvo, preferencialmente via `supabase/APPLY_ALL_MIGRATIONS.sql`;
 - `docs/SUPABASE_POST_APPLY_VALIDATION.sql` retornando `ok`;
 - perfis de teste preparados conforme `docs/SUPABASE_TEST_PROFILES.md`;
+- `supabase/TEST_PROFILE_CHECKS.sql` executado após criar cidadão, advogado e admin de teste;
 - variáveis configuradas na Vercel:
   - `NEXT_PUBLIC_SUPABASE_URL`;
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`;
@@ -79,8 +80,10 @@ Antes de testar o preview, confirmar:
 docs/VERCEL_DEPLOYMENT.md
 docs/APPLY_SUPABASE_MIGRATIONS.md
 docs/SUPABASE_MIGRATION_ORDER.md
+supabase/APPLY_ALL_MIGRATIONS.sql
 docs/SUPABASE_POST_APPLY_VALIDATION.sql
 docs/SUPABASE_TEST_PROFILES.md
+supabase/TEST_PROFILE_CHECKS.sql
 docs/ADMIN_AUDIT_TRAIL.md
 docs/MANUAL_TEST_REPORT_TEMPLATE.md
 docs/MVP_HANDOFF.md
