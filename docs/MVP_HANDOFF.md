@@ -127,7 +127,13 @@ Páginas em `src/app` permanecem pequenas e delegam para workspaces/features.
 npm run validate
 ```
 
-Esse comando executa lint e build de produção.
+Esse comando executa:
+
+- `npm run preflight:preview`;
+- lint;
+- build de produção.
+
+O preflight confere migrations, ordem documentada, guias de Supabase/Vercel e itens de auditoria administrativa antes do build.
 
 O GitHub Actions também executa esse comando em:
 
