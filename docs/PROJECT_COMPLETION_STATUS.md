@@ -10,10 +10,10 @@ ui-v6-premium
 
 ## Percentual executivo
 
-Status geral estimado após aplicação/validação do Supabase real e preview Vercel pronto:
+Status geral estimado após aplicação/validação do Supabase real, preview Vercel pronto e perfil cidadão testado:
 
 ```text
-99,5%
+99,7%
 ```
 
 Leitura correta desse percentual:
@@ -23,7 +23,8 @@ Leitura correta desse percentual:
 - o Supabase real já foi aplicado e validado;
 - o preview Vercel da branch `ui-v6-premium` está pronto;
 - o smoke test de rotas online passou;
-- o que falta para 100% é concluir o teste logado dos perfis reais.
+- o perfil cidadão foi testado com conta real confirmada;
+- o que falta para 100% é concluir o teste logado de advogado e administrador.
 
 ## Evolução por área
 
@@ -31,14 +32,14 @@ Leitura correta desse percentual:
 | --- | ---: | --- |
 | Código local Next.js/React/TypeScript | 99% | Validado com build, lint e preflight. |
 | Arquitetura por features | 99% | Preservada em `src/features`, `src/app` e `src/components`. |
-| Portal do Cidadão | 98% | Triagem, documentos, dashboard, configurações e navegação revisados. |
+| Portal do Cidadão | 100% | Testado em preview com conta real: dashboard, triagem, documentos, configurações, navegação e bloqueios. |
 | Portal do Advogado | 98% | Marketplace, Financeiro, CRM e bloqueio por OAB implementados. |
 | Admin operacional | 97% | Filas de OAB, créditos e exclusão com auditoria. |
 | Marketplace jurídico | 98% | Leads mascarados, desbloqueio por créditos e envio para CRM. |
 | Supabase schema/migrations | 100% | Bundle aplicado no Supabase real e validação compacta retornou `ok = 100`. |
 | RLS e proteção de dados | 99% | Validação estrutural real aprovada; falta smoke test dos perfis. |
 | Vercel preview | 100% | Preview da branch `ui-v6-premium` pronto e smoke test de rotas aprovado. |
-| Testes reais dos 3 perfis | pendente | Cadastro online exige confirmação por e-mail; teste logado requer confirmar usuários no Supabase ou usar contas reais. |
+| Testes reais dos 3 perfis | 1/3 | Cidadão validado; faltam advogado e administrador com contas reais/confirmadas. |
 
 ## Já concluído e validado localmente
 
@@ -66,6 +67,8 @@ https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app
 ```
 
 - Smoke test online aprovado para rotas públicas e redirecionamento de rotas protegidas.
+- Teste logado do cidadão aprovado em preview.
+- Relatório registrado em `docs/MANUAL_TEST_REPORT_20260713_PREVIEW.md`.
 
 ## Rotas confirmadas no build
 
@@ -88,13 +91,12 @@ https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app
 
 ### 1. Perfis de teste reais logados
 
-Criar:
+Preparar:
 
-- cidadão;
 - advogado;
 - admin.
 
-O cadastro online foi testado, mas o Supabase exige confirmação por e-mail.
+O cidadão já foi testado com conta real confirmada. Para os perfis restantes, o cadastro online pode exigir confirmação por e-mail.
 
 Para concluir o teste automatizado dos painéis, é necessário:
 
@@ -112,8 +114,6 @@ supabase/TEST_PROFILE_CHECKS.sql
 
 Testar:
 
-- visitante;
-- cidadão;
 - advogado;
 - admin.
 

@@ -5,17 +5,17 @@ Data: 2026-07-13
 Status estimado do projeto:
 
 ```text
-99,5%
+99,7%
 ```
 
 ## Resposta objetiva
 
 Não falta muita coisa de desenvolvimento para concluir o MVP.
 
-O código local está validado, versionado e publicado na branch `ui-v6-premium`. O Supabase real foi aplicado/validado e o preview Vercel está pronto. O que falta para considerar o projeto 100% pronto é a validação logada dos perfis reais:
+O código local está validado, versionado e publicado na branch `ui-v6-premium`. O Supabase real foi aplicado/validado, o preview Vercel está pronto e o perfil cidadão já foi testado com conta real. O que falta para considerar o projeto 100% pronto é a validação logada dos perfis advogado e administrador:
 
-1. Confirmar usuários de teste no Supabase ou usar contas reais já confirmadas.
-2. Teste manual com cidadão, advogado e admin.
+1. Confirmar usuários de teste de advogado/admin no Supabase ou usar contas reais já confirmadas.
+2. Teste manual com advogado e admin.
 3. Decisão final sobre legados documentados.
 
 ## Já pronto localmente
@@ -34,6 +34,8 @@ O código local está validado, versionado e publicado na branch `ui-v6-premium`
 - Bloqueio de Marketplace/Financeiro enquanto OAB não estiver verificada.
 - Admin com filas de OAB, créditos e exclusão de conta.
 - Auditoria administrativa com `verified_by`, `verified_at`, `decided_by` e `decided_at`.
+- Perfil cidadão testado no preview com conta real confirmada.
+- Relatório real criado em `docs/MANUAL_TEST_REPORT_20260713_PREVIEW.md`.
 
 ## O que impede dizer 100%
 
@@ -60,11 +62,10 @@ Smoke test online aprovado para:
 - `/triagem`;
 - redirecionamento de rotas protegidas para `/login`.
 
-### 3. Teste manual real
+### 3. Teste manual real restante
 
-Fluxos mínimos:
+Fluxos mínimos restantes:
 
-- cidadão cria conta, faz triagem, publica demanda e envia documento;
 - advogado cadastra OAB, fica bloqueado até validação, acessa Marketplace após aprovação e desbloqueia lead;
 - admin aprova/rejeita OAB, crédito e exclusão de conta;
 - dados pessoais não aparecem antes do desbloqueio;
@@ -87,7 +88,7 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 | Documentação de deploy/testes | 99% |
 | Supabase real validado | concluído |
 | Preview Vercel validado | concluído |
-| Teste manual dos 3 perfis | pendente |
+| Teste manual dos 3 perfis | 1/3 concluído |
 
 ## Próxima ação recomendada
 
@@ -97,7 +98,7 @@ Seguir a execução acelerada:
 docs/GO_LIVE_EXECUTION.md
 ```
 
-Como o cadastro online exige confirmação por e-mail, a próxima etapa é confirmar usuários de teste no Supabase ou usar contas reais confirmadas.
+Como o cadastro online pode exigir confirmação por e-mail, a próxima etapa é confirmar usuários de teste de advogado/admin no Supabase ou usar contas reais confirmadas.
 
 Após criar/confirmar os usuários de teste, executar:
 
@@ -105,4 +106,4 @@ Após criar/confirmar os usuários de teste, executar:
 supabase/TEST_PROFILE_CHECKS.sql
 ```
 
-Se o resultado retornar `ok`, testar os três painéis no preview Vercel.
+Se o resultado retornar `ok`, testar os painéis de advogado e administrador no preview Vercel.
