@@ -40,6 +40,14 @@ Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do
 
 ## Validação após aplicar
 
+No SQL Editor do Supabase, executar o checklist somente-leitura:
+
+```text
+docs/SUPABASE_POST_APPLY_VALIDATION.sql
+```
+
+Todos os grupos devem retornar `ok` para os objetos esperados.
+
 No projeto local:
 
 ```bash

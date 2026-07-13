@@ -62,6 +62,14 @@ notify pgrst, 'reload schema';
 
 ## Teste após aplicar
 
+No SQL Editor do Supabase, executar:
+
+```text
+docs/SUPABASE_POST_APPLY_VALIDATION.sql
+```
+
+Esse script não altera o banco. Ele apenas confirma se tabelas, colunas, funções, policies RLS e bucket privado essenciais existem.
+
 Validar:
 
 - cidadão cria triagem principal;

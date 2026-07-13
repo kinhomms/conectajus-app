@@ -77,6 +77,12 @@ Ordem completa:
 docs/SUPABASE_MIGRATION_ORDER.md
 ```
 
+Checklist SQL pós-aplicação:
+
+```text
+docs/SUPABASE_POST_APPLY_VALIDATION.sql
+```
+
 ## 5. Buckets e políticas de Storage
 
 Confirmar no Supabase Storage:
