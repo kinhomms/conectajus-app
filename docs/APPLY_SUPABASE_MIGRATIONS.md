@@ -15,7 +15,7 @@ Enquanto o projeto não estiver linkado ao Supabase CLI, aplique as migrations p
 Migration mais recente pendente:
 
 ```text
-supabase/migrations/20260713120000_create_account_deletion_requests.sql
+supabase/migrations/20260713123000_decide_account_deletion_request_rpc.sql
 ```
 
 Ordem completa de execução:

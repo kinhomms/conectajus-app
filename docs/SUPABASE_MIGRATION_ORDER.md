@@ -27,6 +27,7 @@ Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do
 21. `20260713113000_create_lawyer_profiles_oab_validation.sql`
 22. `20260713114500_require_verified_oab_for_marketplace.sql`
 23. `20260713120000_create_account_deletion_requests.sql`
+24. `20260713123000_decide_account_deletion_request_rpc.sql`
 
 ## Observações importantes
 
@@ -34,6 +35,7 @@ Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do
 - A migration de OAB cria `lawyer_profiles`, registra advogados a partir do cadastro Auth e impede duplicidade de OAB/UF.
 - A migration de acesso exige `lawyer_profiles.verification_status = 'verified'` para advogado acessar Marketplace, Financeiro e desbloqueios; administradores continuam liberados.
 - A migration de exclusão cria fila auditável `account_deletion_requests`; a exclusão não é instantânea para preservar análise jurídica, auditoria e retenções obrigatórias.
+- A RPC de decisão de exclusão registra `decided_by = auth.uid()` e evita update administrativo direto pela API pública.
 - Todas as migrations devem ser aplicadas no projeto Supabase alvo antes do deploy final.
 - Se uma migration já tiver sido aplicada, o SQL foi escrito para ser majoritariamente idempotente, usando `if not exists`, `drop policy if exists` e `add column if not exists` quando aplicável.
 - Após aplicar, confirmar no app:

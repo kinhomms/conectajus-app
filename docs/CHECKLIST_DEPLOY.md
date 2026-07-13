@@ -80,7 +80,7 @@ Antes do deploy final, confirmar que todas as migrations foram aplicadas no proj
 Migration mais recente a confirmar/aplicar:
 
 ```text
-supabase/migrations/20260713120000_create_account_deletion_requests.sql
+supabase/migrations/20260713123000_decide_account_deletion_request_rpc.sql
 ```
 
 Guia de aplicação:

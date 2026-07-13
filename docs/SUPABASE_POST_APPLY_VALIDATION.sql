@@ -60,7 +60,8 @@ with expected_columns(table_name, column_name) as (
     ('lawyer_profiles', 'verification_status'),
     ('account_deletion_requests', 'user_id'),
     ('account_deletion_requests', 'status'),
-    ('account_deletion_requests', 'reason')
+    ('account_deletion_requests', 'reason'),
+    ('account_deletion_requests', 'decided_by')
 )
 select
   'columns' as check_group,
@@ -81,6 +82,7 @@ with expected_functions(function_name) as (
     ('approve_credit_purchase_request'),
     ('reject_credit_purchase_request'),
     ('list_pending_credit_purchase_requests'),
+    ('decide_account_deletion_request'),
     ('is_current_user_admin'),
     ('is_current_user_marketplace_actor'),
     ('is_current_user_legal_operator'),
@@ -125,8 +127,7 @@ with expected_policies(table_name, policy_name) as (
     ('account_deletion_requests', 'Users can read own account deletion requests'),
     ('account_deletion_requests', 'Users can create own pending account deletion request'),
     ('account_deletion_requests', 'Users can cancel own pending account deletion request'),
-    ('account_deletion_requests', 'Admins can read account deletion requests'),
-    ('account_deletion_requests', 'Admins can decide account deletion requests')
+    ('account_deletion_requests', 'Admins can read account deletion requests')
 )
 select
   'policies' as check_group,

@@ -132,6 +132,8 @@ Status esperados:
 - `rejected`: rejeitado pelo admin;
 - `canceled`: cancelado pelo próprio usuário antes da decisão.
 
+Quando a decisão for tomada pelo painel admin, o campo `decided_by` deve registrar o `auth.uid()` do administrador que decidiu.
+
 ## 6. Validação final
 
 Depois de preparar os perfis:

@@ -130,12 +130,10 @@ export async function listPendingAccountDeletionRequests() {
 
 export async function updateAccountDeletionRequestStatus(requestId: string, status: AccountDeletionRequestStatus) {
   return supabase
-    .from("account_deletion_requests")
-    .update({
-      decided_at: new Date().toISOString(),
-      status,
+    .rpc("decide_account_deletion_request", {
+      target_notes: null,
+      target_request_id: requestId,
+      target_status: status,
     })
-    .eq("id", requestId)
-    .select(accountDeletionRequestFields)
     .single<AccountDeletionRequest>();
 }
