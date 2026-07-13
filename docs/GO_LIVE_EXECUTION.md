@@ -20,6 +20,12 @@ Executar a menor sequência segura para sair do código local validado e chegar 
 
 Este ambiente local não possui CLIs `vercel`, `supabase` ou `gh` instaladas. Portanto, as etapas externas devem ser feitas pelo Supabase Dashboard, Vercel Dashboard ou por outro ambiente autenticado.
 
+Status executivo atualizado:
+
+```text
+docs/PROJECT_COMPLETION_STATUS.md
+```
+
 ## 0. Checagem local final
 
 Na raiz do projeto:

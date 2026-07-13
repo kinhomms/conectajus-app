@@ -173,6 +173,12 @@ Readiness para preview:
 docs/PREVIEW_READINESS.md
 ```
 
+Status de conclusão:
+
+```text
+docs/PROJECT_COMPLETION_STATUS.md
+```
+
 Checklist de produção:
 
 ```text
