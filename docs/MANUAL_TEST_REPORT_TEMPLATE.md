@@ -151,16 +151,42 @@ Observações:
 - [ ] Abrir `/financeiro`.
 - [ ] Visualizar fila de OABs pendentes.
 - [ ] Aprovar OAB após conferência externa de nome/UF/número.
+- [ ] Confirmar que a decisão de OAB registrou `verified_by`.
+- [ ] Confirmar que a decisão de OAB registrou `verified_at`.
 - [ ] Rejeitar OAB em massa de teste.
 - [ ] Confirmar que advogado verificado acessa Marketplace/Financeiro.
 - [ ] Visualizar solicitações pendentes de crédito.
 - [ ] Aprovar uma solicitação.
+- [ ] Confirmar que a decisão de crédito registrou `decided_by`.
+- [ ] Confirmar que a decisão de crédito registrou `decided_at`.
 - [ ] Confirmar atualização do saldo do advogado.
 - [ ] Rejeitar uma solicitação, se houver massa de teste.
 - [ ] Visualizar solicitações pendentes de exclusão de conta.
 - [ ] Aprovar uma solicitação de exclusão para tratamento administrativo.
+- [ ] Confirmar que a decisão de exclusão registrou `decided_by`.
+- [ ] Confirmar que a decisão de exclusão registrou `decided_at`.
 - [ ] Rejeitar uma solicitação de exclusão, se houver massa de teste.
 - [ ] Confirmar que usuário não-admin não acessa ações administrativas.
+
+Observações:
+
+```text
+
+```
+
+## Teste — Auditoria administrativa
+
+- [ ] `public.decide_lawyer_oab_verification` usada para decidir OAB.
+- [ ] `public.approve_credit_purchase_request` usada para aprovar crédito.
+- [ ] `public.reject_credit_purchase_request` usada para rejeitar crédito.
+- [ ] `public.decide_account_deletion_request` usada para decidir exclusão.
+- [ ] `lawyer_profiles.verified_by` preenchido após decisão de OAB.
+- [ ] `lawyer_profiles.verified_at` preenchido após decisão de OAB.
+- [ ] `lawyer_credit_purchase_requests.decided_by` preenchido após decisão de crédito.
+- [ ] `lawyer_credit_purchase_requests.decided_at` preenchido após decisão de crédito.
+- [ ] `account_deletion_requests.decided_by` preenchido após decisão de exclusão.
+- [ ] `account_deletion_requests.decided_at` preenchido após decisão de exclusão.
+- [ ] Usuário não-admin não consegue executar ações administrativas.
 
 Observações:
 
