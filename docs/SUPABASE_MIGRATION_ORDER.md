@@ -33,7 +33,7 @@ Use este arquivo quando for aplicar as migrations manualmente pelo SQL Editor do
 
 ## Observações importantes
 
-- A migration mais recente protege `parent_opportunity_id` para impedir que uma triagem complementar seja vinculada a oportunidade de outro cidadão.
+- A migration `20260713100000_harden_complement_parent_ownership.sql` protege `parent_opportunity_id` para impedir que uma triagem complementar seja vinculada a oportunidade de outro cidadão.
 - A migration de OAB cria `lawyer_profiles`, registra advogados a partir do cadastro Auth e impede duplicidade de OAB/UF.
 - A migration de acesso exige `lawyer_profiles.verification_status = 'verified'` para advogado acessar Marketplace, Financeiro e desbloqueios; administradores continuam liberados.
 - A migration de exclusão cria fila auditável `account_deletion_requests`; a exclusão não é instantânea para preservar análise jurídica, auditoria e retenções obrigatórias.

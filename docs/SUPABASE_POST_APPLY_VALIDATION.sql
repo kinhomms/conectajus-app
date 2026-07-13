@@ -50,6 +50,7 @@ with expected_columns(table_name, column_name) as (
     ('lawyer_credit_accounts', 'user_id'),
     ('lawyer_credit_accounts', 'balance'),
     ('lawyer_credit_purchase_requests', 'status'),
+    ('lawyer_credit_purchase_requests', 'decided_at'),
     ('lawyer_credit_purchase_requests', 'decided_by'),
     ('agenda_events', 'user_id'),
     ('agenda_events', 'starts_at'),
@@ -59,10 +60,12 @@ with expected_columns(table_name, column_name) as (
     ('lawyer_profiles', 'oab_number'),
     ('lawyer_profiles', 'oab_state'),
     ('lawyer_profiles', 'verification_status'),
+    ('lawyer_profiles', 'verified_at'),
     ('lawyer_profiles', 'verified_by'),
     ('account_deletion_requests', 'user_id'),
     ('account_deletion_requests', 'status'),
     ('account_deletion_requests', 'reason'),
+    ('account_deletion_requests', 'decided_at'),
     ('account_deletion_requests', 'decided_by')
 )
 select
@@ -140,6 +143,22 @@ left join pg_policies
   on pg_policies.schemaname = 'public'
  and pg_policies.tablename = expected_policies.table_name
  and pg_policies.policyname = expected_policies.policy_name
+order by object_name;
+
+with forbidden_policies(table_name, policy_name) as (
+  values
+    ('lawyer_profiles', 'Admins can update lawyer OAB verification'),
+    ('account_deletion_requests', 'Admins can decide account deletion requests')
+)
+select
+  'forbidden_policies_absent' as check_group,
+  forbidden_policies.table_name || ' / ' || forbidden_policies.policy_name as object_name,
+  case when pg_policies.policyname is null then 'ok' else 'unexpected_present' end as status
+from forbidden_policies
+left join pg_policies
+  on pg_policies.schemaname = 'public'
+ and pg_policies.tablename = forbidden_policies.table_name
+ and pg_policies.policyname = forbidden_policies.policy_name
 order by object_name;
 
 select
