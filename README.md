@@ -148,6 +148,7 @@ docs/CHECKLIST_DEPLOY.md
 
 ## Documentação útil
 
+- `docs/MVP_HANDOFF.md`
 - `docs/CHANGELOG.md`
 - `docs/ROADMAP.md`
 - `docs/CODING_STANDARDS.md`

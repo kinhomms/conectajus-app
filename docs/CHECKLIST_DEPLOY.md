@@ -2,6 +2,12 @@
 
 Este checklist consolida o estado atual do ConectaJus antes de publicação em produção.
 
+Resumo executivo do MVP:
+
+```text
+docs/MVP_HANDOFF.md
+```
+
 ## 1. Status técnico atual
 
 - Next.js, React e TypeScript configurados.
