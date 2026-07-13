@@ -20,6 +20,7 @@ docs/MVP_HANDOFF.md
 - `npm run lint` passando.
 - `npm run build` passando.
 - `npm run validate` passando.
+- `npm run preflight:preview` integrado ao `npm run validate`.
 - GitHub Actions configurado para rodar `npm run validate`.
 
 ## 2. Rotas ativas no build
@@ -212,6 +213,7 @@ docs/VERCEL_DEPLOYMENT.md
 - `npm run lint` passando.
 - `npm run build` passando.
 - `npm run validate` passando.
+- `npm run preflight:preview` passando dentro do `npm run validate`.
 - Migrations aplicadas no Supabase alvo.
 - Perfis de teste preparados no Supabase alvo.
 - Variáveis configuradas no Vercel.

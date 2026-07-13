@@ -84,6 +84,14 @@ Antes de publicar:
 npm run validate
 ```
 
+O `validate` executa primeiro:
+
+```bash
+npm run preflight:preview
+```
+
+Esse preflight confere se as migrations, a ordem documentada, os guias de Supabase/Vercel e os itens de auditoria administrativa continuam sincronizados antes do lint/build.
+
 Última validação local registrada:
 
 ```text

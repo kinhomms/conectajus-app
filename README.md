@@ -101,7 +101,15 @@ Antes de commit/deploy:
 npm run validate
 ```
 
-Esse comando executa `npm run lint` e `npm run build`.
+Esse comando executa `npm run preflight:preview`, `npm run lint` e `npm run build`.
+
+O preflight confere:
+
+- migrations em `supabase/migrations`;
+- ordem documentada em `docs/SUPABASE_MIGRATION_ORDER.md`;
+- migration mais recente no guia de aplicação;
+- arquivos críticos de Supabase/Vercel;
+- itens de auditoria administrativa usados no preview.
 
 O mesmo comando é executado no GitHub Actions em `.github/workflows/validate.yml`.
 

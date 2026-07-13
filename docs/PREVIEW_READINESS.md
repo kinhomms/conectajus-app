@@ -16,7 +16,7 @@ https://github.com/kinhomms/conectajus-app.git
 
 ## Estado do código
 
-- `npm run validate` passando localmente.
+- `npm run validate` passando localmente, incluindo `preflight:preview`.
 - Build Next.js gerando 16 rotas.
 - Branch `ui-v6-premium` publicada no GitHub.
 - Arquitetura por features preservada.
@@ -36,6 +36,7 @@ Este ambiente local não possui CLI da Vercel, Supabase ou GitHub disponível. P
 
 Antes de testar o preview, confirmar:
 
+- `npm run validate` aprovado, incluindo `preflight:preview`;
 - migrations aplicadas no Supabase alvo;
 - `docs/SUPABASE_POST_APPLY_VALIDATION.sql` retornando `ok`;
 - perfis de teste preparados conforme `docs/SUPABASE_TEST_PROFILES.md`;
