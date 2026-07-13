@@ -51,6 +51,13 @@ Compiled successfully
 
 ## 1. Supabase — aplicar schema
 
+Status em 2026-07-13:
+
+```text
+Concluído no Supabase real.
+Validação compacta retornou status ok / count 100.
+```
+
 No Supabase Dashboard do projeto correto:
 
 1. Abrir SQL Editor.
@@ -106,6 +113,12 @@ supabase/TEST_PROFILE_CHECKS.sql
 Antes de executar, trocar os e-mails de exemplo pelos e-mails reais.
 
 ## 3. Vercel — configurar preview
+
+Status em 2026-07-13:
+
+```text
+Pendente. O painel da Vercel solicitou login.
+```
 
 No painel da Vercel:
 

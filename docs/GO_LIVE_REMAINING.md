@@ -14,12 +14,10 @@ Não falta muita coisa de desenvolvimento para concluir o MVP.
 
 O código local está validado, versionado e publicado na branch `ui-v6-premium`. O que falta para considerar o projeto 100% pronto é principalmente validação externa em ambiente real:
 
-1. Supabase alvo com migrations aplicadas.
-2. SQL de validação pós-migrations retornando `ok`.
-3. Variáveis configuradas na Vercel.
-4. Preview deploy gerado.
-5. Teste manual com cidadão, advogado e admin.
-6. Decisão final sobre legados documentados.
+1. Variáveis configuradas na Vercel.
+2. Preview deploy gerado.
+3. Teste manual com cidadão, advogado e admin.
+4. Decisão final sobre legados documentados.
 
 ## Já pronto localmente
 
@@ -99,7 +97,7 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 | Segurança visual/RLS planejada | 98% |
 | Auditoria administrativa | 98% |
 | Documentação de deploy/testes | 99% |
-| Supabase real validado | pendente |
+| Supabase real validado | concluído |
 | Preview Vercel validado | pendente |
 | Teste manual dos 3 perfis | pendente |
 
