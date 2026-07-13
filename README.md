@@ -103,6 +103,8 @@ npm run validate
 
 Esse comando executa `npm run lint` e `npm run build`.
 
+O mesmo comando é executado no GitHub Actions em `.github/workflows/validate.yml`.
+
 Última rodada documentada:
 
 ```text

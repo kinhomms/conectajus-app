@@ -20,6 +20,7 @@ docs/MVP_HANDOFF.md
 - `npm run lint` passando.
 - `npm run build` passando.
 - `npm run validate` passando.
+- GitHub Actions configurado para rodar `npm run validate`.
 
 ## 2. Rotas ativas no build
 

@@ -124,6 +124,12 @@ npm run validate
 
 Esse comando executa lint e build de produção.
 
+O GitHub Actions também executa esse comando em:
+
+```text
+.github/workflows/validate.yml
+```
+
 Build atual confirma 16 rotas:
 
 - `/`
