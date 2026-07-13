@@ -78,6 +78,7 @@ Antes de testar o preview, confirmar:
 
 ```text
 docs/VERCEL_DEPLOYMENT.md
+docs/GO_LIVE_EXECUTION.md
 docs/APPLY_SUPABASE_MIGRATIONS.md
 docs/SUPABASE_MIGRATION_ORDER.md
 supabase/APPLY_ALL_MIGRATIONS.sql

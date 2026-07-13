@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "preflight:preview": "node scripts/preflight-preview.mjs",
+    "go-live:check": "npm run supabase:bundle && npm run validate",
     "supabase:bundle": "node scripts/build-supabase-bundle.mjs",
     "validate": "npm run preflight:preview && npm run lint && npm run build"
   },

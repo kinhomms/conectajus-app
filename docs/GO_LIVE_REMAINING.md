@@ -105,6 +105,12 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 
 ## Próxima ação recomendada
 
+Seguir a execução acelerada:
+
+```text
+docs/GO_LIVE_EXECUTION.md
+```
+
 Aplicar ou confirmar as migrations no Supabase alvo e executar:
 
 ```text

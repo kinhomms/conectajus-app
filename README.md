@@ -101,7 +101,15 @@ Antes de commit/deploy:
 npm run validate
 ```
 
-Esse comando executa `npm run preflight:preview`, `npm run lint` e `npm run build`.
+Antes de aplicar Supabase e gerar preview:
+
+```bash
+npm run go-live:check
+```
+
+O `validate` executa `npm run preflight:preview`, `npm run lint` e `npm run build`.
+
+O `go-live:check` regenera o bundle Supabase e depois executa o `validate`.
 
 O preflight confere:
 
