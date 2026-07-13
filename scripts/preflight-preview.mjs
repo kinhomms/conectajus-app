@@ -70,6 +70,15 @@ const validationSql = await readRequiredFile("docs/SUPABASE_POST_APPLY_VALIDATIO
 const previewReadiness = await readRequiredFile("docs/PREVIEW_READINESS.md");
 const supabaseBundle = await readRequiredFile("supabase/APPLY_ALL_MIGRATIONS.sql");
 const vercelConfig = await readRequiredFile("vercel.json");
+let parsedVercelConfig = {};
+
+if (vercelConfig) {
+  try {
+    parsedVercelConfig = JSON.parse(vercelConfig);
+  } catch {
+    errors.push("vercel.json deve conter JSON válido");
+  }
+}
 
 await Promise.all(requiredFiles.map((relativePath) => readRequiredFile(relativePath)));
 
@@ -154,11 +163,11 @@ if (!gitignore.split(/\r?\n/).some((line) => line.trim() === "!.env.example")) {
   errors.push(".gitignore deve permitir versionar apenas .env.example");
 }
 
-if (!vercelConfig.includes('"framework": "nextjs"')) {
+if (parsedVercelConfig.framework !== "nextjs") {
   errors.push('vercel.json não declara "framework": "nextjs"');
 }
 
-if (!vercelConfig.includes('"buildCommand": "npm run validate"')) {
+if (parsedVercelConfig.buildCommand !== "npm run validate") {
   errors.push('vercel.json não declara "buildCommand": "npm run validate"');
 }
 
