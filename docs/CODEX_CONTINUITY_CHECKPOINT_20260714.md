@@ -87,6 +87,7 @@ Resultado do teste:
 11. Teste local realizado em `/`: rodapé da Home contém links para Privacidade, Termos e Regras do Marketplace.
 12. Teste local realizado em `/cadastro`: checkbox de aceite legal aparece, links para Termos/Privacidade/Regras do Marketplace existem e o botão de criação de conta fica bloqueado sem aceite.
 13. Teste local realizado em `/triagem`: após gerar dossiê preliminar, a confirmação de publicação aparece com links legais e o botão `Publicar no Marketplace` fica bloqueado até aceite.
+14. `npm run go-live:check` executado após os aceites legais: bundle Supabase gerado com 32 migrations, preflight aprovado, lint aprovado e build Next.js aprovado com 19 rotas estáticas.
 
 Observação: não registrar senhas em arquivos. As senhas temporárias foram fornecidas pelo usuário na conversa original e devem ser solicitadas novamente ao usuário se outra sessão precisar testar login manual.
 
@@ -186,6 +187,12 @@ O conteúdo-base está centralizado em:
 
 ```text
 src/features/legal/content/legalPages.ts
+```
+
+3. Para colocar o sistema efetivamente funcionando online, seguir o guia operacional:
+
+```text
+docs/GO_LIVE_USER_ACTIONS_20260714.md
 ```
 
 ## Andamento estimado
