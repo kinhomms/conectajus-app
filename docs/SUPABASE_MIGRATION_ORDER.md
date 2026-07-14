@@ -46,6 +46,7 @@ npm run supabase:bundle
 28. `20260714013000_harden_marketplace_unlock_rpc.sql`
 29. `20260714014500_fix_marketplace_unlock_rpc_ambiguity.sql`
 30. `20260714020000_fix_private_details_unlock_policy.sql`
+31. `20260714021500_create_accessible_marketplace_private_details_rpc.sql`
 
 ## Observações importantes
 
@@ -55,6 +56,7 @@ npm run supabase:bundle
 - A migration `20260714013000_harden_marketplace_unlock_rpc.sql` torna o desbloqueio do Marketplace mais atômico, cria conta de crédito faltante e retorna mensagens controladas em caso de falha.
 - A migration `20260714014500_fix_marketplace_unlock_rpc_ambiguity.sql` remove ambiguidade interna do RPC de desbloqueio ao registrar a auditoria do lead.
 - A migration `20260714020000_fix_private_details_unlock_policy.sql` qualifica a policy de leitura dos dados privados para liberar corretamente detalhes após o desbloqueio.
+- A migration `20260714021500_create_accessible_marketplace_private_details_rpc.sql` cria uma RPC segura para o app carregar detalhes privados liberados sem depender de select direto sensível a RLS.
 - A migration de acesso exige `lawyer_profiles.verification_status = 'verified'` para advogado acessar Marketplace, Financeiro e desbloqueios; administradores continuam liberados.
 - A migration de exclusão cria fila auditável `account_deletion_requests`; a exclusão não é instantânea para preservar análise jurídica, auditoria e retenções obrigatórias.
 - A RPC de decisão de exclusão registra `decided_by = auth.uid()` e evita update administrativo direto pela API pública.

@@ -69,7 +69,9 @@ export function useMarketplaceWorkspace() {
     }
 
     setOpportunities(opportunityResponse.data ?? []);
-    setPrivateDetails(detailsResponse.data ?? []);
+    setPrivateDetails(Array.isArray(detailsResponse.data)
+      ? detailsResponse.data as MarketplaceOpportunityPrivateDetails[]
+      : []);
     setDocuments(documentsResponse.data ?? []);
 
     if (!crmLinksResponse.error) {

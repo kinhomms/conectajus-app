@@ -68,9 +68,7 @@ export async function listMarketplaceOpportunities() {
 
 export async function listAccessibleOpportunityPrivateDetails() {
   return supabase
-    .from("marketplace_opportunity_private_details")
-    .select(privateDetailFields)
-    .order("created_at", { ascending: false })
+    .rpc("list_accessible_marketplace_private_details")
     .returns<MarketplaceOpportunityPrivateDetails[]>();
 }
 
