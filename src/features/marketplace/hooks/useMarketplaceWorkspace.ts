@@ -178,7 +178,15 @@ export function useMarketplaceWorkspace() {
     setUnlockingId("");
 
     if (error || !data) {
-      setMessage("Não foi possível desbloquear a oportunidade.");
+      const technicalMessage = [
+        error?.message,
+        error && "details" in error ? error.details : null,
+        error && "hint" in error ? error.hint : null,
+      ].filter(Boolean).join(" ");
+
+      setMessage(technicalMessage
+        ? `Não foi possível desbloquear a oportunidade: ${technicalMessage}`
+        : "Não foi possível desbloquear a oportunidade.");
       return;
     }
 
