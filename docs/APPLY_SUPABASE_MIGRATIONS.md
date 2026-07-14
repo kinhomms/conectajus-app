@@ -39,7 +39,7 @@ As migrations originais em `supabase/migrations` continuam sendo a fonte de verd
 Migration mais recente pendente:
 
 ```text
-supabase/migrations/20260714010000_harden_lawyer_profile_trigger_null_profile.sql
+supabase/migrations/20260714013000_harden_marketplace_unlock_rpc.sql
 ```
 
 Ordem completa de execução:
