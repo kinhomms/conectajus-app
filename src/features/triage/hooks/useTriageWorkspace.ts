@@ -27,6 +27,7 @@ function getServerComplementOpportunityIdSnapshot() {
 }
 
 export function useTriageWorkspace() {
+  const [acceptedPublicationRules, setAcceptedPublicationRules] = useState(false);
   const [availableDocuments, setAvailableDocuments] = useState<CitizenDocument[]>([]);
   const [city, setCity] = useState("");
   const [description, setDescription] = useState("");
@@ -139,6 +140,7 @@ export function useTriageWorkspace() {
     setMarketplaceMessage("");
     setPhone("");
     setPublishedOpportunityId("");
+    setAcceptedPublicationRules(false);
     setSelectedCitizenDocumentIds([]);
     setState("");
     setWhatsapp("");
@@ -150,6 +152,11 @@ export function useTriageWorkspace() {
 
     if (!dossier) {
       setError("Gere o dossiê antes de publicar a oportunidade.");
+      return;
+    }
+
+    if (!acceptedPublicationRules) {
+      setError("Confirme que revisou as informações e compreendeu as regras de IA, privacidade e Marketplace antes de publicar.");
       return;
     }
 
@@ -209,6 +216,7 @@ export function useTriageWorkspace() {
   }
 
   return {
+    acceptedPublicationRules,
     availableDocuments,
     city,
     complementOpportunityId,
@@ -232,6 +240,7 @@ export function useTriageWorkspace() {
     refreshAvailableDocuments,
     selectedCitizenDocumentIds,
     selectedDocuments,
+    setAcceptedPublicationRules,
     setCity,
     setDescription,
     setDocumentNotes,

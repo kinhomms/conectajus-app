@@ -8,6 +8,7 @@ import {
 } from "@/features/auth/services/auth.service";
 
 export function useRegisterWorkspace() {
+  const [acceptedLegalTerms, setAcceptedLegalTerms] = useState(false);
   const [form, setForm] = useState<RegisterFormState>(initialRegisterForm);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -31,6 +32,12 @@ export function useRegisterWorkspace() {
     setMessage("");
     setSuccess(false);
 
+    if (!acceptedLegalTerms) {
+      setLoading(false);
+      setMessage("Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.");
+      return;
+    }
+
     const { error } = await register(form);
 
     setLoading(false);
@@ -45,10 +52,12 @@ export function useRegisterWorkspace() {
   }
 
   return {
+    acceptedLegalTerms,
     form,
     handleRegister,
     loading,
     message,
+    setAcceptedLegalTerms,
     success,
     updateField,
   };

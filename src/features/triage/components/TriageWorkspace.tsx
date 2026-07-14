@@ -280,9 +280,34 @@ export function TriageWorkspace() {
                       {triage.isComplementary ? "O complemento será exibido como novo lead mascarado, mantendo dados pessoais, documentos e histórico protegidos até o desbloqueio." : "Serão exibidos apenas área, cidade, urgência, resumo, complexidade e custo em créditos. Dados pessoais e documentos ficam privados até o desbloqueio."}
                     </p>
                     {!triage.isPublished ? (
-                      <p className="mt-3 rounded-2xl bg-amber-50 p-3 text-sm font-bold text-amber-800">
-                        Revise com calma. Até publicar, você pode editar o relato e gerar o dossiê novamente.
-                      </p>
+                      <div className="mt-3 space-y-3">
+                        <p className="rounded-2xl bg-amber-50 p-3 text-sm font-bold text-amber-800">
+                          Revise com calma. Até publicar, você pode editar o relato e gerar o dossiê novamente.
+                        </p>
+                        <label className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-700">
+                          <input
+                            type="checkbox"
+                            checked={triage.acceptedPublicationRules}
+                            onChange={(event) => triage.setAcceptedPublicationRules(event.target.checked)}
+                            className="mt-1 h-4 w-4 accent-[#C9A227]"
+                          />
+                          <span>
+                            Confirmo que revisei as informações, compreendo que a triagem por IA é preliminar e autorizo a publicação mascarada conforme a{" "}
+                            <Link href={routes.privacy} className="font-black text-[#07182F] underline">
+                              Política de Privacidade
+                            </Link>
+                            , os{" "}
+                            <Link href={routes.terms} className="font-black text-[#07182F] underline">
+                              Termos de Uso
+                            </Link>
+                            {" "}e as{" "}
+                            <Link href={routes.marketplaceRules} className="font-black text-[#07182F] underline">
+                              Regras do Marketplace
+                            </Link>
+                            .
+                          </span>
+                        </label>
+                      </div>
                     ) : (
                       <p className="mt-3 rounded-2xl bg-emerald-50 p-3 text-sm font-bold text-emerald-800">
                         Publicado. Agora acompanhe pelo Portal do cidadão ou complemente com documentos.
@@ -294,7 +319,7 @@ export function TriageWorkspace() {
                     <button
                       type="button"
                       onClick={triage.handlePublishOpportunity}
-                      disabled={triage.publishing || Boolean(triage.publishedOpportunityId)}
+                      disabled={triage.publishing || Boolean(triage.publishedOpportunityId) || !triage.acceptedPublicationRules}
                       className="rounded-2xl bg-[#C9A227] px-5 py-3 text-sm font-black text-[#07182F] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {triage.publishing ? "Publicando..." : triage.publishedOpportunityId ? "Publicado" : "Publicar no Marketplace"}

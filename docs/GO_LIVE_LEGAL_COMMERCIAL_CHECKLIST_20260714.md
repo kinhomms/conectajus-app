@@ -36,8 +36,8 @@ Status técnico de referência: preview Vercel validado com fluxo Marketplace ->
 
 ## 4. LGPD e privacidade
 
-- [ ] Publicar Política de Privacidade.
-- [ ] Publicar Termos de Uso.
+- [x] Publicar Política de Privacidade.
+- [x] Publicar Termos de Uso.
 - [ ] Publicar Política de Cookies, se houver cookies/analytics adicionais.
 - [ ] Definir encarregado/DPO ou canal de contato de privacidade.
 - [ ] Definir base legal para tratamento de dados do cidadão.
@@ -50,12 +50,12 @@ Status técnico de referência: preview Vercel validado com fluxo Marketplace ->
   - exclusão;
   - revogação de consentimento, quando aplicável.
 - [ ] Confirmar que exclusão de conta permanece auditável e não apaga dados com retenção obrigatória sem análise.
-- [ ] Confirmar linguagem clara sobre uso de IA na triagem.
+- [x] Confirmar linguagem clara sobre uso de IA na triagem.
 
 ## 5. Marketplace e créditos
 
-- [ ] Publicar regras do Marketplace.
-- [ ] Explicar que dados pessoais ficam ocultos até desbloqueio por créditos.
+- [x] Publicar regras do Marketplace.
+- [x] Explicar que dados pessoais ficam ocultos até desbloqueio por créditos.
 - [ ] Definir regra comercial de consumo de créditos.
 - [ ] Definir política de estorno/reembolso de créditos.
 - [ ] Definir validade dos créditos, se houver.
@@ -66,9 +66,9 @@ Status técnico de referência: preview Vercel validado com fluxo Marketplace ->
 
 ## 6. OAB, advogados e responsabilidade profissional
 
-- [ ] Revisar fluxo de cadastro de advogado.
-- [ ] Confirmar que OAB/UF é exigida.
-- [ ] Confirmar que Marketplace/Financeiro ficam bloqueados até OAB verificada.
+- [x] Revisar fluxo de cadastro de advogado.
+- [x] Confirmar que OAB/UF é exigida.
+- [x] Confirmar que Marketplace/Financeiro ficam bloqueados até OAB verificada.
 - [ ] Definir procedimento administrativo de verificação OAB.
 - [ ] Registrar responsável pela aprovação/rejeição.
 - [ ] Definir termo de responsabilidade do advogado parceiro.
@@ -76,9 +76,9 @@ Status técnico de referência: preview Vercel validado com fluxo Marketplace ->
 
 ## 7. IA jurídica e triagem
 
-- [ ] Informar que a triagem por IA não substitui consulta jurídica individual.
-- [ ] Informar que classificação de área, urgência e complexidade é preliminar.
-- [ ] Informar que o cidadão deve revisar informações antes de publicar.
+- [x] Informar que a triagem por IA não substitui consulta jurídica individual.
+- [x] Informar que classificação de área, urgência e complexidade é preliminar.
+- [x] Informar que o cidadão deve revisar informações antes de publicar.
 - [ ] Definir política de uso aceitável.
 - [ ] Definir tratamento de conteúdo sensível, ofensivo, falso ou ilegal.
 
@@ -135,4 +135,3 @@ Considerar pronto para go-live quando:
 - termos comerciais de Marketplace/créditos estiverem aprovados;
 - política de LGPD/retenção estiver definida;
 - suporte/monitoramento pós-deploy estiverem definidos.
-

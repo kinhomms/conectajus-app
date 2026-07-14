@@ -101,6 +101,30 @@ export function RegisterWorkspace() {
               />
             </label>
 
+            <label className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-700">
+              <input
+                type="checkbox"
+                checked={register.acceptedLegalTerms}
+                onChange={(event) => register.setAcceptedLegalTerms(event.target.checked)}
+                className="mt-1 h-4 w-4 accent-[#C9A227]"
+              />
+              <span>
+                Li e aceito os{" "}
+                <Link href="/termos" className="font-black text-[#07182F] underline">
+                  Termos de Uso
+                </Link>
+                , a{" "}
+                <Link href="/privacidade" className="font-black text-[#07182F] underline">
+                  Política de Privacidade
+                </Link>
+                {" "}e, quando aplicável, as{" "}
+                <Link href="/regras-marketplace" className="font-black text-[#07182F] underline">
+                  Regras do Marketplace
+                </Link>
+                .
+              </span>
+            </label>
+
             {register.message && (
               <div className={register.success ? "rounded-2xl bg-emerald-50 p-4 text-sm font-bold text-emerald-700" : "rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700"}>
                 {register.message}
@@ -109,7 +133,7 @@ export function RegisterWorkspace() {
 
             <button
               type="submit"
-              disabled={register.loading}
+              disabled={register.loading || !register.acceptedLegalTerms}
               className="w-full rounded-2xl bg-[#07182F] px-5 py-4 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-60"
             >
               {register.loading ? "Criando conta..." : "Criar conta"}

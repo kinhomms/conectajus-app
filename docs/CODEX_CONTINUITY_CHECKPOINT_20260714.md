@@ -58,6 +58,8 @@ Fluxos já implementados e testados:
   - `/privacidade`;
   - `/termos`;
   - `/regras-marketplace`.
+- Aceite obrigatório no cadastro com links para Termos, Privacidade e Regras do Marketplace.
+- Confirmação obrigatória antes de publicar triagem no Marketplace, com ciência sobre IA preliminar, privacidade e regras de desbloqueio.
 
 ## Último teste executado
 
@@ -83,6 +85,8 @@ Resultado do teste:
 9. Teste no preview Vercel realizado em `/clientes`: cliente `manoel souza` aparece na carteira jurídica com origem `MARKETPLACE`.
 10. Teste local realizado em `/privacidade`, `/termos` e `/regras-marketplace`: páginas abriram como públicas, com títulos corretos, cabeçalho `Documentos públicos`, links internos legais e sem exibir shell/login protegido.
 11. Teste local realizado em `/`: rodapé da Home contém links para Privacidade, Termos e Regras do Marketplace.
+12. Teste local realizado em `/cadastro`: checkbox de aceite legal aparece, links para Termos/Privacidade/Regras do Marketplace existem e o botão de criação de conta fica bloqueado sem aceite.
+13. Teste local realizado em `/triagem`: após gerar dossiê preliminar, a confirmação de publicação aparece com links legais e o botão `Publicar no Marketplace` fica bloqueado até aceite.
 
 Observação: não registrar senhas em arquivos. As senhas temporárias foram fornecidas pelo usuário na conversa original e devem ser solicitadas novamente ao usuário se outra sessão precisar testar login manual.
 
@@ -124,6 +128,7 @@ Motivo das últimas correções:
 - `e445733` — `fix: load unlocked marketplace private details via rpc`
 - `4ab4534` — `fix: backfill legacy marketplace private details`
 - `82e273c` — `docs: add legal commercial go-live checklist`
+- `0839037` — `feat: add public legal pages`
 
 Confirmar com:
 
@@ -185,8 +190,8 @@ src/features/legal/content/legalPages.ts
 
 ## Andamento estimado
 
-Andamento técnico atual: 99,99%.
+Andamento técnico atual: 99,995%.
 
 O que falta para considerar 100% operacional:
 
-- aprovação jurídica/comercial final dos textos públicos e das regras de créditos/estorno antes de go-live comercial definitivo.
+- aprovação jurídica/comercial final dos textos públicos, regras de créditos/estorno, canal oficial de privacidade/suporte e domínio final antes de go-live comercial definitivo.
