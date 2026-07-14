@@ -74,6 +74,7 @@ Resultado do teste:
 4. Botão `Enviar para CRM` executado com sucesso.
 5. Mensagem exibida: cliente, caso, nota inicial e vínculo enviados para o CRM.
 6. Cliente vinculado no CRM: `36b9bdd5-06f3-404f-a3be-a8461d807b9d`.
+7. Teste visual em `/clientes` realizado após o vínculo: cliente `manoel souza` aparece na carteira jurídica com origem `MARKETPLACE`.
 
 Observação: não registrar senhas em arquivos. As senhas temporárias foram fornecidas pelo usuário na conversa original e devem ser solicitadas novamente ao usuário se outra sessão precisar testar login manual.
 
@@ -149,15 +150,14 @@ Observação: em alguns momentos a URL de branch demorou/cacheou deploy antigo. 
 
 ## Próximas etapas recomendadas
 
-1. Confirmar no CRM se o cliente vinculado aparece visualmente em `/clientes`.
-2. Rodar `npm run validate` novamente após qualquer alteração.
-3. Testar fluxo completo em preview Vercel quando o deploy da branch estiver atualizado:
+1. Rodar `npm run validate` novamente após qualquer alteração.
+2. Testar fluxo completo em preview Vercel quando o deploy da branch estiver atualizado:
    - login advogado;
    - Marketplace;
    - oportunidade desbloqueada;
    - dados liberados;
    - abrir CRM.
-4. Criar checklist final de go-live:
+3. Criar checklist final de go-live:
    - domínio;
    - variáveis Vercel;
    - política de privacidade;
@@ -172,7 +172,5 @@ Andamento técnico atual: 99,9%.
 
 O que falta para considerar 100% operacional:
 
-- confirmação visual final do cliente criado em `/clientes`;
 - validação do preview Vercel atualizado com os últimos commits;
 - checklist jurídico/comercial de go-live.
-
