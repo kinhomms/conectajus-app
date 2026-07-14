@@ -39,7 +39,7 @@ As migrations originais em `supabase/migrations` continuam sendo a fonte de verd
 Migration mais recente pendente:
 
 ```text
-supabase/migrations/20260713130000_audit_credit_purchase_request_decisions.sql
+supabase/migrations/20260714010000_harden_lawyer_profile_trigger_null_profile.sql
 ```
 
 Ordem completa de execução:

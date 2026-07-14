@@ -42,11 +42,13 @@ npm run supabase:bundle
 24. `20260713123000_decide_account_deletion_request_rpc.sql`
 25. `20260713124500_audit_lawyer_oab_verification.sql`
 26. `20260713130000_audit_credit_purchase_request_decisions.sql`
+27. `20260714010000_harden_lawyer_profile_trigger_null_profile.sql`
 
 ## Observações importantes
 
 - A migration `20260713100000_harden_complement_parent_ownership.sql` protege `parent_opportunity_id` para impedir que uma triagem complementar seja vinculada a oportunidade de outro cidadão.
 - A migration de OAB cria `lawyer_profiles`, registra advogados a partir do cadastro Auth e impede duplicidade de OAB/UF.
+- A migration `20260714010000_harden_lawyer_profile_trigger_null_profile.sql` evita que usuários criados pelo Dashboard sem metadata de perfil disparem validação indevida de OAB.
 - A migration de acesso exige `lawyer_profiles.verification_status = 'verified'` para advogado acessar Marketplace, Financeiro e desbloqueios; administradores continuam liberados.
 - A migration de exclusão cria fila auditável `account_deletion_requests`; a exclusão não é instantânea para preservar análise jurídica, auditoria e retenções obrigatórias.
 - A RPC de decisão de exclusão registra `decided_by = auth.uid()` e evita update administrativo direto pela API pública.
