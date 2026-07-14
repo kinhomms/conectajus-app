@@ -69,9 +69,14 @@ export function useMarketplaceWorkspace() {
     }
 
     setOpportunities(opportunityResponse.data ?? []);
-    setPrivateDetails(Array.isArray(detailsResponse.data)
-      ? detailsResponse.data as MarketplaceOpportunityPrivateDetails[]
-      : []);
+    if (detailsResponse.error) {
+      setPrivateDetails([]);
+      setMessage(`Nao foi possivel carregar os dados privados liberados: ${detailsResponse.error.message}`);
+    } else {
+      setPrivateDetails(Array.isArray(detailsResponse.data)
+        ? detailsResponse.data as MarketplaceOpportunityPrivateDetails[]
+        : []);
+    }
     setDocuments(documentsResponse.data ?? []);
 
     if (!crmLinksResponse.error) {

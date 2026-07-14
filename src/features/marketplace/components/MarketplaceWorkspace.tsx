@@ -343,6 +343,13 @@ function OpportunityCard({
           openingDocumentId={openingDocumentId}
           opportunity={opportunity}
         />
+      ) : opportunity.status === "unlocked" ? (
+        <div className="mt-5 rounded-2xl border border-amber-400/20 bg-amber-400/10 p-4 text-sm leading-6 text-amber-100">
+          <p className="font-black text-amber-200">Oportunidade desbloqueada</p>
+          <p className="mt-2">
+            O consumo de créditos já foi registrado, mas os dados privados deste lead ainda não foram encontrados. Atualize a página após a sincronização ou acione o suporte administrativo.
+          </p>
+        </div>
       ) : (
         <button
           type="button"
