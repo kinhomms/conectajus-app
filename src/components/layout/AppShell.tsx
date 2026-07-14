@@ -5,7 +5,7 @@ import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { MobileNavigation } from "./MobileNavigation";
 
-const publicRoutes = ["/", "/login", "/cadastro"];
+const publicRoutes = ["/", "/login", "/cadastro", "/privacidade", "/termos", "/regras-marketplace"];
 
 type AppShellProps = {
   children: React.ReactNode;

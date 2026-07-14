@@ -54,6 +54,10 @@ Fluxos já implementados e testados:
 - Configurações de conta/perfil.
 - Solicitação de exclusão de conta com fila auditável.
 - Botões de voltar/início nas principais páginas.
+- Páginas públicas legais:
+  - `/privacidade`;
+  - `/termos`;
+  - `/regras-marketplace`.
 
 ## Último teste executado
 
@@ -77,6 +81,8 @@ Resultado do teste:
 7. Teste visual em `/clientes` realizado após o vínculo: cliente `manoel souza` aparece na carteira jurídica com origem `MARKETPLACE`.
 8. Teste no preview Vercel realizado em `https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app/marketplace`: dados liberados aparecem, saldo permanece em 5 créditos e cliente vinculado ao CRM aparece.
 9. Teste no preview Vercel realizado em `/clientes`: cliente `manoel souza` aparece na carteira jurídica com origem `MARKETPLACE`.
+10. Teste local realizado em `/privacidade`, `/termos` e `/regras-marketplace`: páginas abriram como públicas, com títulos corretos, cabeçalho `Documentos públicos`, links internos legais e sem exibir shell/login protegido.
+11. Teste local realizado em `/`: rodapé da Home contém links para Privacidade, Termos e Regras do Marketplace.
 
 Observação: não registrar senhas em arquivos. As senhas temporárias foram fornecidas pelo usuário na conversa original e devem ser solicitadas novamente ao usuário se outra sessão precisar testar login manual.
 
@@ -117,6 +123,7 @@ Motivo das últimas correções:
 
 - `e445733` — `fix: load unlocked marketplace private details via rpc`
 - `4ab4534` — `fix: backfill legacy marketplace private details`
+- `82e273c` — `docs: add legal commercial go-live checklist`
 
 Confirmar com:
 
@@ -162,10 +169,24 @@ docs/GO_LIVE_LEGAL_COMMERCIAL_CHECKLIST_20260714.md
 
 Esse checklist cobre domínio, variáveis de produção, Supabase, LGPD, termos de uso, política de privacidade, Marketplace/créditos, OAB, IA jurídica, suporte e monitoramento pós-deploy.
 
+2. Revisar juridicamente o conteúdo publicado nas novas páginas públicas:
+
+```text
+src/app/privacidade/page.tsx
+src/app/termos/page.tsx
+src/app/regras-marketplace/page.tsx
+```
+
+O conteúdo-base está centralizado em:
+
+```text
+src/features/legal/content/legalPages.ts
+```
+
 ## Andamento estimado
 
-Andamento técnico atual: 99,98%.
+Andamento técnico atual: 99,99%.
 
 O que falta para considerar 100% operacional:
 
-- aprovação/publicação dos documentos legais e regras comerciais de go-live.
+- aprovação jurídica/comercial final dos textos públicos e das regras de créditos/estorno antes de go-live comercial definitivo.
