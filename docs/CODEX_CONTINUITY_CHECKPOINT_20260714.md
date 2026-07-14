@@ -154,19 +154,18 @@ Em 2026-07-14, o preview da branch foi revalidado e já servia os últimos commi
 ## Próximas etapas recomendadas
 
 1. Rodar `npm run validate` novamente após qualquer alteração.
-2. Criar checklist final de go-live:
-   - domínio;
-   - variáveis Vercel;
-   - política de privacidade;
-   - retenção/exclusão de conta;
-   - LGPD;
-   - termos de Marketplace/créditos;
-   - monitoramento pós-deploy.
+2. Revisar e aprovar o checklist final jurídico/comercial:
+
+```text
+docs/GO_LIVE_LEGAL_COMMERCIAL_CHECKLIST_20260714.md
+```
+
+Esse checklist cobre domínio, variáveis de produção, Supabase, LGPD, termos de uso, política de privacidade, Marketplace/créditos, OAB, IA jurídica, suporte e monitoramento pós-deploy.
 
 ## Andamento estimado
 
-Andamento técnico atual: 99,9%.
+Andamento técnico atual: 99,98%.
 
 O que falta para considerar 100% operacional:
 
-- checklist jurídico/comercial de go-live.
+- aprovação/publicação dos documentos legais e regras comerciais de go-live.
