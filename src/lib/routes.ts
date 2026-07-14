@@ -5,6 +5,7 @@ export const routes = {
   privacy: "/privacidade",
   terms: "/termos",
   marketplaceRules: "/regras-marketplace",
+  publicLawyers: "/advogados",
   dashboard: "/dashboard",
   clients: "/clientes",
   triage: "/triagem",

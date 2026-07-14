@@ -9,11 +9,15 @@ import type { AccountDeletionRequest } from "@/features/settings/repositories/se
 import {
   cancelAccountDeletionRequest,
   getAccountPreferences,
+  getOwnLawyerPublicProfile,
   getPendingAccountDeletionRequest,
   requestAccountDeletion,
+  saveLawyerPublicProfile,
   updateAccountProfile,
+  uploadLawyerProfilePhoto,
   type AccountPreferences,
 } from "@/features/settings/services/settings.service";
+import type { LawyerPublicProfile } from "@/features/settings/repositories/settings.repository";
 
 export type SettingsChecklistItem = {
   description: string;
@@ -25,6 +29,11 @@ export function useSettingsWorkspace() {
   const router = useRouter();
   const [canAccessMarketplace, setCanAccessMarketplace] = useState(false);
   const [deletionReason, setDeletionReason] = useState("");
+  const [lawyerBio, setLawyerBio] = useState("");
+  const [lawyerHeadline, setLawyerHeadline] = useState("");
+  const [lawyerProfilePhotoUrl, setLawyerProfilePhotoUrl] = useState<string | null>(null);
+  const [lawyerProfilePublic, setLawyerProfilePublic] = useState(true);
+  const [lawyerPublicProfile, setLawyerPublicProfile] = useState<LawyerPublicProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
   const [message, setMessage] = useState("");
@@ -32,6 +41,7 @@ export function useSettingsWorkspace() {
   const [preferences, setPreferences] = useState<AccountPreferences>({ emailNotifications: true, marketingOptIn: false });
   const [profile, setProfile] = useState<UserProfile>("cliente");
   const [savingProfile, setSavingProfile] = useState(false);
+  const [savingPublicProfile, setSavingPublicProfile] = useState(false);
   const [submittingDeletion, setSubmittingDeletion] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [workingFullName, setWorkingFullName] = useState("");
@@ -59,6 +69,15 @@ export function useSettingsWorkspace() {
       if (isLegalOperatorProfile(currentProfile)) {
         const accessResponse = await canCurrentUserAccessMarketplace();
         setCanAccessMarketplace(!accessResponse.error && Boolean(accessResponse.data));
+
+        const publicProfileResponse = await getOwnLawyerPublicProfile(data.user.id);
+        if (!publicProfileResponse.error && publicProfileResponse.data) {
+          setLawyerPublicProfile(publicProfileResponse.data);
+          setLawyerBio(publicProfileResponse.data.bio ?? "");
+          setLawyerHeadline(publicProfileResponse.data.headline ?? "");
+          setLawyerProfilePhotoUrl(publicProfileResponse.data.profile_photo_url);
+          setLawyerProfilePublic(publicProfileResponse.data.is_public);
+        }
       }
 
       setLoading(false);
@@ -181,6 +200,66 @@ export function useSettingsWorkspace() {
     setMessage("Configurações da conta salvas com sucesso.");
   }, [preferences, workingFullName]);
 
+  const handleLawyerPhotoChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file || !user) return;
+
+    setMessage("");
+
+    if (!file.type.startsWith("image/")) {
+      setMessage("Envie uma imagem válida para a foto do perfil.");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setMessage("A foto deve ter até 5MB.");
+      return;
+    }
+
+    setSavingPublicProfile(true);
+    const { data, error } = await uploadLawyerProfilePhoto(user.id, file);
+    setSavingPublicProfile(false);
+
+    if (error || !data) {
+      setMessage("Não foi possível enviar a foto. Confirme se o bucket lawyer-profile-photos foi criado no Supabase.");
+      return;
+    }
+
+    setLawyerProfilePhotoUrl(data);
+    setMessage("Foto enviada. Clique em salvar perfil público para publicar a atualização.");
+  }, [user]);
+
+  const handleSaveLawyerPublicProfile = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!user) return;
+
+    setMessage("");
+    setSavingPublicProfile(true);
+
+    const { data, error } = await saveLawyerPublicProfile({
+      bio: lawyerBio,
+      fullName: workingFullName,
+      headline: lawyerHeadline,
+      isPublic: lawyerProfilePublic,
+      oabNumber: getMetadataString(user.user_metadata?.lawyer_oab_number),
+      oabState: getMetadataString(user.user_metadata?.lawyer_oab_state),
+      profilePhotoUrl: lawyerProfilePhotoUrl,
+      userId: user.id,
+    });
+
+    setSavingPublicProfile(false);
+
+    if (error || !data) {
+      setMessage("Não foi possível salvar o perfil público do advogado.");
+      return;
+    }
+
+    setLawyerPublicProfile(data);
+    setMessage("Perfil público do advogado salvo com sucesso.");
+  }, [lawyerBio, lawyerHeadline, lawyerProfilePhotoUrl, lawyerProfilePublic, user, workingFullName]);
+
   const handleRequestAccountDeletion = useCallback(async () => {
     if (!user || pendingDeletionRequest) return;
 
@@ -231,10 +310,17 @@ export function useSettingsWorkspace() {
     fullName,
     handleCancelAccountDeletion,
     handleLogout,
+    handleLawyerPhotoChange,
     handleRequestAccountDeletion,
+    handleSaveLawyerPublicProfile,
     handleSaveProfile,
     isCitizen: isCitizenProfile(profile),
     isLegalOperator: isLegalOperatorProfile(profile),
+    lawyerBio,
+    lawyerHeadline,
+    lawyerProfilePhotoUrl,
+    lawyerProfilePublic,
+    lawyerPublicProfile,
     loading,
     loggingOut,
     message,
@@ -244,8 +330,12 @@ export function useSettingsWorkspace() {
     profile,
     profileLabel,
     savingProfile,
+    savingPublicProfile,
     securityChecklist,
     setDeletionReason,
+    setLawyerBio,
+    setLawyerHeadline,
+    setLawyerProfilePublic,
     setWorkingFullName,
     submittingDeletion,
     updatePreference,
@@ -257,4 +347,8 @@ export function useSettingsWorkspace() {
 function getFullNameFromUser(user: User) {
   const metadataName = user.user_metadata?.full_name;
   return typeof metadataName === "string" && metadataName.trim() ? metadataName : "Usuário ConectaJus";
+}
+
+function getMetadataString(value: unknown) {
+  return typeof value === "string" && value.trim() ? value.trim() : null;
 }

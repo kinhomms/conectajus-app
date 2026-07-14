@@ -10,7 +10,8 @@ import {
   logout,
   type UserProfile,
 } from "@/features/auth/services/auth.service";
-import { canCurrentUserAccessMarketplace } from "@/features/marketplace/services/marketplace.service";
+import { canCurrentUserAccessMarketplace, getMarketplaceOpportunities } from "@/features/marketplace/services/marketplace.service";
+import type { MarketplaceOpportunity } from "@/features/marketplace/types/marketplace.types";
 import {
   listCitizenCasePrivateDetailsForDashboard,
   listCitizenCasesForDashboard,
@@ -26,6 +27,8 @@ export function useDashboardWorkspace() {
   const [citizenCases, setCitizenCases] = useState<CitizenDashboardCase[]>([]);
   const [citizenCasePrivateDetails, setCitizenCasePrivateDetails] = useState<CitizenDashboardCasePrivateDetails[]>([]);
   const [citizenCasesError, setCitizenCasesError] = useState<string | null>(null);
+  const [qualifiedOpportunities, setQualifiedOpportunities] = useState<MarketplaceOpportunity[]>([]);
+  const [qualifiedOpportunitiesError, setQualifiedOpportunitiesError] = useState<string | null>(null);
   const [profile, setProfile] = useState<UserProfile>("cliente");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -44,7 +47,18 @@ export function useDashboardWorkspace() {
 
       if (isLegalOperatorProfile(currentProfile)) {
         const accessResponse = await canCurrentUserAccessMarketplace();
-        setCanUseMarketplace(!accessResponse.error && Boolean(accessResponse.data));
+        const canAccessMarketplace = !accessResponse.error && Boolean(accessResponse.data);
+        setCanUseMarketplace(canAccessMarketplace);
+
+        if (canAccessMarketplace) {
+          const opportunitiesResponse = await getMarketplaceOpportunities();
+
+          if (opportunitiesResponse.error) {
+            setQualifiedOpportunitiesError("Não foi possível carregar oportunidades qualificadas agora.");
+          } else {
+            setQualifiedOpportunities((opportunitiesResponse.data ?? []).filter((opportunity) => opportunity.status === "open").slice(0, 4));
+          }
+        }
       } else {
         setCanUseMarketplace(false);
 
@@ -104,6 +118,8 @@ export function useDashboardWorkspace() {
     isLegalOperator: isLegalOperatorProfile(profile),
     loading,
     profile,
+    qualifiedOpportunities,
+    qualifiedOpportunitiesError,
     user,
   };
 }

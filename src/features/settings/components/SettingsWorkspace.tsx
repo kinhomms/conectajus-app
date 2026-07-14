@@ -53,6 +53,90 @@ export function SettingsWorkspace() {
         <ProfileCard label="Perfil" value={settings.profileLabel} description={settings.isCitizen ? "Fluxo protegido de cidadão." : "Operação jurídica e gestão da plataforma."} />
       </section>
 
+      {settings.isLegalOperator ? (
+        <form onSubmit={settings.handleSaveLawyerPublicProfile} className="mb-6 rounded-[2rem] border border-amber-400/20 bg-[#111827] p-6 shadow-xl shadow-black/20">
+          <div className="mb-5 flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-400">Perfil público do advogado</p>
+              <h2 className="mt-2 text-2xl font-black">Foto e apresentação para clientes</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+                Este perfil será usado como apresentação pública do advogado para aumentar confiança comercial quando clientes visualizarem informações profissionais.
+              </p>
+            </div>
+            {settings.lawyerPublicProfile ? (
+              <Link href={`/advogados/${settings.lawyerPublicProfile.user_id}`} className="w-fit rounded-2xl border border-amber-400/30 px-5 py-3 text-sm font-black text-amber-100 hover:bg-amber-400/10">
+                Ver perfil público
+              </Link>
+            ) : null}
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
+            <div className="rounded-3xl border border-white/10 bg-[#0B0F19] p-5 text-center">
+              {settings.lawyerProfilePhotoUrl ? (
+                <img
+                  src={settings.lawyerProfilePhotoUrl}
+                  alt="Foto do perfil público do advogado"
+                  className="mx-auto h-32 w-32 rounded-full object-cover ring-4 ring-amber-400/30"
+                />
+              ) : (
+                <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-amber-400 text-3xl font-black text-black">
+                  {settings.fullName.slice(0, 1).toUpperCase()}
+                </div>
+              )}
+
+              <label className="mt-5 block cursor-pointer rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-black text-white hover:bg-white/10">
+                Enviar foto
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  onChange={settings.handleLawyerPhotoChange}
+                  className="sr-only"
+                />
+              </label>
+              <p className="mt-3 text-xs leading-5 text-slate-500">PNG, JPG ou WebP até 5MB.</p>
+            </div>
+
+            <div className="space-y-4">
+              <label className="block">
+                <span className="mb-2 block text-sm font-black text-slate-300">Chamada profissional</span>
+                <input
+                  value={settings.lawyerHeadline}
+                  onChange={(event) => settings.setLawyerHeadline(event.target.value)}
+                  className="w-full rounded-2xl border border-white/10 bg-[#0B0F19] p-4 text-white outline-none focus:border-amber-400"
+                  placeholder="Ex.: Advocacia previdenciária e bancária em Salvador"
+                />
+              </label>
+
+              <label className="block">
+                <span className="mb-2 block text-sm font-black text-slate-300">Apresentação</span>
+                <textarea
+                  value={settings.lawyerBio}
+                  onChange={(event) => settings.setLawyerBio(event.target.value)}
+                  rows={5}
+                  className="w-full rounded-2xl border border-white/10 bg-[#0B0F19] p-4 text-white outline-none focus:border-amber-400"
+                  placeholder="Conte brevemente sua atuação, áreas de foco e diferenciais de atendimento."
+                />
+              </label>
+
+              <PreferenceToggle
+                checked={settings.lawyerProfilePublic}
+                description="Quando ativo, clientes podem visualizar sua foto e apresentação profissional no perfil público."
+                label="Perfil público visível"
+                onChange={settings.setLawyerProfilePublic}
+              />
+
+              <button
+                type="submit"
+                disabled={settings.savingPublicProfile}
+                className="rounded-2xl bg-amber-400 px-5 py-3 text-sm font-black text-black hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {settings.savingPublicProfile ? "Salvando..." : "Salvar perfil público"}
+              </button>
+            </div>
+          </div>
+        </form>
+      ) : null}
+
       <section className="mb-6 grid gap-6 xl:grid-cols-[1fr_1fr]">
         <form onSubmit={settings.handleSaveProfile} className="rounded-[2rem] border border-white/10 bg-[#111827] p-6 shadow-xl shadow-black/20">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-400">Perfil</p>

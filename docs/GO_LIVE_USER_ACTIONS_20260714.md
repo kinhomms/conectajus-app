@@ -25,6 +25,7 @@ Esse link deve permitir testar:
 - Financeiro/créditos;
 - Configurações;
 - páginas públicas de Privacidade, Termos e Regras do Marketplace.
+- perfil público do advogado em `/advogados/[userId]`, após o advogado salvar foto e apresentação nas configurações.
 
 ## 2. Para virar ambiente oficial de produção
 
@@ -37,7 +38,8 @@ Você ainda precisa definir ou confirmar:
 5. Confirmação de que Production aponta para o Supabase correto.
 6. Aplicação/validação das migrations no Supabase alvo.
 7. Bucket privado `citizen-documents` criado e restrito.
-8. Backups automáticos do Supabase habilitados.
+8. Migration `20260714103000_create_lawyer_public_profiles.sql` aplicada para liberar perfis públicos e bucket `lawyer-profile-photos`.
+9. Backups automáticos do Supabase habilitados.
 
 ## 3. Para operar com usuários reais
 
@@ -75,7 +77,9 @@ Quando o domínio final estiver no ar:
 12. Confirmar que dados privados aparecem somente após desbloqueio.
 13. Enviar lead para CRM.
 14. Confirmar cliente em `/clientes`.
-15. Confirmar histórico/auditoria administrativa.
+15. Advogado salvar foto e apresentação em `/configuracoes`.
+16. Abrir o perfil público em `/advogados/[userId]`.
+17. Confirmar histórico/auditoria administrativa.
 
 ## 5. Critério prático
 

@@ -68,6 +68,42 @@ export function DashboardWorkspace() {
         />
       </section>
 
+      {dashboard.canUseMarketplace ? (
+        <section className="mb-6 rounded-[2rem] border border-amber-400/20 bg-gradient-to-br from-[#111827] via-[#0B0F19] to-[#15110A] p-6 shadow-xl shadow-black/20">
+          <div className="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-400">Oportunidades qualificadas</p>
+              <h2 className="mt-2 text-2xl font-black">Leads jurídicos prontos para análise</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+                As melhores oportunidades aparecem aqui logo após o login, com dados pessoais protegidos até o desbloqueio por créditos.
+              </p>
+            </div>
+            <Link href={routes.marketplace} className="w-fit rounded-2xl bg-amber-400 px-5 py-3 text-sm font-black text-black hover:bg-amber-300">
+              Ver marketplace completo
+            </Link>
+          </div>
+
+          {dashboard.qualifiedOpportunitiesError ? (
+            <div className="rounded-3xl border border-red-400/20 bg-red-500/10 p-4 text-sm font-bold text-red-100">
+              {dashboard.qualifiedOpportunitiesError}
+            </div>
+          ) : dashboard.qualifiedOpportunities.length === 0 ? (
+            <div className="rounded-3xl border border-white/10 bg-[#0B0F19] p-5">
+              <h3 className="text-lg font-black">Nenhuma oportunidade aberta agora</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-400">
+                Quando cidadãos publicarem novas triagens, elas aparecerão aqui primeiro para acelerar sua análise comercial.
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-4 xl:grid-cols-2">
+              {dashboard.qualifiedOpportunities.map((opportunity) => (
+                <QualifiedOpportunityCard key={opportunity.id} opportunity={opportunity} />
+              ))}
+            </div>
+          )}
+        </section>
+      ) : null}
+
       <section className="mb-6 rounded-[2rem] border border-white/10 bg-[#111827] p-6 shadow-xl shadow-black/20">
         <div className="mb-5 flex flex-col justify-between gap-3 md:flex-row md:items-end">
           <div>
@@ -107,6 +143,37 @@ export function DashboardWorkspace() {
         </div>
       </section>
     </section>
+  );
+}
+
+function QualifiedOpportunityCard({ opportunity }: { opportunity: import("@/features/marketplace/types/marketplace.types").MarketplaceOpportunity }) {
+  const location = [opportunity.city, opportunity.state].filter(Boolean).join("/") || "Local não informado";
+
+  return (
+    <Link
+      href={routes.marketplace}
+      className="rounded-3xl border border-white/10 bg-[#0B0F19] p-5 transition hover:-translate-y-0.5 hover:border-amber-400/50 hover:bg-white/5"
+    >
+      <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-400">{opportunity.practice_area ?? "Área a confirmar"}</p>
+          <h3 className="mt-2 text-lg font-black text-white">{location}</h3>
+        </div>
+        <span className="w-fit rounded-full bg-amber-400 px-3 py-1 text-xs font-black text-black">
+          {opportunity.credit_cost ?? 1} crédito(s)
+        </span>
+      </div>
+
+      <p className="mt-4 line-clamp-3 text-sm leading-6 text-slate-300">{opportunity.summary}</p>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-slate-300">{opportunity.urgency ?? "Urgência não informada"}</span>
+        <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-slate-300">{opportunity.complexity ?? "Complexidade não informada"}</span>
+        {opportunity.parent_opportunity_id ? (
+          <span className="rounded-full border border-violet-400/30 bg-violet-400/10 px-3 py-1 text-xs font-black text-violet-200">Complemento</span>
+        ) : null}
+      </div>
+    </Link>
   );
 }
 

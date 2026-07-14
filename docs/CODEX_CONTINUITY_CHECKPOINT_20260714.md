@@ -60,6 +60,9 @@ Fluxos já implementados e testados:
   - `/regras-marketplace`.
 - Aceite obrigatório no cadastro com links para Termos, Privacidade e Regras do Marketplace.
 - Confirmação obrigatória antes de publicar triagem no Marketplace, com ciência sobre IA preliminar, privacidade e regras de desbloqueio.
+- Dashboard do advogado agora exibe oportunidades qualificadas logo após login, antes da visão executiva.
+- Advogado pode configurar perfil público com foto, chamada profissional, bio e visibilidade pública.
+- Página pública de advogado disponível em `/advogados/[userId]`.
 
 ## Último teste executado
 
@@ -88,6 +91,7 @@ Resultado do teste:
 12. Teste local realizado em `/cadastro`: checkbox de aceite legal aparece, links para Termos/Privacidade/Regras do Marketplace existem e o botão de criação de conta fica bloqueado sem aceite.
 13. Teste local realizado em `/triagem`: após gerar dossiê preliminar, a confirmação de publicação aparece com links legais e o botão `Publicar no Marketplace` fica bloqueado até aceite.
 14. `npm run go-live:check` executado após os aceites legais: bundle Supabase gerado com 32 migrations, preflight aprovado, lint aprovado e build Next.js aprovado com 19 rotas estáticas.
+15. `npm run validate` executado após vitrine de oportunidades no dashboard do advogado e perfil público com foto: preflight aprovado, lint aprovado com 2 avisos de `<img>` e build aprovado; migrations conferidas: 33; rota dinâmica `/advogados/[userId]` gerada.
 
 Observação: não registrar senhas em arquivos. As senhas temporárias foram fornecidas pelo usuário na conversa original e devem ser solicitadas novamente ao usuário se outra sessão precisar testar login manual.
 
@@ -95,12 +99,12 @@ Observação: não registrar senhas em arquivos. As senhas temporárias foram fo
 
 Projeto Supabase usado: `wsrejostavinqobxljbn`.
 
-Migrations locais no checkpoint: 32.
+Migrations locais no checkpoint: 33.
 
 Migration mais recente:
 
 ```text
-supabase/migrations/20260714023000_backfill_missing_marketplace_private_details.sql
+supabase/migrations/20260714103000_create_lawyer_public_profiles.sql
 ```
 
 Bundle consolidado:
@@ -115,6 +119,7 @@ supabase/APPLY_ALL_MIGRATIONS.sql
 - `20260714020000_fix_private_details_unlock_policy.sql`
 - `20260714021500_create_accessible_marketplace_private_details_rpc.sql`
 - `20260714023000_backfill_missing_marketplace_private_details.sql`
+- `20260714103000_create_lawyer_public_profiles.sql`
 
 Motivo das últimas correções:
 
@@ -123,6 +128,7 @@ Motivo das últimas correções:
 - Foi criada RPC segura `list_accessible_marketplace_private_details()`.
 - Foi criado backfill para oportunidades antigas sem dados privados.
 - A UI passou a tratar oportunidades desbloqueadas sem detalhes, evitando confusão.
+- Foi criada estrutura de perfil público de advogado com bucket `lawyer-profile-photos`.
 
 ## Commits recentes relevantes
 
@@ -130,6 +136,8 @@ Motivo das últimas correções:
 - `4ab4534` — `fix: backfill legacy marketplace private details`
 - `82e273c` — `docs: add legal commercial go-live checklist`
 - `0839037` — `feat: add public legal pages`
+- `0b591f8` — `feat: require legal consent for onboarding and triage`
+- `e89bfaf` — `docs: add go-live user action guide`
 
 Confirmar com:
 
@@ -201,4 +209,5 @@ Andamento técnico atual: 99,995%.
 
 O que falta para considerar 100% operacional:
 
+- aplicar a migration `20260714103000_create_lawyer_public_profiles.sql` no Supabase antes de testar upload de foto em produção/preview;
 - aprovação jurídica/comercial final dos textos públicos, regras de créditos/estorno, canal oficial de privacidade/suporte e domínio final antes de go-live comercial definitivo.

@@ -40,6 +40,7 @@ Migration mais recente pendente:
 
 ```text
 supabase/migrations/20260714023000_backfill_missing_marketplace_private_details.sql
+supabase/migrations/20260714103000_create_lawyer_public_profiles.sql
 ```
 
 Ordem completa de execução:

@@ -6,6 +6,7 @@ import { Topbar } from "./Topbar";
 import { MobileNavigation } from "./MobileNavigation";
 
 const publicRoutes = ["/", "/login", "/cadastro", "/privacidade", "/termos", "/regras-marketplace"];
+const publicRoutePrefixes = ["/advogados/"];
 
 type AppShellProps = {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ type AppShellProps = {
 export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
 
-  const isPublicRoute = publicRoutes.includes(pathname);
+  const isPublicRoute = publicRoutes.includes(pathname) || publicRoutePrefixes.some((routePrefix) => pathname.startsWith(routePrefix));
 
   if (isPublicRoute) {
     return <>{children}</>;

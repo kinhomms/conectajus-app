@@ -36,6 +36,40 @@ export async function updateAccountProfile(input: {
   });
 }
 
+export async function getOwnLawyerPublicProfile(userId: string) {
+  return settingsRepository.getOwnLawyerPublicProfile(userId);
+}
+
+export async function getLawyerPublicProfile(userId: string) {
+  return settingsRepository.getLawyerPublicProfile(userId);
+}
+
+export async function uploadLawyerProfilePhoto(userId: string, file: File) {
+  return settingsRepository.uploadLawyerProfilePhoto(userId, file);
+}
+
+export async function saveLawyerPublicProfile(input: {
+  bio: string;
+  fullName: string;
+  headline: string;
+  isPublic: boolean;
+  oabNumber: string | null;
+  oabState: string | null;
+  profilePhotoUrl: string | null;
+  userId: string;
+}) {
+  return settingsRepository.upsertLawyerPublicProfile({
+    bio: input.bio.trim() || null,
+    full_name: input.fullName.trim(),
+    headline: input.headline.trim() || null,
+    is_public: input.isPublic,
+    oab_number: input.oabNumber,
+    oab_state: input.oabState,
+    profile_photo_url: input.profilePhotoUrl,
+    user_id: input.userId,
+  });
+}
+
 export async function getPendingAccountDeletionRequest(userId: string) {
   return settingsRepository.getPendingAccountDeletionRequest(userId);
 }
