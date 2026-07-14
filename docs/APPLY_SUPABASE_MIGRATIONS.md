@@ -39,7 +39,7 @@ As migrations originais em `supabase/migrations` continuam sendo a fonte de verd
 Migration mais recente pendente:
 
 ```text
-supabase/migrations/20260714014500_fix_marketplace_unlock_rpc_ambiguity.sql
+supabase/migrations/20260714020000_fix_private_details_unlock_policy.sql
 ```
 
 Ordem completa de execução:

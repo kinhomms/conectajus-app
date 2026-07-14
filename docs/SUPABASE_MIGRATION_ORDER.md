@@ -45,6 +45,7 @@ npm run supabase:bundle
 27. `20260714010000_harden_lawyer_profile_trigger_null_profile.sql`
 28. `20260714013000_harden_marketplace_unlock_rpc.sql`
 29. `20260714014500_fix_marketplace_unlock_rpc_ambiguity.sql`
+30. `20260714020000_fix_private_details_unlock_policy.sql`
 
 ## Observações importantes
 
@@ -53,6 +54,7 @@ npm run supabase:bundle
 - A migration `20260714010000_harden_lawyer_profile_trigger_null_profile.sql` evita que usuários criados pelo Dashboard sem metadata de perfil disparem validação indevida de OAB.
 - A migration `20260714013000_harden_marketplace_unlock_rpc.sql` torna o desbloqueio do Marketplace mais atômico, cria conta de crédito faltante e retorna mensagens controladas em caso de falha.
 - A migration `20260714014500_fix_marketplace_unlock_rpc_ambiguity.sql` remove ambiguidade interna do RPC de desbloqueio ao registrar a auditoria do lead.
+- A migration `20260714020000_fix_private_details_unlock_policy.sql` qualifica a policy de leitura dos dados privados para liberar corretamente detalhes após o desbloqueio.
 - A migration de acesso exige `lawyer_profiles.verification_status = 'verified'` para advogado acessar Marketplace, Financeiro e desbloqueios; administradores continuam liberados.
 - A migration de exclusão cria fila auditável `account_deletion_requests`; a exclusão não é instantânea para preservar análise jurídica, auditoria e retenções obrigatórias.
 - A RPC de decisão de exclusão registra `decided_by = auth.uid()` e evita update administrativo direto pela API pública.
