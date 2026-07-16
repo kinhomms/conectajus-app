@@ -38,7 +38,7 @@ Você ainda precisa definir ou confirmar:
 5. Confirmação de que Production aponta para o Supabase correto.
 6. Aplicação/validação das migrations no Supabase alvo.
 7. Bucket privado `citizen-documents` criado e restrito.
-8. Migration `20260714103000_create_lawyer_public_profiles.sql` aplicada para liberar perfis públicos e bucket `lawyer-profile-photos`.
+8. Migrations `20260714103000_create_lawyer_public_profiles.sql` e `20260716100000_grant_lawyer_public_profiles_access.sql` aplicadas para liberar perfis públicos e bucket `lawyer-profile-photos`.
 9. Backups automáticos do Supabase habilitados.
 
 ## 3. Para operar com usuários reais

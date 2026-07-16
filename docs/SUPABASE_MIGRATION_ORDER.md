@@ -49,6 +49,7 @@ npm run supabase:bundle
 31. `20260714021500_create_accessible_marketplace_private_details_rpc.sql`
 32. `20260714023000_backfill_missing_marketplace_private_details.sql`
 33. `20260714103000_create_lawyer_public_profiles.sql`
+34. `20260716100000_grant_lawyer_public_profiles_access.sql`
 
 ## Observações importantes
 
@@ -61,6 +62,7 @@ npm run supabase:bundle
 - A migration `20260714021500_create_accessible_marketplace_private_details_rpc.sql` cria uma RPC segura para o app carregar detalhes privados liberados sem depender de select direto sensível a RLS.
 - A migration `20260714023000_backfill_missing_marketplace_private_details.sql` reconstrói detalhes privados mínimos para oportunidades legadas que foram publicadas sem linha privada vinculada.
 - A migration `20260714103000_create_lawyer_public_profiles.sql` cria perfis públicos de advogados e bucket público controlado para fotos profissionais.
+- A migration `20260716100000_grant_lawyer_public_profiles_access.sql` libera os grants necessários para leitura pública e gestão autenticada dos perfis públicos de advogados.
 - A migration de acesso exige `lawyer_profiles.verification_status = 'verified'` para advogado acessar Marketplace, Financeiro e desbloqueios; administradores continuam liberados.
 - A migration de exclusão cria fila auditável `account_deletion_requests`; a exclusão não é instantânea para preservar análise jurídica, auditoria e retenções obrigatórias.
 - A RPC de decisão de exclusão registra `decided_by = auth.uid()` e evita update administrativo direto pela API pública.

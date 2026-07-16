@@ -11,7 +11,7 @@
 
 
 -- =========================================================
--- 01/33 — 20260710120000_create_marketplace_opportunities.sql
+-- 01/34 — 20260710120000_create_marketplace_opportunities.sql
 -- =========================================================
 
 -- Marketplace Jurídico: oportunidades mascaradas geradas pela triagem por IA.
@@ -83,7 +83,7 @@ using (status in ('open', 'reserved'));
 
 
 -- =========================================================
--- 02/33 — 20260710123000_allow_authenticated_marketplace_opportunity_insert.sql
+-- 02/34 — 20260710123000_allow_authenticated_marketplace_opportunity_insert.sql
 -- =========================================================
 
 -- Allow authenticated users to publish masked marketplace opportunities created from triage.
@@ -103,7 +103,7 @@ with check (
 
 
 -- =========================================================
--- 03/33 — 20260710130000_create_marketplace_credit_unlock_flow.sql
+-- 03/34 — 20260710130000_create_marketplace_credit_unlock_flow.sql
 -- =========================================================
 
 -- Marketplace credit and unlock flow.
@@ -291,7 +291,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 04/33 — 20260711001000_create_ensure_lawyer_credit_account_rpc.sql
+-- 04/34 — 20260711001000_create_ensure_lawyer_credit_account_rpc.sql
 -- =========================================================
 
 -- Initializes a zero-balance credit account for the authenticated user when needed.
@@ -330,7 +330,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 05/33 — 20260711003000_create_credit_purchase_requests.sql
+-- 05/34 — 20260711003000_create_credit_purchase_requests.sql
 -- =========================================================
 
 -- Credit purchase requests.
@@ -397,7 +397,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 06/33 — 20260711005000_create_marketplace_private_details.sql
+-- 06/34 — 20260711005000_create_marketplace_private_details.sql
 -- =========================================================
 
 -- Private personal/contact data for marketplace opportunities.
@@ -475,7 +475,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 07/33 — 20260711010000_create_admin_credit_request_approval.sql
+-- 07/34 — 20260711010000_create_admin_credit_request_approval.sql
 -- =========================================================
 
 -- Admin approval flow for credit purchase requests.
@@ -656,7 +656,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 08/33 — 20260711013000_harden_admin_credit_approval.sql
+-- 08/34 — 20260711013000_harden_admin_credit_approval.sql
 -- =========================================================
 
 -- Harden administrative credit approvals.
@@ -707,7 +707,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 09/33 — 20260711014500_cancel_credit_purchase_request.sql
+-- 09/34 — 20260711014500_cancel_credit_purchase_request.sql
 -- =========================================================
 
 -- Allow users to cancel their own pending credit purchase requests.
@@ -763,7 +763,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 10/33 — 20260711020000_restrict_marketplace_to_lawyers.sql
+-- 10/34 — 20260711020000_restrict_marketplace_to_lawyers.sql
 -- =========================================================
 
 -- Restrict marketplace browsing/unlocking to lawyers and administrators.
@@ -910,7 +910,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 11/33 — 20260711021500_restrict_finance_to_marketplace_actors.sql
+-- 11/34 — 20260711021500_restrict_finance_to_marketplace_actors.sql
 -- =========================================================
 
 -- Restrict credit account initialization and credit purchase requests to marketplace actors.
@@ -967,7 +967,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 12/33 — 20260711023000_create_agenda_events.sql
+-- 12/34 — 20260711023000_create_agenda_events.sql
 -- =========================================================
 
 create table if not exists public.agenda_events (
@@ -1018,7 +1018,7 @@ create policy "Users can delete own agenda events"
 
 
 -- =========================================================
--- 13/33 — 20260711024500_harden_crm_citizen_data_access.sql
+-- 13/34 — 20260711024500_harden_crm_citizen_data_access.sql
 -- =========================================================
 
 -- Harden CRM operational data so citizen accounts cannot read office/client records.
@@ -1177,7 +1177,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 14/33 — 20260711030000_create_citizen_document_uploads.sql
+-- 14/34 — 20260711030000_create_citizen_document_uploads.sql
 -- =========================================================
 
 -- Citizen document uploads are separated from CRM client_documents.
@@ -1291,7 +1291,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 15/33 — 20260711031500_link_citizen_documents_to_marketplace.sql
+-- 15/34 — 20260711031500_link_citizen_documents_to_marketplace.sql
 -- =========================================================
 
 -- Link private citizen documents to marketplace opportunities.
@@ -1344,7 +1344,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 16/33 — 20260711033000_allow_citizens_to_track_own_opportunities.sql
+-- 16/34 — 20260711033000_allow_citizens_to_track_own_opportunities.sql
 -- =========================================================
 
 -- Allow citizens to track only the marketplace opportunities created by themselves.
@@ -1360,7 +1360,7 @@ create policy "Citizens can view own marketplace opportunities"
 
 
 -- =========================================================
--- 17/33 — 20260711034500_create_marketplace_opportunity_crm_links.sql
+-- 17/34 — 20260711034500_create_marketplace_opportunity_crm_links.sql
 -- =========================================================
 
 -- Persist the operational handoff from an unlocked marketplace opportunity to CRM records.
@@ -1420,7 +1420,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 18/33 — 20260712090000_allow_citizen_document_complements.sql
+-- 18/34 — 20260712090000_allow_citizen_document_complements.sql
 -- =========================================================
 
 -- Allow citizens to safely attach complementary documents to their own published marketplace opportunities.
@@ -1456,7 +1456,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 19/33 — 20260712093000_link_complementary_marketplace_opportunities.sql
+-- 19/34 — 20260712093000_link_complementary_marketplace_opportunities.sql
 -- =========================================================
 
 -- Track complementary marketplace opportunities with a structured parent relationship.
@@ -1472,7 +1472,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 20/33 — 20260713100000_harden_complement_parent_ownership.sql
+-- 20/34 — 20260713100000_harden_complement_parent_ownership.sql
 -- =========================================================
 
 -- Harden complementary triage publishing.
@@ -1504,7 +1504,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 21/33 — 20260713113000_create_lawyer_profiles_oab_validation.sql
+-- 21/34 — 20260713113000_create_lawyer_profiles_oab_validation.sql
 -- =========================================================
 
 create table if not exists public.lawyer_profiles (
@@ -1627,7 +1627,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 22/33 — 20260713114500_require_verified_oab_for_marketplace.sql
+-- 22/34 — 20260713114500_require_verified_oab_for_marketplace.sql
 -- =========================================================
 
 create or replace function public.is_current_user_marketplace_actor()
@@ -1662,7 +1662,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 23/33 — 20260713120000_create_account_deletion_requests.sql
+-- 23/34 — 20260713120000_create_account_deletion_requests.sql
 -- =========================================================
 
 create table if not exists public.account_deletion_requests (
@@ -1738,7 +1738,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 24/33 — 20260713123000_decide_account_deletion_request_rpc.sql
+-- 24/34 — 20260713123000_decide_account_deletion_request_rpc.sql
 -- =========================================================
 
 create or replace function public.decide_account_deletion_request(
@@ -1808,7 +1808,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 25/33 — 20260713124500_audit_lawyer_oab_verification.sql
+-- 25/34 — 20260713124500_audit_lawyer_oab_verification.sql
 -- =========================================================
 
 alter table public.lawyer_profiles
@@ -1885,7 +1885,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 26/33 — 20260713130000_audit_credit_purchase_request_decisions.sql
+-- 26/34 — 20260713130000_audit_credit_purchase_request_decisions.sql
 -- =========================================================
 
 alter table public.lawyer_credit_purchase_requests
@@ -2081,7 +2081,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 27/33 — 20260714010000_harden_lawyer_profile_trigger_null_profile.sql
+-- 27/34 — 20260714010000_harden_lawyer_profile_trigger_null_profile.sql
 -- =========================================================
 
 create or replace function public.handle_new_lawyer_profile()
@@ -2140,7 +2140,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 28/33 — 20260714013000_harden_marketplace_unlock_rpc.sql
+-- 28/34 — 20260714013000_harden_marketplace_unlock_rpc.sql
 -- =========================================================
 
 drop function if exists public.unlock_marketplace_opportunity(uuid);
@@ -2255,7 +2255,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 29/33 — 20260714014500_fix_marketplace_unlock_rpc_ambiguity.sql
+-- 29/34 — 20260714014500_fix_marketplace_unlock_rpc_ambiguity.sql
 -- =========================================================
 
 drop function if exists public.unlock_marketplace_opportunity(uuid);
@@ -2370,7 +2370,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 30/33 — 20260714020000_fix_private_details_unlock_policy.sql
+-- 30/34 — 20260714020000_fix_private_details_unlock_policy.sql
 -- =========================================================
 
 drop policy if exists "Users can view private details after unlock or ownership" on public.marketplace_opportunity_private_details;
@@ -2393,7 +2393,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 31/33 — 20260714021500_create_accessible_marketplace_private_details_rpc.sql
+-- 31/34 — 20260714021500_create_accessible_marketplace_private_details_rpc.sql
 -- =========================================================
 
 create or replace function public.list_accessible_marketplace_private_details()
@@ -2445,7 +2445,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 32/33 — 20260714023000_backfill_missing_marketplace_private_details.sql
+-- 32/34 — 20260714023000_backfill_missing_marketplace_private_details.sql
 -- =========================================================
 
 insert into public.marketplace_opportunity_private_details (
@@ -2490,7 +2490,7 @@ notify pgrst, 'reload schema';
 
 
 -- =========================================================
--- 33/33 — 20260714103000_create_lawyer_public_profiles.sql
+-- 33/34 — 20260714103000_create_lawyer_public_profiles.sql
 -- =========================================================
 
 create table if not exists public.lawyer_public_profiles (
@@ -2592,6 +2592,14 @@ using (
   bucket_id = 'lawyer-profile-photos'
   and (storage.foldername(name))[1] = auth.uid()::text
 );
+
+
+-- =========================================================
+-- 34/34 — 20260716100000_grant_lawyer_public_profiles_access.sql
+-- =========================================================
+
+grant select on public.lawyer_public_profiles to anon;
+grant select, insert, update, delete on public.lawyer_public_profiles to authenticated;
 
 
 -- =========================================================
