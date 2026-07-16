@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { routes } from "@/lib/routes";
@@ -12,7 +12,7 @@ export function UserMenu({ isCitizen = false }: UserMenuProps) {
     <div className="flex items-center gap-3">
       <Link
         href={routes.agenda}
-        className="hidden rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10 md:block"
+        className="hidden rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10 md:block"
       >
         Notificações
       </Link>
@@ -20,7 +20,7 @@ export function UserMenu({ isCitizen = false }: UserMenuProps) {
       {!isCitizen && (
         <Link
           href={routes.triage}
-          className="rounded-2xl bg-amber-400 px-4 py-2 text-sm font-semibold text-black transition hover:bg-amber-300"
+          className="rounded-2xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-500 dark:bg-teal-300 dark:text-slate-950 dark:hover:bg-teal-200"
         >
           IA Jurídica
         </Link>
@@ -29,10 +29,13 @@ export function UserMenu({ isCitizen = false }: UserMenuProps) {
       <Link
         href={routes.settings}
         aria-label="Abrir configurações da conta"
-        className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/30 bg-white/10 text-sm font-bold text-amber-300 transition hover:bg-white/15"
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-teal-200 bg-teal-50 text-sm font-bold text-teal-700 transition hover:bg-teal-100 dark:border-teal-400/30 dark:bg-white/10 dark:text-teal-200 dark:hover:bg-white/15"
       >
         CJ
       </Link>
     </div>
   );
 }
+
+
+

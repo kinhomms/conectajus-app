@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -76,12 +76,12 @@ export function SearchBar({ isCitizen = false, placeholder = "Buscar clientes, p
         onChange={(event) => setQuery(event.target.value)}
         placeholder={placeholder}
         list="global-search-suggestions"
-        className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 pr-24 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-amber-400/70 focus:bg-white/10"
+        className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 pr-24 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-500 focus:bg-white dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-teal-300 dark:focus:bg-white/10"
       />
 
       <button
         type="submit"
-        className="absolute right-1.5 top-1.5 rounded-xl bg-amber-400 px-4 py-2 text-xs font-black text-black transition hover:bg-amber-300"
+        className="absolute right-1.5 top-1.5 rounded-xl bg-teal-600 px-4 py-2 text-xs font-black text-white transition hover:bg-teal-500 dark:bg-teal-300 dark:text-slate-950 dark:hover:bg-teal-200"
       >
         Buscar
       </button>
@@ -111,3 +111,6 @@ function normalizeSearch(value: string) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }
+
+
+

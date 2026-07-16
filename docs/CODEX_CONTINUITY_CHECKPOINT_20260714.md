@@ -219,3 +219,48 @@ Andamento técnico atual: 99,995%.
 O que falta para considerar 100% operacional:
 
 - aprovação jurídica/comercial final dos textos públicos, regras de créditos/estorno, canal oficial de privacidade/suporte e domínio final antes de go-live comercial definitivo.
+
+## Atualização 2026-07-16 — Referência Advogado Dinâmico / tema claro-escuro
+
+Solicitação do usuário: analisar prints do concorrente Advogado Dinâmico e aproximar a ConectaJus do mesmo perfil de produto, sem copiar identidade visual, com interface limpa, sem cores fortes, tema claro como padrão e tema escuro opcional.
+
+Alterações implementadas nesta rodada:
+
+- Tema claro definido como padrão no AppShell autenticado.
+- Tema escuro opcional com persistência local via `ThemeToggle`.
+- `@custom-variant dark` adicionado em `src/app/globals.css` para dark mode por classe `.dark`.
+- Topbar, Sidebar, SearchBar, UserMenu e MobileNavigation adaptados para visual claro, cards/brancos e suporte dark.
+- Marketplace ajustado para linguagem mais comercial: filtros renomeados para `Caixa de entrada`, `Exclusivo para você` e `Complementos`.
+- Dashboard do advogado e portal do cidadão suavizados para fundo claro, cards claros, bordas discretas e CTA teal em vez de dourado forte.
+- Correções de encoding UTF-8 após edição via PowerShell.
+- Correção de ícones mojibake nos cards finais do dashboard.
+
+Validações realizadas nesta rodada:
+
+```bash
+npm run lint
+npm run build
+```
+
+Resultado:
+
+- `npm run lint`: aprovado sem erros; restaram apenas 2 warnings já conhecidos de `<img>` em perfil público/configurações.
+- `npm run build`: aprovado; 19 rotas geradas/validadas pelo Next.js.
+
+Teste local no navegador interno:
+
+- `http://localhost:3000/dashboard` abriu com tema claro default (`body` em `rgb(245, 247, 251)`).
+- Botão de tema exibiu `Escuro` no estado claro.
+- Alternância para escuro testada com sucesso: classe `dark` aplicada no `html`, fundo `rgb(11, 15, 25)` e botão passou a `Claro`.
+- Tema foi retornado para claro ao final do teste.
+- Textos principais corrigidos após mojibake: `Notificações`, `Jurídica`, `Créditos`, `Configurações`, etc.
+
+Observação pendente:
+
+- Ao tentar validar `/marketplace` visualmente no navegador interno, a sessão ativa alternou/permaneceu com perfil cidadão em parte do teste, exibindo navegação do portal cidadão. A validação técnica do componente passou no build, mas a validação visual completa do marketplace como advogado deve ser repetida com uma conta advogado confirmada/logada do zero.
+
+Próxima etapa sugerida:
+
+1. Validar login limpo como advogado e abrir `/marketplace` para confirmar visual dos cards reais de oportunidades.
+2. Ajustar demais módulos internos para o mesmo padrão visual claro/dark, começando por CRM, documentos, agenda e configurações.
+3. Substituir futuramente os dois `<img>` por `next/image` para eliminar warnings de lint.

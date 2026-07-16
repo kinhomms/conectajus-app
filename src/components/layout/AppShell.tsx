@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
@@ -22,7 +22,7 @@ export function AppShell({ children }: AppShellProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-white">
+    <div className="min-h-screen bg-[#F5F7FB] text-slate-950 transition-colors dark:bg-[#0B0F19] dark:text-white">
       <Sidebar />
 
       <div className="min-h-screen lg:pl-72">
@@ -37,3 +37,5 @@ export function AppShell({ children }: AppShellProps) {
     </div>
   );
 }
+
+

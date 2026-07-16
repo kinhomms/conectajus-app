@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { routes } from "@/lib/routes";
@@ -25,7 +25,7 @@ export function MarketplaceWorkspace() {
 
   if (marketplace.loading) {
     return (
-      <main className="flex min-h-[60vh] items-center justify-center text-white">
+      <main className="flex min-h-[60vh] items-center justify-center text-slate-950 dark:text-white">
         <p className="font-black">Carregando marketplace...</p>
       </main>
     );
@@ -36,15 +36,15 @@ export function MarketplaceWorkspace() {
   }
 
   return (
-    <section className="text-white">
+    <section className="text-slate-950 dark:text-white">
       <PageNavigation />
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
-          <p className="text-xs uppercase tracking-[0.25em] text-amber-400">
+          <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
             Marketplace Jurídico
           </p>
           <h1 className="mt-2 text-3xl font-bold">Oportunidades qualificadas</h1>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
             Camada estratégica entre a triagem por IA e advogados parceiros, com dados pessoais e documentos protegidos até o desbloqueio por créditos.
           </p>
         </div>
@@ -53,13 +53,13 @@ export function MarketplaceWorkspace() {
           <button
             type="button"
             onClick={() => marketplace.refreshOpportunities()}
-            className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
+            className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
           >
             Atualizar
           </button>
           <Link
             href={routes.finance}
-            className="rounded-2xl bg-amber-400 px-5 py-3 text-center text-sm font-bold text-black hover:bg-amber-300"
+            className="rounded-2xl bg-teal-600 px-5 py-3 text-center text-sm font-bold text-white dark:bg-teal-300 dark:text-slate-950 hover:bg-teal-500 dark:hover:bg-teal-200"
           >
             Ver créditos
           </Link>
@@ -73,18 +73,18 @@ export function MarketplaceWorkspace() {
             value={marketplace.search}
             onChange={(event) => marketplace.setSearch(event.target.value)}
             placeholder="Buscar por área, cidade, urgência, resumo ou complexidade..."
-            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-amber-400"
+            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-teal-500 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-teal-300"
           />
 
           <div className="flex flex-wrap gap-2">
             <FilterButton
               active={marketplace.opportunityKindFilter === "all"}
-              label="Todos"
+              label="Caixa de entrada"
               onClick={() => marketplace.setOpportunityKindFilter("all")}
             />
             <FilterButton
               active={marketplace.opportunityKindFilter === "original"}
-              label="Casos originais"
+              label="Exclusivo para você"
               onClick={() => marketplace.setOpportunityKindFilter("original")}
             />
             <FilterButton
@@ -109,14 +109,14 @@ export function MarketplaceWorkspace() {
               <p className="text-xs font-black uppercase tracking-[0.25em] text-amber-300">
                 Saldo baixo
               </p>
-              <h2 className="mt-2 text-xl font-black text-white">Poucos créditos para novas oportunidades</h2>
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-amber-100">
+              <h2 className="mt-2 text-xl font-black text-slate-950 dark:text-white">Poucos créditos para novas oportunidades</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-amber-900 dark:text-amber-100">
                 Solicite um novo pacote antes de desbloquear leads urgentes, para não interromper o fluxo comercial.
               </p>
             </div>
             <Link
               href={routes.finance}
-              className="rounded-2xl bg-amber-400 px-5 py-3 text-center text-sm font-black text-black hover:bg-amber-300"
+              className="rounded-2xl bg-teal-600 px-5 py-3 text-center text-sm font-black text-white dark:bg-teal-300 dark:text-slate-950 hover:bg-teal-500 dark:hover:bg-teal-200"
             >
               Solicitar créditos
             </Link>
@@ -125,7 +125,7 @@ export function MarketplaceWorkspace() {
       ) : null}
 
       {marketplace.message && (
-        <div className="mb-6 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm font-semibold text-amber-100">
+        <div className="mb-6 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm font-semibold text-amber-900 dark:text-amber-100">
           {marketplace.message}
         </div>
       )}
@@ -176,30 +176,30 @@ export function MarketplaceWorkspace() {
         </div>
 
         <aside className="space-y-6">
-          <div className="rounded-3xl border border-white/10 bg-[#111827] p-6 shadow-xl shadow-black/20">
-            <p className="text-xs uppercase tracking-[0.25em] text-amber-400">
+          <div className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 p-6 dark:bg-[#111827] shadow-xl shadow-slate-200/70 dark:shadow-black/20">
+            <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
               Fluxo premium
             </p>
             <h3 className="mt-2 text-xl font-bold">Como o marketplace opera</h3>
 
             <div className="mt-5 space-y-3">
               {workflow.map((step) => (
-                <div key={step.title} className="rounded-2xl bg-[#0B0F19] p-4">
-                  <p className="text-sm font-bold text-white">{step.title}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-400">{step.description}</p>
+                <div key={step.title} className="rounded-2xl bg-slate-50 p-4 dark:bg-[#0B0F19]">
+                  <p className="text-sm font-bold text-slate-950 dark:text-white">{step.title}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{step.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-[#111827] p-6 shadow-xl shadow-black/20">
-            <p className="text-xs uppercase tracking-[0.25em] text-amber-400">
+          <div className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 p-6 dark:bg-[#111827] shadow-xl shadow-slate-200/70 dark:shadow-black/20">
+            <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
               Fontes integradas
             </p>
             <h3 className="mt-2 text-xl font-bold">Base de dados</h3>
-            <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-300">
+            <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-700 dark:text-slate-300">
               {integration.expectedSources.map((source) => (
-                <li key={source} className="rounded-2xl bg-[#0B0F19] p-4">
+                <li key={source} className="rounded-2xl bg-slate-50 p-4 dark:bg-[#0B0F19]">
                   {source}
                 </li>
               ))}
@@ -213,26 +213,26 @@ export function MarketplaceWorkspace() {
 
 function RestrictedMarketplace() {
   return (
-    <section className="text-white">
+    <section className="text-slate-950 dark:text-white">
       <PageNavigation dashboardLabel="Portal do cidadão" />
-      <div className="rounded-3xl border border-amber-400/20 bg-[#111827] p-8 shadow-xl shadow-black/20">
-        <p className="text-xs uppercase tracking-[0.25em] text-amber-400">
+      <div className="rounded-3xl border border-amber-400/20 bg-[#111827] p-8 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
+        <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
           Acesso restrito
         </p>
         <h1 className="mt-3 text-3xl font-black">Marketplace exclusivo para advogados parceiros</h1>
-        <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-400">
+        <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
           O Marketplace exibe oportunidades jurídicas mascaradas para advogados com OAB verificada. Se você é advogado recém-cadastrado, aguarde a validação administrativa da OAB. Se você é cidadão, continue pela triagem para organizar seu caso com segurança.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link
             href={routes.triage}
-            className="rounded-2xl bg-amber-400 px-5 py-3 text-center text-sm font-black text-black hover:bg-amber-300"
+            className="rounded-2xl bg-teal-600 px-5 py-3 text-center text-sm font-black text-white dark:bg-teal-300 dark:text-slate-950 hover:bg-teal-500 dark:hover:bg-teal-200"
           >
             Ir para Triagem
           </Link>
           <Link
             href={routes.dashboard}
-            className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-bold text-white hover:bg-white/5"
+            className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-bold text-slate-950 dark:text-white hover:bg-white/5"
           >
             Voltar ao painel
           </Link>
@@ -251,12 +251,12 @@ function EmptyMarketplace({ integrationMessage }: { integrationMessage: string }
         Sem oportunidades reais
       </p>
       <h2 className="mt-3 text-2xl font-bold">Nenhuma oportunidade disponível</h2>
-      <p className="mt-4 max-w-3xl leading-7 text-slate-400">{integrationMessage}</p>
+      <p className="mt-4 max-w-3xl leading-7 text-slate-600 dark:text-slate-400">{integrationMessage}</p>
 
-      <div className="mt-8 rounded-2xl border border-white/10 bg-[#0B0F19] p-5">
+      <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 p-5 dark:bg-[#0B0F19]">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm font-bold text-white">Preview estrutural do lead</p>
+            <p className="text-sm font-bold text-slate-950 dark:text-white">Preview estrutural do lead</p>
             <p className="mt-1 text-sm text-slate-500">Modelo de visibilidade sem dados pessoais.</p>
           </div>
           <span className="w-fit rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-300">
@@ -298,18 +298,18 @@ function OpportunityCard({
   unlocking: boolean;
 }) {
   return (
-    <article className="rounded-3xl border border-white/10 bg-[#111827] p-6 shadow-xl shadow-black/20">
+    <article className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 p-6 dark:bg-[#111827] shadow-xl shadow-slate-200/70 dark:shadow-black/20">
       <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-amber-400">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-300">
             {opportunity.practice_area || "Área a confirmar"}
           </p>
-          <h2 className="mt-2 text-xl font-bold text-white">
+          <h2 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">
             {formatLocation(opportunity)}
           </h2>
         </div>
 
-        <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-slate-300">
+        <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-slate-700 dark:text-slate-300">
           {opportunity.urgency || "Sem urgência"}
         </span>
       </div>
@@ -320,15 +320,15 @@ function OpportunityCard({
         </div>
       ) : null}
 
-      <p className="line-clamp-4 text-sm leading-6 text-slate-400">{opportunity.summary}</p>
+      <p className="line-clamp-4 text-sm leading-6 text-slate-600 dark:text-slate-400">{opportunity.summary}</p>
 
-      <div className="mt-5 grid gap-3 text-sm text-slate-300 md:grid-cols-2">
+      <div className="mt-5 grid gap-3 text-sm text-slate-700 dark:text-slate-300 md:grid-cols-2">
         <Info label="Complexidade" value={opportunity.complexity || "A confirmar"} />
         <Info label="Créditos" value={String(opportunity.credit_cost ?? "A definir")} />
         {opportunity.parent_opportunity_id ? <Info label="Origem" value="Complemento de caso publicado" /> : null}
       </div>
 
-      <div className="mt-5 rounded-2xl border border-amber-400/20 bg-amber-400/10 p-4 text-sm leading-6 text-amber-100">
+      <div className="mt-5 rounded-2xl border border-amber-400/20 bg-amber-400/10 p-4 text-sm leading-6 text-amber-900 dark:text-amber-100">
         Dados pessoais, documentos e histórico completo permanecem bloqueados até o uso de créditos.
       </div>
 
@@ -344,8 +344,8 @@ function OpportunityCard({
           opportunity={opportunity}
         />
       ) : opportunity.status === "unlocked" ? (
-        <div className="mt-5 rounded-2xl border border-amber-400/20 bg-amber-400/10 p-4 text-sm leading-6 text-amber-100">
-          <p className="font-black text-amber-200">Oportunidade desbloqueada</p>
+        <div className="mt-5 rounded-2xl border border-amber-400/20 bg-amber-400/10 p-4 text-sm leading-6 text-amber-900 dark:text-amber-100">
+          <p className="font-black text-amber-800 dark:text-amber-200">Oportunidade desbloqueada</p>
           <p className="mt-2">
             O consumo de créditos já foi registrado, mas os dados privados deste lead ainda não foram encontrados. Atualize a página após a sincronização ou acione o suporte administrativo.
           </p>
@@ -355,7 +355,7 @@ function OpportunityCard({
           type="button"
           onClick={() => onUnlock(opportunity.id)}
           disabled={unlocking}
-          className="mt-5 w-full rounded-2xl bg-amber-400 px-5 py-3 text-sm font-black text-black transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-5 w-full rounded-2xl bg-teal-600 px-5 py-3 text-sm font-black text-white dark:bg-teal-300 dark:text-slate-950 transition hover:bg-teal-500 dark:hover:bg-teal-200 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {unlocking ? "Desbloqueando..." : "Desbloquear com créditos"}
         </button>
@@ -384,32 +384,32 @@ function PrivateDetails({
   opportunity: MarketplaceOpportunity;
 }) {
   return (
-    <div className="mt-5 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-sm leading-6 text-emerald-50">
-      <p className="mb-3 font-black text-emerald-200">Dados liberados</p>
+    <div className="mt-5 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-sm leading-6 text-emerald-950 dark:text-emerald-50">
+      <p className="mb-3 font-black text-emerald-700 dark:text-emerald-200">Dados liberados</p>
       <div className="space-y-2 text-slate-100">
-        <p><span className="text-slate-400">Nome:</span> {details.full_name || "Não informado"}</p>
-        <p><span className="text-slate-400">Telefone:</span> {details.phone || "Não informado"}</p>
-        <p><span className="text-slate-400">WhatsApp:</span> {details.whatsapp || "Não informado"}</p>
-        <p><span className="text-slate-400">E-mail:</span> {details.email || "Não informado"}</p>
-        <p><span className="text-slate-400">Documentos mencionados:</span> {details.document_notes || "Não informado"}</p>
-        <p><span className="text-slate-400">Histórico:</span> {details.case_history || "Não informado"}</p>
+        <p><span className="text-slate-600 dark:text-slate-400">Nome:</span> {details.full_name || "Não informado"}</p>
+        <p><span className="text-slate-600 dark:text-slate-400">Telefone:</span> {details.phone || "Não informado"}</p>
+        <p><span className="text-slate-600 dark:text-slate-400">WhatsApp:</span> {details.whatsapp || "Não informado"}</p>
+        <p><span className="text-slate-600 dark:text-slate-400">E-mail:</span> {details.email || "Não informado"}</p>
+        <p><span className="text-slate-600 dark:text-slate-400">Documentos mencionados:</span> {details.document_notes || "Não informado"}</p>
+        <p><span className="text-slate-600 dark:text-slate-400">Histórico:</span> {details.case_history || "Não informado"}</p>
       </div>
 
-      <div className="mt-4 rounded-2xl border border-white/10 bg-[#0B0F19]/60 p-4">
-        <p className="font-black text-emerald-200">Arquivos privados</p>
+      <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19]/60 p-4">
+        <p className="font-black text-emerald-700 dark:text-emerald-200">Arquivos privados</p>
         {documents.length === 0 ? (
-          <p className="mt-2 text-sm text-slate-300">Nenhum arquivo vinculado a esta oportunidade.</p>
+          <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">Nenhum arquivo vinculado a esta oportunidade.</p>
         ) : (
           <div className="mt-3 space-y-2">
             {documents.map((document) => (
               <div key={document.id} className="rounded-2xl bg-black/20 p-3">
-                <p className="break-words font-bold text-white">{document.file_name}</p>
-                <p className="text-xs text-slate-400">{document.mime_type || "Arquivo privado"}</p>
+                <p className="break-words font-bold text-slate-950 dark:text-white">{document.file_name}</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400">{document.mime_type || "Arquivo privado"}</p>
                 <button
                   type="button"
                   onClick={() => onOpenDocument(document)}
                   disabled={openingDocumentId === document.id}
-                  className="mt-2 rounded-xl border border-white/10 px-3 py-2 text-xs font-black text-white hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="mt-2 rounded-xl border border-white/10 px-3 py-2 text-xs font-black text-slate-950 dark:text-white hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {openingDocumentId === document.id ? "Abrindo..." : "Abrir link seguro"}
                 </button>
@@ -419,9 +419,9 @@ function PrivateDetails({
         )}
       </div>
 
-      <div className="mt-4 rounded-2xl border border-white/10 bg-[#0B0F19]/70 p-4">
-        <p className="font-black text-white">Próxima etapa operacional</p>
-        <p className="mt-2 text-sm leading-6 text-slate-300">
+      <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19]/70 p-4">
+        <p className="font-black text-slate-950 dark:text-white">Próxima etapa operacional</p>
+        <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
           Envie este lead desbloqueado para o CRM para abrir cliente, caso, nota inicial e referências dos documentos.
         </p>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
@@ -429,19 +429,19 @@ function PrivateDetails({
             type="button"
             onClick={() => onCreateCrmClient(opportunity)}
             disabled={convertingCrm}
-            className="rounded-2xl bg-emerald-400 px-5 py-3 text-sm font-black text-black hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-2xl bg-emerald-400 px-5 py-3 text-sm font-black text-slate-950 dark:text-white dark:text-slate-950 hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {convertingCrm ? "Enviando..." : "Enviar para CRM"}
           </button>
           <Link
             href={routes.clients}
-            className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-black text-white hover:bg-white/10"
+            className="rounded-2xl border border-white/10 px-5 py-3 text-center text-sm font-black text-slate-950 dark:text-white hover:bg-white/10"
           >
             {convertedClientId ? "Abrir CRM" : "Ver CRM"}
           </Link>
         </div>
         {convertedClientId ? (
-          <p className="mt-3 text-xs font-bold text-emerald-200">Cliente vinculado no CRM: {convertedClientId}</p>
+          <p className="mt-3 text-xs font-bold text-emerald-700 dark:text-emerald-200">Cliente vinculado no CRM: {convertedClientId}</p>
         ) : null}
       </div>
     </div>
@@ -458,9 +458,9 @@ function formatLocation(opportunity: MarketplaceOpportunity) {
 
 function Metric({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#111827] px-4 py-3">
+    <div className="rounded-2xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] px-4 py-3">
       <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{label}</p>
-      <p className="mt-1 text-2xl font-bold text-white">{value}</p>
+      <p className="mt-1 text-2xl font-bold text-slate-950 dark:text-white">{value}</p>
     </div>
   );
 }
@@ -480,8 +480,8 @@ function FilterButton({
       onClick={onClick}
       className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-wide transition ${
         active
-          ? "border-amber-400 bg-amber-400 text-black"
-          : "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
+          ? "border-teal-600 bg-teal-600 dark:border-teal-300 dark:bg-teal-300 text-white dark:text-slate-950"
+          : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
       }`}
     >
       {label}
@@ -499,9 +499,9 @@ function FieldGroup({
   fields: Array<{ label: string; description: string }>;
 }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-[#111827] p-6">
+    <div className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 p-6 dark:bg-[#111827]">
       <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{eyebrow}</p>
-      <h3 className="mt-2 text-xl font-bold text-white">{title}</h3>
+      <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">{title}</h3>
       <div className="mt-5 space-y-3">
         {fields.map((field) => (
           <InfoCard key={field.label} title={field.label} description={field.description} />
@@ -513,18 +513,25 @@ function FieldGroup({
 
 function InfoCard({ title, description }: { title: string; description: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#0B0F19] p-4">
-      <p className="text-sm font-bold text-white">{title}</p>
-      <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 p-4 dark:bg-[#0B0F19]">
+      <p className="text-sm font-bold text-slate-950 dark:text-white">{title}</p>
+      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{description}</p>
     </div>
   );
 }
 
 function Info({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-[#0B0F19] p-4">
+    <div className="rounded-2xl bg-slate-50 p-4 dark:bg-[#0B0F19]">
       <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{label}</p>
-      <p className="mt-1 break-words font-semibold text-white">{value}</p>
+      <p className="mt-1 break-words font-semibold text-slate-950 dark:text-white">{value}</p>
     </div>
   );
 }
+
+
+
+
+
+
+
