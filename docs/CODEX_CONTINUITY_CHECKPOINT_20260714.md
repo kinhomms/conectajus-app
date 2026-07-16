@@ -264,3 +264,40 @@ Próxima etapa sugerida:
 1. Validar login limpo como advogado e abrir `/marketplace` para confirmar visual dos cards reais de oportunidades.
 2. Ajustar demais módulos internos para o mesmo padrão visual claro/dark, começando por CRM, documentos, agenda e configurações.
 3. Substituir futuramente os dois `<img>` por `next/image` para eliminar warnings de lint.
+
+## Atualização 2026-07-16 — Correção de sessão/perfil no layout
+
+Objetivo desta etapa: prosseguir a validação do Marketplace como advogado após a adaptação visual inspirada nos prints do Advogado Dinâmico.
+
+Correções implementadas:
+
+- `useCurrentUserProfile` agora assina `supabase.auth.onAuthStateChange`, evitando que Topbar/Sidebar/MobileNavigation fiquem presos ao perfil anterior quando o usuário troca de conta no mesmo navegador.
+- Criada ponte de assinatura em `auth.repository.ts` e `auth.service.ts`.
+- `useSidebarNavigation` foi regravado com textos e ícones UTF-8 corretos, removendo mojibake em itens como Dashboard, Clientes, Triagem, Documentos, Configurações, Marketplace e Financeiro.
+- Textos de auth/login/cadastro passaram por normalização de encoding.
+- Corrigido texto do botão `← Voltar` no portal cidadão.
+
+Validações realizadas:
+
+```bash
+npm run lint
+npm run build
+```
+
+Resultado:
+
+- `npm run lint`: aprovado sem erros; permanecem apenas os 2 warnings conhecidos de `<img>` em perfil público/configurações.
+- `npm run build`: aprovado.
+- Busca por mojibake em auth/navigation/dashboard/layout: sem ocorrências reais pendentes.
+
+Teste visual/local:
+
+- Tentativa de login com a conta de advogada previamente informada retornou mensagem de credencial inválida no Supabase atual.
+- Tentativa de login com a conta admin previamente informada também retornou mensagem de credencial inválida.
+- Por isso, a validação visual completa de `/marketplace` como advogado/admin ficou pendente até confirmação/redefinição das credenciais ou criação/ajuste das contas no Supabase.
+
+Próxima ação recomendada:
+
+1. Confirmar ou redefinir senha das contas advogado/admin no Supabase Auth.
+2. Repetir login limpo como advogado/admin.
+3. Abrir `/dashboard` e `/marketplace` para confirmar que menu jurídico, oportunidades qualificadas e tema claro/dark aparecem corretamente.

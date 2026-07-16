@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
@@ -85,3 +85,4 @@ function AccessHint({ description, title }: { description: string; title: string
     </div>
   );
 }
+

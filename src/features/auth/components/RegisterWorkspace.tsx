@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
@@ -200,3 +200,4 @@ const brazilianStates = [
   "SE",
   "TO",
 ];
+

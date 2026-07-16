@@ -1,4 +1,4 @@
-import type { User } from "@supabase/supabase-js";
+﻿import type { User } from "@supabase/supabase-js";
 import * as authRepository from "@/features/auth/repositories/auth.repository";
 import type { SignInInput, SignUpInput } from "@/features/auth/repositories/auth.repository";
 
@@ -24,6 +24,9 @@ export const initialRegisterForm: RegisterFormState = {
 
 export async function getCurrentUser() {
   return authRepository.getCurrentUser();
+}
+export function subscribeToAuthChanges(callback: (user: User | null) => void) {
+  return authRepository.onAuthStateChange(callback);
 }
 
 export function getUserProfile(user: User | null | undefined): UserProfile {
@@ -118,3 +121,7 @@ function isValidBrazilianState(value: string) {
     "TO",
   ].includes(value);
 }
+
+
+
+

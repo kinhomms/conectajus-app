@@ -186,7 +186,7 @@ function CitizenDashboard({ caseDocumentCounts, cases, casesError, fullName, han
           onClick={() => window.history.back()}
           className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-black text-slate-950 dark:text-white hover:bg-white/10"
         >
-          â† Voltar
+          ← Voltar
         </button>
         <Link href={routes.home} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-black text-slate-950 dark:text-white hover:bg-white/10">
           Início
@@ -623,6 +623,7 @@ const lawyerCards = [
     description: "Gerencie clientes, painel premium e relacionamento jurídico em uma área centralizada.",
   },
 ];
+
 
 
 

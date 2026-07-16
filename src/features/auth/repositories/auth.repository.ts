@@ -1,3 +1,4 @@
+﻿import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 
 export type SignInInput = {
@@ -16,6 +17,11 @@ export type SignUpInput = SignInInput & {
 
 export async function getCurrentUser() {
   return supabase.auth.getUser();
+}
+export function onAuthStateChange(callback: (user: User | null) => void) {
+  return supabase.auth.onAuthStateChange((_event, session) => {
+    callback(session?.user ?? null);
+  });
 }
 
 export async function signInWithPassword(input: SignInInput) {
@@ -45,3 +51,6 @@ export async function signUp(input: SignUpInput) {
 export async function signOut() {
   return supabase.auth.signOut();
 }
+
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { routes } from "@/lib/routes";
@@ -37,8 +37,7 @@ const marketplaceItems: SidebarMenuItem[] = [
   { href: routes.finance, label: "Financeiro", icon: "💰", description: "Créditos e consumo" },
 ];
 
-const comingSoonItems: SidebarMenuItem[] = [
-];
+const comingSoonItems: SidebarMenuItem[] = [];
 
 export function useSidebarNavigation() {
   const { isCitizen, isLegalOperator } = useCurrentUserProfile();
