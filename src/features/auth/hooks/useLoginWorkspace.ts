@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { routes } from "@/lib/routes";
 import {
+  getUserProfile,
   initialLoginForm,
+  isLegalOperatorProfile,
   login,
   type LoginFormState,
 } from "@/features/auth/services/auth.service";
@@ -23,7 +26,7 @@ export function useLoginWorkspace() {
     setLoading(true);
     setMessage("");
 
-    const { error } = await login(form);
+    const { data, error } = await login(form);
 
     setLoading(false);
 
@@ -32,7 +35,9 @@ export function useLoginWorkspace() {
       return;
     }
 
-    router.push("/dashboard");
+    const profile = getUserProfile(data.user);
+
+    router.push(isLegalOperatorProfile(profile) ? routes.marketplace : routes.dashboard);
   }
 
   return {

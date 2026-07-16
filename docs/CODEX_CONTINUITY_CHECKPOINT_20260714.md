@@ -301,3 +301,29 @@ Próxima ação recomendada:
 1. Confirmar ou redefinir senha das contas advogado/admin no Supabase Auth.
 2. Repetir login limpo como advogado/admin.
 3. Abrir `/dashboard` e `/marketplace` para confirmar que menu jurídico, oportunidades qualificadas e tema claro/dark aparecem corretamente.
+
+## Atualização 2026-07-16 — Login do advogado abre Oportunidades qualificadas
+
+Solicitação do usuário: a página de oportunidades qualificadas no perfil de advogado deve aparecer assim que o advogado fizer login na plataforma.
+
+Alteração implementada:
+
+- `useLoginWorkspace` agora identifica o perfil retornado pelo Supabase após login.
+- Usuários com perfil `advogado` ou `admin` são redirecionados diretamente para `routes.marketplace` (`/marketplace`).
+- Usuários com perfil `cliente` continuam sendo redirecionados para `routes.dashboard` (`/dashboard`).
+
+Validações realizadas:
+
+```bash
+npm run lint
+npm run build
+```
+
+Resultado:
+
+- `npm run lint`: aprovado sem erros; permanecem apenas os 2 warnings conhecidos de `<img>` em perfil público/configurações.
+- `npm run build`: aprovado.
+
+Observação:
+
+- O teste E2E visual de login advogado ainda depende de credenciais válidas no Supabase atual, pois as contas previamente informadas retornaram credencial inválida na última validação.
