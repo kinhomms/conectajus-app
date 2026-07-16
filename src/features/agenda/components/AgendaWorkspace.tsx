@@ -9,23 +9,23 @@ import type { AgendaEventPriority, AgendaEventStatus, AgendaEventType, LegalAgen
 
 const eventTypeLabels: Record<AgendaEventType, string> = {
   deadline: "Prazo",
-  hearing: "Audiência",
+  hearing: "AudiÃªncia",
   task: "Tarefa",
-  meeting: "Reunião",
+  meeting: "ReuniÃ£o",
   other: "Outro",
 };
 
 const statusLabels: Record<AgendaEventStatus, string> = {
   pending: "Pendente",
-  completed: "Concluído",
+  completed: "ConcluÃ­do",
   canceled: "Cancelado",
 };
 
 const priorityLabels: Record<AgendaEventPriority, string> = {
   low: "Baixa",
-  medium: "Média",
+  medium: "MÃ©dia",
   high: "Alta",
-  critical: "Crítica",
+  critical: "CrÃ­tica",
 };
 
 export function AgendaWorkspace() {
@@ -34,23 +34,23 @@ export function AgendaWorkspace() {
 
   if (agenda.loading) {
     return (
-      <main className="flex min-h-[60vh] items-center justify-center text-white">
+      <main className="flex min-h-[60vh] items-center justify-center text-slate-950 dark:text-white">
         <p className="font-black">Carregando agenda...</p>
       </main>
     );
   }
 
   return (
-    <section className="text-white">
-      <PageNavigation dashboardLabel="Portal do cidadão" />
+    <section className="text-slate-950 dark:text-white">
+      <PageNavigation dashboardLabel="Portal do cidadÃ£o" />
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
-          <p className="text-xs uppercase tracking-[0.25em] text-amber-400">
+          <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
             Agenda
           </p>
-          <h1 className="mt-2 text-3xl font-bold">Agenda jurídica</h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
-            Central de prazos, audiências, reuniões e tarefas vinculadas à operação jurídica.
+          <h1 className="mt-2 text-3xl font-bold">Agenda jurÃ­dica</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+            Central de prazos, audiÃªncias, reuniÃµes e tarefas vinculadas Ã  operaÃ§Ã£o jurÃ­dica.
           </p>
         </div>
 
@@ -58,13 +58,13 @@ export function AgendaWorkspace() {
           <button
             type="button"
             onClick={agenda.refreshEvents}
-            className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
+            className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
           >
             Atualizar
           </button>
           <Link
             href={routes.processes}
-            className="rounded-2xl bg-amber-400 px-5 py-3 text-sm font-bold text-black hover:bg-amber-300"
+            className="rounded-2xl bg-teal-600 px-5 py-3 text-sm font-bold text-white dark:bg-teal-300 dark:text-slate-950 hover:bg-teal-500 dark:hover:bg-teal-200"
           >
             Ver processos
           </Link>
@@ -77,16 +77,16 @@ export function AgendaWorkspace() {
           type="search"
           value={agenda.search}
           onChange={(event) => agenda.setSearch(event.target.value)}
-          placeholder="Buscar por título, descrição, local, tipo, prioridade ou status..."
-          className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-amber-400"
+          placeholder="Buscar por tÃ­tulo, descriÃ§Ã£o, local, tipo, prioridade ou status..."
+          className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-600 dark:text-slate-400 focus:border-teal-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-950 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-teal-300"
         />
 
           <div className="space-y-2">
             <div className="flex flex-wrap gap-2">
               <FilterButton active={agenda.typeFilter === "all"} label="Todos" onClick={() => agenda.setTypeFilter("all")} />
               <FilterButton active={agenda.typeFilter === "deadline"} label="Prazos" onClick={() => agenda.setTypeFilter("deadline")} />
-              <FilterButton active={agenda.typeFilter === "hearing"} label="Audiências" onClick={() => agenda.setTypeFilter("hearing")} />
-              <FilterButton active={agenda.typeFilter === "meeting"} label="Reuniões" onClick={() => agenda.setTypeFilter("meeting")} />
+              <FilterButton active={agenda.typeFilter === "hearing"} label="AudiÃªncias" onClick={() => agenda.setTypeFilter("hearing")} />
+              <FilterButton active={agenda.typeFilter === "meeting"} label="ReuniÃµes" onClick={() => agenda.setTypeFilter("meeting")} />
               <FilterButton active={agenda.typeFilter === "task"} label="Tarefas" onClick={() => agenda.setTypeFilter("task")} />
             </div>
             <div className="flex flex-wrap gap-2">
@@ -94,7 +94,7 @@ export function AgendaWorkspace() {
               <FilterButton active={agenda.statusFilter === "pending"} label="Pendentes" onClick={() => agenda.setStatusFilter("pending")} />
               <FilterButton active={agenda.statusFilter === "upcoming"} label="7 dias" onClick={() => agenda.setStatusFilter("upcoming")} />
               <FilterButton active={agenda.statusFilter === "overdue"} label="Atrasados" onClick={() => agenda.setStatusFilter("overdue")} />
-              <FilterButton active={agenda.statusFilter === "completed"} label="Concluídos" onClick={() => agenda.setStatusFilter("completed")} />
+              <FilterButton active={agenda.statusFilter === "completed"} label="ConcluÃ­dos" onClick={() => agenda.setStatusFilter("completed")} />
               <FilterButton active={agenda.statusFilter === "canceled"} label="Cancelados" onClick={() => agenda.setStatusFilter("canceled")} />
             </div>
           </div>
@@ -105,37 +105,37 @@ export function AgendaWorkspace() {
         <Metric label="7 dias" value={agenda.metrics.upcoming} />
         <Metric label="Atrasados" value={agenda.metrics.overdue} />
         <Metric label="Pendentes" value={agenda.metrics.pending} />
-        <Metric label="Críticos" value={agenda.metrics.critical} />
+        <Metric label="CrÃ­ticos" value={agenda.metrics.critical} />
       </div>
 
       {agenda.metrics.overdue > 0 ? (
         <div className="mb-6 rounded-3xl border border-red-400/30 bg-red-500/10 p-5">
           <p className="text-xs font-black uppercase tracking-[0.25em] text-red-200">
-            Atenção operacional
+            AtenÃ§Ã£o operacional
           </p>
-          <h2 className="mt-2 text-xl font-black text-white">Existem compromissos pendentes em atraso</h2>
+          <h2 className="mt-2 text-xl font-black text-slate-950 dark:text-white">Existem compromissos pendentes em atraso</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-red-100">
-            Revise prazos, audiências e tarefas vencidas antes de avançar para novos atendimentos.
+            Revise prazos, audiÃªncias e tarefas vencidas antes de avanÃ§ar para novos atendimentos.
           </p>
         </div>
       ) : null}
 
       {agenda.message && (
-        <div className="mb-6 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm font-semibold text-amber-100">
+        <div className="mb-6 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm font-semibold text-amber-900 dark:text-amber-100">
           {agenda.message}
         </div>
       )}
 
       <div className="grid gap-6 xl:grid-cols-[1fr_360px]">
         {agenda.filteredEvents.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-white/10 bg-[#111827] p-10">
+          <div className="rounded-3xl border border-dashed border-slate-300 bg-white dark:border-white/10 dark:bg-[#111827] p-10">
             <div className="max-w-2xl">
               <p className="text-xs uppercase tracking-[0.25em] text-slate-500">
                 {integration.configured ? "Sem compromissos" : "Fonte pendente"}
               </p>
               <h2 className="mt-3 text-2xl font-bold">Nenhum evento encontrado</h2>
-              <p className="mt-4 leading-7 text-slate-400">{integration.message}</p>
-              <p className="mt-4 rounded-2xl bg-white/5 p-4 text-sm text-slate-300">
+              <p className="mt-4 leading-7 text-slate-600 dark:text-slate-400">{integration.message}</p>
+              <p className="mt-4 rounded-2xl bg-white/5 p-4 text-sm text-slate-700 dark:text-slate-300">
                 Fonte esperada: {integration.expectedSource}
               </p>
             </div>
@@ -153,17 +153,17 @@ export function AgendaWorkspace() {
           </div>
         )}
 
-        <aside className="rounded-3xl border border-white/10 bg-[#111827] p-6 shadow-xl shadow-black/20">
-          <p className="text-xs uppercase tracking-[0.25em] text-amber-400">
-            Operação jurídica
+        <aside className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
+          <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
+            OperaÃ§Ã£o jurÃ­dica
           </p>
           <h3 className="mt-2 text-xl font-bold">Escopo conectado</h3>
 
           <div className="mt-5 space-y-3">
             <ChecklistItem text="Prazos processuais vinculados ao cliente e ao processo." />
-            <ChecklistItem text="Audiências com data, horário, tribunal/local e responsável." />
-            <ChecklistItem text="Tarefas internas com prioridade e status de execução." />
-            <ChecklistItem text="Base pronta para alertas futuros e visão diária do escritório." />
+            <ChecklistItem text="AudiÃªncias com data, horÃ¡rio, tribunal/local e responsÃ¡vel." />
+            <ChecklistItem text="Tarefas internas com prioridade e status de execuÃ§Ã£o." />
+            <ChecklistItem text="Base pronta para alertas futuros e visÃ£o diÃ¡ria do escritÃ³rio." />
           </div>
         </aside>
       </div>
@@ -173,9 +173,9 @@ export function AgendaWorkspace() {
 
 function Metric({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#111827] px-4 py-3">
+    <div className="rounded-2xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] px-4 py-3">
       <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{label}</p>
-      <p className="mt-1 text-2xl font-bold text-white">{value}</p>
+      <p className="mt-1 text-2xl font-bold text-slate-950 dark:text-white">{value}</p>
     </div>
   );
 }
@@ -195,8 +195,8 @@ function FilterButton({
       onClick={onClick}
       className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-wide transition ${
         active
-          ? "border-amber-400 bg-amber-400 text-black"
-          : "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
+          ? "border-teal-600 bg-teal-600 text-white dark:border-teal-300 dark:bg-teal-300 dark:text-slate-950"
+          : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
       }`}
     >
       {label}
@@ -216,7 +216,7 @@ function AgendaEventCard({
   const startDate = new Date(event.starts_at);
 
   return (
-    <article className="rounded-3xl border border-white/10 bg-[#111827] p-6 shadow-xl shadow-black/20">
+    <article className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
         <div>
           <div className="flex flex-wrap gap-2">
@@ -224,25 +224,25 @@ function AgendaEventCard({
             <Badge>{priorityLabels[event.priority]}</Badge>
             <Badge>{statusLabels[event.status]}</Badge>
           </div>
-          <h2 className="mt-4 text-xl font-bold text-white">{event.title}</h2>
-          <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-400">
-            {event.description || "Nenhuma descrição cadastrada."}
+          <h2 className="mt-4 text-xl font-bold text-slate-950 dark:text-white">{event.title}</h2>
+          <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+            {event.description || "Nenhuma descriÃ§Ã£o cadastrada."}
           </p>
         </div>
 
-        <div className="rounded-2xl bg-[#0B0F19] p-4 text-left lg:min-w-48">
+        <div className="rounded-2xl bg-slate-50 dark:bg-[#0B0F19] p-4 text-left lg:min-w-48">
           <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Data</p>
-          <p className="mt-1 font-bold text-white">
+          <p className="mt-1 font-bold text-slate-950 dark:text-white">
             {startDate.toLocaleDateString("pt-BR")}
           </p>
-          <p className="mt-1 text-sm text-slate-400">
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
             {startDate.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
           </p>
         </div>
       </div>
 
       {event.location && (
-        <p className="mt-5 rounded-2xl bg-white/5 p-4 text-sm text-slate-300">
+        <p className="mt-5 rounded-2xl bg-white/5 p-4 text-sm text-slate-700 dark:text-slate-300">
           Local: {event.location}
         </p>
       )}
@@ -288,8 +288,8 @@ function StatusButton({
   variant?: "primary" | "secondary" | "danger";
 }) {
   const variantClasses = {
-    primary: "border-amber-400 bg-amber-400 text-black hover:bg-amber-300",
-    secondary: "border-white/10 bg-white/5 text-white hover:bg-white/10",
+    primary: "border-teal-600 bg-teal-600 text-white dark:border-teal-300 dark:bg-teal-300 dark:text-slate-950 hover:bg-teal-500 dark:hover:bg-teal-200",
+    secondary: "border-white/10 bg-white/5 text-slate-950 dark:text-white hover:bg-white/10",
     danger: "border-red-400/30 bg-red-500/10 text-red-100 hover:bg-red-500/20",
   }[variant];
 
@@ -307,12 +307,12 @@ function StatusButton({
 
 function Badge({ children }: { children: string }) {
   return (
-    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-bold text-slate-300">
+    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-bold text-slate-700 dark:text-slate-300">
       {children}
     </span>
   );
 }
 
 function ChecklistItem({ text }: { text: string }) {
-  return <div className="rounded-2xl bg-[#0B0F19] p-4 text-sm leading-6 text-slate-300">{text}</div>;
+  return <div className="rounded-2xl bg-slate-50 dark:bg-[#0B0F19] p-4 text-sm leading-6 text-slate-700 dark:text-slate-300">{text}</div>;
 }

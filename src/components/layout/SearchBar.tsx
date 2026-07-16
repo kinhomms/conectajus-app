@@ -31,7 +31,6 @@ const legalOperatorTargets: SearchTarget[] = [
   { href: routes.processes, keywords: ["processos", "processo", "vara", "tribunal", "jurídico", "juridico"], label: "Processos" },
   { href: routes.documents, keywords: ["documentos", "documento", "dossiê", "dossie", "provas", "arquivos"], label: "Documentos" },
   { href: routes.agenda, keywords: ["agenda", "prazo", "prazos", "audiência", "audiencia", "tarefas", "notificações"], label: "Agenda" },
-  { href: routes.triage, keywords: ["triagem", "ia", "inteligência", "inteligencia", "análise", "analise"], label: "Triagem IA" },
   { href: routes.reports, keywords: ["relatórios", "relatorios", "indicadores", "métricas", "metricas", "gestão", "gestao"], label: "Relatórios" },
   { href: routes.settings, keywords: ["configurações", "configuracoes", "conta", "perfil", "operação", "operacao"], label: "Configurações" },
 ];

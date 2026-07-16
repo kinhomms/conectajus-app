@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { routes } from "@/lib/routes";
@@ -429,7 +429,7 @@ function PrivateDetails({
             type="button"
             onClick={() => onCreateCrmClient(opportunity)}
             disabled={convertingCrm}
-            className="rounded-2xl bg-emerald-400 px-5 py-3 text-sm font-black text-slate-950 dark:text-white dark:text-slate-950 hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-2xl bg-emerald-400 px-5 py-3 text-sm font-black text-white dark:text-slate-950 hover:bg-emerald-300 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {convertingCrm ? "Enviando..." : "Enviar para CRM"}
           </button>

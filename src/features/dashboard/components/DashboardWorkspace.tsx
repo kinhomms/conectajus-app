@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { routes } from "@/lib/routes";
@@ -152,14 +152,14 @@ function QualifiedOpportunityCard({ opportunity }: { opportunity: import("@/feat
   return (
     <Link
       href={routes.marketplace}
-      className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 p-5 dark:bg-[#0B0F19] transition hover:-translate-y-0.5 hover:border-amber-400/50 hover:bg-white/5"
+      className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 p-5 dark:bg-[#0B0F19] transition hover:-translate-y-0.5 hover:border-teal-400/50 hover:bg-white dark:hover:bg-white/5"
     >
       <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-600 dark:text-teal-300">{opportunity.practice_area ?? "Área a confirmar"}</p>
           <h3 className="mt-2 text-lg font-black text-slate-950 dark:text-white">{location}</h3>
         </div>
-        <span className="w-fit rounded-full bg-teal-600 px-3 py-1 text-xs font-black text-slate-950 dark:text-white dark:text-slate-950">
+        <span className="w-fit rounded-full bg-teal-600 px-3 py-1 text-xs font-black text-white dark:text-slate-950">
           {opportunity.credit_cost ?? 1} crédito(s)
         </span>
       </div>
@@ -271,7 +271,7 @@ function CitizenCasesPanel({ caseDocumentCounts, cases, error }: { caseDocumentC
         </Link>
       </div>
 
-      <div className="mb-5 rounded-3xl border border-amber-400/20 bg-amber-400/10 p-5 text-sm leading-6 text-amber-50">
+      <div className="mb-5 rounded-3xl border border-amber-400/20 bg-amber-400/10 p-5 text-sm leading-6 text-amber-900 dark:text-amber-50">
         <p className="font-black text-amber-800 dark:text-amber-200">Sobre edição da demanda</p>
         <p className="mt-2">
           Depois que uma triagem é publicada, o relato original fica preservado para manter o histórico confiável do Marketplace. Se algo novo aconteceu, complemente com documentos ou abra uma nova triagem complementar.
@@ -279,7 +279,7 @@ function CitizenCasesPanel({ caseDocumentCounts, cases, error }: { caseDocumentC
       </div>
 
       {error ? (
-        <div className="rounded-3xl border border-red-400/20 bg-red-500/10 p-4 text-sm font-bold text-red-100">{error}</div>
+        <div className="rounded-3xl border border-red-400/20 bg-red-500/10 p-4 text-sm font-bold text-red-700 dark:text-red-100">{error}</div>
       ) : null}
 
       {!error && cases.length === 0 ? (
@@ -384,7 +384,7 @@ function InfoPill({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
       <p className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-teal-600 dark:text-teal-300">{label}</p>
-      <p className="mt-2 text-sm font-bold text-slate-200">{value}</p>
+      <p className="mt-2 text-sm font-bold text-slate-950 dark:text-slate-200">{value}</p>
     </div>
   );
 }
@@ -413,7 +413,7 @@ function ActionCard({ description, href, icon, title }: { description: string; h
   return (
     <Link
       href={href}
-      className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 p-5 dark:bg-[#0B0F19] transition hover:-translate-y-0.5 hover:border-amber-400/50 hover:bg-white/5 hover:shadow-lg"
+      className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 p-5 dark:bg-[#0B0F19] transition hover:-translate-y-0.5 hover:border-teal-400/50 hover:bg-white dark:hover:bg-white/5 hover:shadow-lg"
     >
       <p className="text-2xl" aria-hidden="true">{icon}</p>
       <h3 className="mt-3 text-lg font-black text-slate-950 dark:text-white">{title}</h3>
@@ -444,7 +444,7 @@ function EcosystemCard({
   return (
     <Link
       href={href}
-      className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 p-5 dark:bg-[#0B0F19] transition hover:-translate-y-0.5 hover:border-amber-400/50 hover:bg-white/5"
+      className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 p-5 dark:bg-[#0B0F19] transition hover:-translate-y-0.5 hover:border-teal-400/50 hover:bg-white dark:hover:bg-white/5"
     >
       <div className="flex items-start justify-between gap-3">
         <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-600 dark:text-teal-300">{label}</p>
@@ -461,7 +461,7 @@ function EcosystemCard({
 function FlowStep({ number, text }: { number: string; text: string }) {
   return (
     <div className="flex gap-3 rounded-2xl bg-slate-50 p-4 dark:bg-[#0B0F19] text-sm leading-6 text-slate-700 dark:text-slate-300">
-      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-400 text-xs font-black text-slate-950 dark:text-white dark:text-slate-950">{number}</span>
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-400 text-xs font-black text-white dark:text-slate-950">{number}</span>
       <span>{text}</span>
     </div>
   );

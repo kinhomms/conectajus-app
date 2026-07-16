@@ -19,10 +19,10 @@ export function UserMenu({ isCitizen = false }: UserMenuProps) {
 
       {!isCitizen && (
         <Link
-          href={routes.triage}
+          href={routes.marketplace}
           className="rounded-2xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-500 dark:bg-teal-300 dark:text-slate-950 dark:hover:bg-teal-200"
         >
-          IA Jurídica
+          Oportunidades
         </Link>
       )}
 

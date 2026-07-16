@@ -24,7 +24,6 @@ const citizenItems: SidebarMenuItem[] = [
 const legalOperatorItems: SidebarMenuItem[] = [
   { href: routes.dashboard, label: "Dashboard", icon: "🏠", description: "Visão executiva" },
   { href: routes.clients, label: "Clientes", icon: "👥", description: "CRM jurídico" },
-  { href: routes.triage, label: "Triagem IA", icon: "🤖", description: "Organização inicial" },
   { href: routes.processes, label: "Processos", icon: "⚖️", description: "Gestão processual" },
   { href: routes.documents, label: "Documentos", icon: "📄", description: "Dossiês e provas" },
   { href: routes.agenda, label: "Agenda", icon: "📅", description: "Prazos e tarefas" },
