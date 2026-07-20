@@ -560,3 +560,48 @@ Andamento atualizado estimado:
 - Plataforma funcional em desenvolvimento: ~87%.
 - Ganho desta rodada: remoção de warnings técnicos finais e limpeza visual do perfil público do advogado.
 - Próximo foco recomendado: teste manual completo com contas reais de cidadão, advogado e admin, especialmente o pós-login do advogado abrindo diretamente oportunidades qualificadas.
+
+## Atualização 2026-07-20 — Correção do botão Voltar pós-login
+
+Solicitação do usuário: no painel do advogado, ao clicar em Voltar, o sistema estava retornando para `/login` e pedindo e-mail/senha novamente. Verificar e prosseguir com a próxima etapa.
+
+Causa encontrada:
+
+- O botão Voltar usava `window.history.back()` diretamente.
+- Após login, o histórico anterior do navegador pode ser `/login` ou `/cadastro`, então o botão levava o usuário de volta para a autenticação.
+- Isso afetava especialmente páginas do painel do advogado que usam a navegação comum `PageNavigation`.
+
+Correção implementada:
+
+- Criado utilitário `src/lib/navigation.ts` com `navigateBackSafely(fallbackHref)`.
+- A navegação segura verifica:
+  - se existe referrer da mesma origem;
+  - se o referrer é `/login` ou `/cadastro`;
+  - se o histórico está vazio/insuficiente.
+- Quando o histórico não é seguro, o usuário é enviado para o fallback do painel, em vez de voltar para login.
+- Substituídos os usos diretos de `window.history.back()` em:
+  - `src/components/navigation/PageNavigation.tsx`
+  - `src/features/dashboard/components/DashboardWorkspace.tsx`
+  - `src/features/triage/components/TriageWorkspace.tsx`
+
+Validações realizadas:
+
+```bash
+rg "window.history.back|router.back\(" src\app src\features src\components -g "*.tsx" -g "*.ts"
+rg "Ã|�|â€|â†|âœ|#C9A227|<img" src\features\marketplace src\features\dashboard src\components\navigation -g "*.tsx" -g "*.ts"
+npm run validate
+```
+
+Resultado:
+
+- Nenhum `window.history.back()`/`router.back()` inseguro restante.
+- Nenhum resíduo relevante de mojibake/tema antigo encontrado na navegação e no painel do advogado pela busca precisa.
+- `npm run validate`: aprovado.
+  - `preflight:preview`: aprovado; 34 migrations conferidas.
+  - `lint`: 0 erros e 0 warnings.
+  - `build`: aprovado; 19 rotas geradas.
+
+Andamento atualizado estimado:
+
+- Plataforma funcional em desenvolvimento: ~88%.
+- Próximo foco recomendado: teste manual real com login de advogado para confirmar o fluxo pós-login em `/marketplace`, incluindo botão Voltar, botão Início e acesso ao painel sem retorno indevido para `/login`.

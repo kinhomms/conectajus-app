@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { navigateBackSafely } from "@/lib/navigation";
 import { routes } from "@/lib/routes";
 import { useDashboardWorkspace } from "@/features/dashboard/hooks/useDashboardWorkspace";
 import type { CitizenDashboardCase } from "@/features/dashboard/types/dashboard.types";
@@ -183,7 +184,7 @@ function CitizenDashboard({ caseDocumentCounts, cases, casesError, fullName, han
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <button
           type="button"
-          onClick={() => window.history.back()}
+          onClick={() => navigateBackSafely(routes.dashboard)}
           className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-black text-slate-950 dark:text-white hover:bg-white/10"
         >
           ← Voltar

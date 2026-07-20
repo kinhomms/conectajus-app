@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { navigateBackSafely } from "@/lib/navigation";
 import { routes } from "@/lib/routes";
 import { Card } from "@/components/ui/Card";
 import { TriageResult } from "@/features/triage/components/TriageResult";
@@ -14,7 +15,7 @@ export function TriageWorkspace() {
       <div className="mx-auto mb-6 flex max-w-7xl flex-wrap items-center gap-3">
         <button
           type="button"
-          onClick={() => window.history.back()}
+          onClick={() => navigateBackSafely(routes.dashboard)}
           className="rounded-2xl border border-slate-300 bg-white px-4 py-2 text-sm font-black text-slate-700 hover:bg-slate-50"
         >
           ← Voltar

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { navigateBackSafely } from "@/lib/navigation";
 import { routes } from "@/lib/routes";
 
 type PageNavigationProps = {
@@ -30,7 +31,7 @@ export function PageNavigation({
 
   return (
     <nav className="mb-5 flex flex-wrap items-center gap-3" aria-label="Navegação da página">
-      <button type="button" onClick={() => window.history.back()} className={buttonClass}>
+      <button type="button" onClick={() => navigateBackSafely(dashboardHref)} className={buttonClass}>
         ← Voltar
       </button>
       <Link href={routes.home} className={homeClass}>
