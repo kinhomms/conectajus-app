@@ -516,3 +516,47 @@ Próxima etapa recomendada:
 2. Confirmar visual da página inicial do advogado com oportunidades qualificadas como primeira tela pós-login.
 3. Testar envio de triagem, publicação mascarada, visualização pelo advogado, desbloqueio com créditos e abertura dos dados privados.
 4. Depois disso, preparar checklist de go-live e deploy para teste online.
+
+## Atualização 2026-07-20 — Remoção dos warnings finais de imagem e ajuste do perfil público
+
+Solicitação do usuário: prosseguir com as etapas restantes, mantendo a ConectaJus alinhada visualmente ao padrão novo e atualizando o checkpoint a cada teste realizado.
+
+Alterações implementadas nesta rodada:
+
+- Substituição das tags `<img>` por `next/image` em:
+  - `src/features/lawyers/components/PublicLawyerProfileWorkspace.tsx`
+  - `src/features/settings/components/SettingsWorkspace.tsx`
+- Inclusão de `images.remotePatterns` em `next.config.ts` para aceitar imagens públicas do Supabase Storage (`*.supabase.co/storage/v1/object/public/**`).
+- Remoção de resíduos visuais âmbar no perfil público do advogado, trocando por teal institucional:
+  - selo “Perfil público”;
+  - botão “Iniciar triagem”;
+  - selo “Advogado ConectaJus”;
+  - borda/anel da foto;
+  - badge OAB;
+  - título “Apresentação”.
+- Ajuste de feedback visual em Configurações:
+  - mensagens passaram de âmbar para teal suave;
+  - checklist pendente trocado de âmbar para teal.
+
+Validações realizadas:
+
+```bash
+rg "#C9A227|bg-amber|text-amber|border-amber|<img|Ã|�|â€|â†|âœ" src\features\lawyers src\features\settings -g "*.tsx"
+npm run lint
+npm run validate
+```
+
+Resultado:
+
+- Busca de resíduos em Advogados/Configurações: sem ocorrências relevantes.
+- `npm run lint`: aprovado com 0 erros e 0 warnings.
+- `npm run validate`: aprovado.
+  - `preflight:preview`: aprovado; 34 migrations conferidas.
+  - `lint`: limpo.
+  - `build`: aprovado; 19 rotas geradas.
+
+Andamento atualizado estimado:
+
+- Plataforma funcional em desenvolvimento: ~87%.
+- Ganho desta rodada: remoção de warnings técnicos finais e limpeza visual do perfil público do advogado.
+- Próximo foco recomendado: teste manual completo com contas reais de cidadão, advogado e admin, especialmente o pós-login do advogado abrindo diretamente oportunidades qualificadas.

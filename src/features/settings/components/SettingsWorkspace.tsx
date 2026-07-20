@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
 import { routes } from "@/lib/routes";
@@ -42,7 +43,7 @@ export function SettingsWorkspace() {
       </div>
 
       {settings.message ? (
-        <div className="mb-6 rounded-3xl border border-amber-400/20 bg-amber-400/10 p-5 text-sm font-bold leading-6 text-teal-800 dark:text-teal-100">
+        <div className="mb-6 rounded-3xl border border-teal-400/20 bg-teal-500/10 p-5 text-sm font-bold leading-6 text-teal-800 dark:text-teal-100">
           {settings.message}
         </div>
       ) : null}
@@ -73,9 +74,11 @@ export function SettingsWorkspace() {
           <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
             <div className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19] p-5 text-center">
               {settings.lawyerProfilePhotoUrl ? (
-                <img
+                <Image
                   src={settings.lawyerProfilePhotoUrl}
                   alt="Foto do perfil público do advogado"
+                  width={128}
+                  height={128}
                   className="mx-auto h-32 w-32 rounded-full object-cover ring-4 ring-teal-400/30"
                 />
               ) : (
@@ -328,7 +331,7 @@ function ChecklistPanel({
           <div key={item.label} className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19] p-4">
             <div className="flex items-start gap-3">
               <span className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-black ${
-                item.done ? "bg-emerald-400 text-white dark:text-slate-950" : "bg-amber-400 text-white dark:text-slate-950"
+                item.done ? "bg-emerald-400 text-white dark:text-slate-950" : "bg-teal-500 text-white"
               }`}>
                 {item.done ? "✓" : "!"}
               </span>
