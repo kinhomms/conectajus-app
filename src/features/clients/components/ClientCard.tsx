@@ -1,4 +1,4 @@
-﻿import type { Client } from "../types/client.types";
+import type { Client } from "../types/client.types";
 
 type ClientCardProps = {
   client: Client;
@@ -27,7 +27,7 @@ export function ClientCard({ client, onOpen }: ClientCardProps) {
             {client.full_name}
           </h3>
 
-          <p className="mt-1 text-sm font-bold text-slate-500">
+          <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">
             CPF: {client.cpf || "não informado"}
           </p>
 

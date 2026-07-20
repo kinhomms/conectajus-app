@@ -1,4 +1,4 @@
-﻿import { ConectaJusLogo } from "@/components/layout/ConectaJusLogo";
+import { ConectaJusLogo } from "@/components/layout/ConectaJusLogo";
 
 type ClientPremiumHeaderProps = {
   totalClients: number;
@@ -13,21 +13,21 @@ export function ClientPremiumHeader({
     <section className="cj-premium-header">
       <div>
         <ConectaJusLogo imageClassName="w-[160px]" />
-        <p className="mt-4 text-sm uppercase tracking-[0.28em] text-amber-400">
+        <p className="mt-4 text-sm uppercase tracking-[0.28em] text-teal-600 dark:text-teal-300">
           Clientes V2 Premium
         </p>
-        <h1 className="mt-3 text-3xl font-semibold text-white">
+        <h1 className="mt-3 text-3xl font-semibold text-slate-950 dark:text-white">
           Gestão inteligente de clientes jurídicos
         </h1>
-        <p className="mt-3 max-w-2xl text-sm text-slate-300">
+        <p className="mt-3 max-w-2xl text-sm text-slate-700 dark:text-slate-300">
           Organize atendimentos, dados cadastrais, processos, documentos e histórico em uma experiência premium.
         </p>
       </div>
 
       <div className="cj-premium-header-card">
-        <span className="text-sm text-slate-400">Clientes encontrados</span>
-        <strong className="mt-2 block text-4xl text-white">{filteredClients}</strong>
-        <span className="mt-1 block text-sm text-slate-400">
+        <span className="text-sm text-slate-600 dark:text-slate-400">Clientes encontrados</span>
+        <strong className="mt-2 block text-4xl text-slate-950 dark:text-white">{filteredClients}</strong>
+        <span className="mt-1 block text-sm text-slate-600 dark:text-slate-400">
           de {totalClients} cliente(s) cadastrados
         </span>
       </div>

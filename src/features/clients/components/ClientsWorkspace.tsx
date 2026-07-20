@@ -9,7 +9,7 @@ export function ClientsWorkspace() {
 
   if (clientsWorkspace.loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#0B0F19] text-white">
+      <main className="flex min-h-screen items-center justify-center bg-[#F5F7FB] text-slate-950 dark:bg-[#0B0F19] dark:text-white">
         <p className="font-black">Carregando clientes...</p>
       </main>
     );
@@ -17,7 +17,7 @@ export function ClientsWorkspace() {
 
   return (
     <>
-      <main className="min-h-screen bg-[#0B0F19] text-white">
+      <main className="min-h-screen bg-[#F5F7FB] text-slate-950 dark:bg-[#0B0F19] dark:text-white">
         <ClientsPremiumPage
           agendaPriority={clientsWorkspace.agendaPriority}
           agendaStartsAt={clientsWorkspace.agendaStartsAt}
