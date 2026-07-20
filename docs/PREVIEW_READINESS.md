@@ -1,6 +1,6 @@
 # Preview readiness — ConectaJus
 
-Data: 2026-07-13
+Data: 2026-07-20
 
 Branch pronta para preview:
 
@@ -17,7 +17,8 @@ https://github.com/kinhomms/conectajus-app.git
 ## Estado do código
 
 - `npm run validate` passando localmente, incluindo `preflight:preview`.
-- Build Next.js gerando 16 rotas.
+- Build Next.js gerando 19 rotas.
+- `npm run go-live:check` aprovado em 2026-07-20, com bundle Supabase de 34 migrations, preflight, lint e build.
 - Branch `ui-v6-premium` publicada no GitHub.
 - Arquitetura por features preservada.
 - Dados sensíveis do Marketplace mantidos atrás do fluxo de desbloqueio por créditos.

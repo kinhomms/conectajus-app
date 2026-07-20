@@ -26,6 +26,8 @@ docs/MVP_HANDOFF.md
 ## 2. Rotas ativas no build
 
 - `/`
+- `/_not-found`
+- `/advogados/[userId]`
 - `/agenda`
 - `/cadastro`
 - `/clientes`
@@ -35,8 +37,11 @@ docs/MVP_HANDOFF.md
 - `/financeiro`
 - `/login`
 - `/marketplace`
+- `/privacidade`
 - `/processos`
+- `/regras-marketplace`
 - `/relatorios`
+- `/termos`
 - `/triagem`
 
 ## 3. Variáveis obrigatórias
@@ -81,7 +86,7 @@ Antes do deploy final, confirmar que todas as migrations foram aplicadas no proj
 Migration mais recente a confirmar/aplicar:
 
 ```text
-supabase/migrations/20260713130000_audit_credit_purchase_request_decisions.sql
+supabase/migrations/20260716100000_grant_lawyer_public_profiles_access.sql
 ```
 
 Guia de aplicação:
@@ -234,7 +239,7 @@ docs/VERCEL_DEPLOYMENT.md
 
 ## 10. Percentual estimado
 
-Status atual estimado: 98%.
+Status atual estimado: 88%.
 
 O projeto está funcional em build local, com lint e build passando, e próximo de readiness para preview/deploy. Ainda depende de:
 

@@ -1,6 +1,6 @@
 # Evolução e status de conclusão — ConectaJus
 
-Data: 2026-07-13
+Data: 2026-07-20
 
 Branch:
 
@@ -10,21 +10,21 @@ ui-v6-premium
 
 ## Percentual executivo
 
-Status geral estimado após aplicação/validação do Supabase real, preview Vercel pronto e perfil cidadão testado:
+Status geral estimado após validação local de go-live e antes da rodada final com perfis reais no ambiente alvo:
 
 ```text
-99,7%
+88%
 ```
 
 Leitura correta desse percentual:
 
 - a aplicação local está validada;
 - o código principal do MVP está praticamente fechado;
-- o Supabase real já foi aplicado e validado;
-- o preview Vercel da branch `ui-v6-premium` está pronto;
-- o smoke test de rotas online passou;
-- o perfil cidadão foi testado com conta real confirmada;
-- o que falta para 100% é concluir o teste logado de advogado e administrador.
+- a aplicação local está validada com `npm run go-live:check`;
+- o código principal do MVP está próximo do fechamento;
+- o bundle Supabase consolidado contém 34 migrations;
+- o build atual gera 19 rotas;
+- o que falta para 100% é aplicar/confirmar o Supabase alvo, validar o preview online atual e concluir testes logados de cidadão, advogado e administrador.
 
 ## Evolução por área
 
@@ -36,31 +36,24 @@ Leitura correta desse percentual:
 | Portal do Advogado | 98% | Marketplace, Financeiro, CRM e bloqueio por OAB implementados. |
 | Admin operacional | 97% | Filas de OAB, créditos e exclusão com auditoria. |
 | Marketplace jurídico | 98% | Leads mascarados, desbloqueio por créditos e envio para CRM. |
-| Supabase schema/migrations | 100% | Bundle aplicado no Supabase real e validação compacta retornou `ok = 100`. |
-| RLS e proteção de dados | 99% | Validação estrutural real aprovada; falta smoke test dos perfis. |
-| Vercel preview | 100% | Preview da branch `ui-v6-premium` pronto e smoke test de rotas aprovado. |
-| Testes reais dos 3 perfis | 1/3 | Cidadão validado; faltam advogado e administrador com contas reais/confirmadas. |
+| Supabase schema/migrations | 92% | Bundle consolidado com 34 migrations; depende de confirmação/aplicação no Supabase alvo. |
+| RLS e proteção de dados | 90% | Policies e bloqueios estruturais implementados; falta smoke test real dos perfis. |
+| Vercel preview | 80% | Código pronto para preview; depende de variáveis e validação do link atual. |
+| Testes reais dos 3 perfis | 0/3 nesta rodada | Precisam ser refeitos com as contas finais/confirmadas. |
 
 ## Já concluído e validado localmente
 
 - `npm run go-live:check` aprovado.
 - `npm run validate` aprovado.
 - `npm run preflight:preview` aprovado.
-- Bundle Supabase gerado com 26 migrations.
+- Bundle Supabase gerado com 34 migrations.
 - Build Next.js aprovado.
-- 16 rotas geradas.
+- 19 rotas geradas.
 - GitHub branch `ui-v6-premium` sincronizada.
 - Vercel configurada para usar `npm run validate`.
 - `.env.example` e `.gitignore` protegidos por preflight.
 - Documentação de go-live consolidada.
-- Supabase real aplicado.
-- Validação compacta do Supabase real retornou:
-
-```text
-status = ok
-count = 100
-```
-- Preview Vercel pronto:
+- Último preview Vercel conhecido/documentado:
 
 ```text
 https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app
@@ -74,6 +67,7 @@ https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app
 
 - `/`
 - `/_not-found`
+- `/advogados/[userId]`
 - `/agenda`
 - `/cadastro`
 - `/clientes`
@@ -83,8 +77,11 @@ https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app
 - `/financeiro`
 - `/login`
 - `/marketplace`
+- `/privacidade`
 - `/processos`
+- `/regras-marketplace`
 - `/relatorios`
+- `/termos`
 - `/triagem`
 
 ## O que falta para 100%

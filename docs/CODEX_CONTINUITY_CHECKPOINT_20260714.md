@@ -605,3 +605,60 @@ Andamento atualizado estimado:
 
 - Plataforma funcional em desenvolvimento: ~88%.
 - Próximo foco recomendado: teste manual real com login de advogado para confirmar o fluxo pós-login em `/marketplace`, incluindo botão Voltar, botão Início e acesso ao painel sem retorno indevido para `/login`.
+
+## Atualização 2026-07-20 — Go-live check e alinhamento documental
+
+Solicitação do usuário: prosseguir com as etapas de conclusão do projeto.
+
+Etapa executada:
+
+- Rodado `npm run go-live:check`, que executa:
+  - `npm run supabase:bundle`;
+  - `npm run validate`;
+  - `preflight:preview`;
+  - `lint`;
+  - `build`.
+
+Resultado do go-live check:
+
+- Bundle Supabase gerado com sucesso.
+- Migrations incluídas: 34.
+- Arquivo consolidado: `supabase/APPLY_ALL_MIGRATIONS.sql`.
+- `preflight:preview`: aprovado.
+- Migration mais recente conferida: `20260716100000_grant_lawyer_public_profiles_access.sql`.
+- `lint`: 0 erros e 0 warnings.
+- `build`: aprovado.
+- Rotas geradas: 19.
+
+Ajustes documentais feitos nesta rodada:
+
+- `docs/PREVIEW_READINESS.md` atualizado para 2026-07-20, 19 rotas e go-live check aprovado com 34 migrations.
+- `docs/CHECKLIST_DEPLOY.md` atualizado com:
+  - rota dinâmica `/advogados/[userId]`;
+  - rotas legais `/privacidade`, `/termos`, `/regras-marketplace`;
+  - migration mais recente `20260716100000_grant_lawyer_public_profiles_access.sql`;
+  - percentual executivo atual ajustado para 88%.
+- `docs/PROJECT_COMPLETION_STATUS.md` atualizado para refletir o estado real atual:
+  - 88% de conclusão estimada;
+  - 34 migrations;
+  - 19 rotas;
+  - dependência explícita de teste real com cidadão, advogado e admin no ambiente alvo.
+
+Validações documentais:
+
+```bash
+rg "99,7|26 migrations|16 rotas|20260713130000|Status atual estimado: 98|Supabase real j|preview Vercel pronto|smoke test online|1/3|100% \\| Preview|100% \\| Bundle|status = ok|count = 100" docs\PREVIEW_READINESS.md docs\CHECKLIST_DEPLOY.md docs\PROJECT_COMPLETION_STATUS.md
+git diff --check
+```
+
+Resultado:
+
+- Sem dados antigos críticos nos documentos principais.
+- `git diff --check`: aprovado.
+
+Próxima etapa recomendada:
+
+1. Abrir/validar o preview online atual da branch `ui-v6-premium`.
+2. Testar login real com as contas finais de cidadão, advogado e admin.
+3. Corrigir somente falhas encontradas no teste real.
+4. Depois disso, decidir limpeza de legados e promoção para produção.
