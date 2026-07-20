@@ -828,3 +828,36 @@ Andamento atualizado estimado:
   - confirmar que o advogado possui perfil `advogado` e OAB verificada;
   - confirmar que o admin está em `public.admin_users`;
   - repetir login e smoke test dos painéis `/marketplace`, `/financeiro`, `/clientes`, `/documentos`, `/configuracoes`.
+
+## Atualização 2026-07-20 — Checklist de deploy sincronizado com recuperação de senha
+
+Solicitação do usuário: prosseguir e manter o checkpoint atualizado a cada novo teste.
+
+Correção documental aplicada:
+
+- `docs/CHECKLIST_DEPLOY.md` atualizado para incluir:
+  - rota `/redefinir-senha` na lista de rotas ativas;
+  - teste de recuperação de senha no fluxo do cidadão;
+  - orientação para advogado/admin usarem “Esqueci minha senha” quando a conta já existir e a senha não autenticar;
+  - percentual estimado atualizado para 90%.
+
+Validação realizada:
+
+```bash
+npm run validate
+rg -n "Status atual estimado: 88|Build Next.js gerando 19|build atual gera 19|Rotas geradas: 19" docs\CHECKLIST_DEPLOY.md docs\PREVIEW_READINESS.md docs\PROJECT_COMPLETION_STATUS.md
+rg -n "/redefinir-senha|Status atual estimado: 90|20 rotas" docs\CHECKLIST_DEPLOY.md docs\PREVIEW_READINESS.md docs\PROJECT_COMPLETION_STATUS.md
+```
+
+Resultado:
+
+- `npm run validate`: aprovado.
+- `preflight:preview`: aprovado.
+- `lint`: aprovado.
+- `build`: aprovado.
+- Build gerou 20 rotas.
+- Nenhuma referência antiga a “19 rotas” ou “88%” permaneceu nos documentos principais de status/deploy.
+
+Próximo foco:
+
+- Redefinir/confirmar as senhas no Supabase Auth para permitir teste logado real de advogado/admin.

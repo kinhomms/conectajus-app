@@ -39,6 +39,7 @@ docs/MVP_HANDOFF.md
 - `/marketplace`
 - `/privacidade`
 - `/processos`
+- `/redefinir-senha`
 - `/regras-marketplace`
 - `/relatorios`
 - `/termos`
@@ -159,6 +160,7 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 ### Cidadão
 
 - Criar conta como cidadão.
+- Testar recuperação de senha em `/login` e `/redefinir-senha` quando houver conta confirmada.
 - Fazer login.
 - Ver Portal do Cidadão em `/dashboard`.
 - Iniciar triagem.
@@ -173,6 +175,7 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 ### Advogado
 
 - Criar/login como advogado.
+- Se a conta já existir e a senha não autenticar, usar "Esqueci minha senha" antes de repetir o teste.
 - Confirmar que advogado com OAB pendente não acessa Marketplace/Financeiro.
 - Acessar Dashboard executivo.
 - Ver Marketplace.
@@ -188,6 +191,7 @@ docs/MANUAL_TEST_REPORT_TEMPLATE.md
 ### Administrador
 
 - Confirmar presença na tabela `admin_users`.
+- Se a conta já existir e a senha não autenticar, usar "Esqueci minha senha" antes de repetir o teste.
 - Login como admin.
 - Verificar/rejeitar OAB pendente no painel Financeiro.
 - Confirmar `verified_by` e `verified_at` após decisão de OAB.
@@ -239,7 +243,7 @@ docs/VERCEL_DEPLOYMENT.md
 
 ## 10. Percentual estimado
 
-Status atual estimado: 88%.
+Status atual estimado: 90%.
 
 O projeto está funcional em build local, com lint e build passando, e próximo de readiness para preview/deploy. Ainda depende de:
 
