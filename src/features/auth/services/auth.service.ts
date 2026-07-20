@@ -51,6 +51,32 @@ export async function login(input: LoginFormState) {
   return authRepository.signInWithPassword(input);
 }
 
+export async function requestPasswordReset(email: string) {
+  const normalizedEmail = email.trim().toLowerCase();
+
+  if (!normalizedEmail) {
+    return { data: null, error: new Error("Informe seu e-mail para receber o link de recuperação.") };
+  }
+
+  const redirectTo = typeof window === "undefined"
+    ? "/redefinir-senha"
+    : `${window.location.origin}/redefinir-senha`;
+
+  return authRepository.resetPasswordForEmail(normalizedEmail, redirectTo);
+}
+
+export async function updatePassword(password: string, confirmation: string) {
+  if (password.length < 6) {
+    return { data: null, error: new Error("A nova senha precisa ter pelo menos 6 caracteres.") };
+  }
+
+  if (password !== confirmation) {
+    return { data: null, error: new Error("As senhas informadas não conferem.") };
+  }
+
+  return authRepository.updatePassword(password);
+}
+
 export async function register(input: RegisterFormState) {
   const normalizedInput = {
     ...input,

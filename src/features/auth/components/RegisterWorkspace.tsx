@@ -20,9 +20,11 @@ export function RegisterWorkspace() {
           </p>
 
           <form onSubmit={register.handleRegister} className="mt-8 space-y-4">
-            <label className="block">
+            <label htmlFor="register-name" className="block">
               <span className="mb-2 block text-sm font-black text-slate-700">Nome completo</span>
               <input
+                id="register-name"
+                type="text"
                 required
                 value={register.form.name}
                 onChange={(event) => register.updateField("name", event.target.value)}
@@ -30,9 +32,10 @@ export function RegisterWorkspace() {
               />
             </label>
 
-            <label className="block">
+            <label htmlFor="register-profile" className="block">
               <span className="mb-2 block text-sm font-black text-slate-700">Perfil</span>
               <select
+                id="register-profile"
                 value={register.form.profile}
                 onChange={(event) => register.updateField("profile", event.target.value as typeof register.form.profile)}
                 className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227]"
@@ -46,9 +49,11 @@ export function RegisterWorkspace() {
 
             {register.form.profile === "advogado" && (
               <div className="grid gap-4 md:grid-cols-[1fr_8rem]">
-                <label className="block">
+                <label htmlFor="register-oab-number" className="block">
                   <span className="mb-2 block text-sm font-black text-slate-700">Número da OAB</span>
                   <input
+                    id="register-oab-number"
+                    type="text"
                     required
                     inputMode="numeric"
                     pattern="\d{3,8}"
@@ -59,9 +64,10 @@ export function RegisterWorkspace() {
                   />
                 </label>
 
-                <label className="block">
+                <label htmlFor="register-oab-state" className="block">
                   <span className="mb-2 block text-sm font-black text-slate-700">UF</span>
                   <select
+                    id="register-oab-state"
                     required
                     value={register.form.oabState}
                     onChange={(event) => register.updateField("oabState", event.target.value)}
@@ -78,9 +84,10 @@ export function RegisterWorkspace() {
               </div>
             )}
 
-            <label className="block">
+            <label htmlFor="register-email" className="block">
               <span className="mb-2 block text-sm font-black text-slate-700">E-mail</span>
               <input
+                id="register-email"
                 type="email"
                 required
                 value={register.form.email}
@@ -89,9 +96,10 @@ export function RegisterWorkspace() {
               />
             </label>
 
-            <label className="block">
+            <label htmlFor="register-password" className="block">
               <span className="mb-2 block text-sm font-black text-slate-700">Senha</span>
               <input
+                id="register-password"
                 type="password"
                 required
                 minLength={6}
@@ -101,8 +109,9 @@ export function RegisterWorkspace() {
               />
             </label>
 
-            <label className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-700">
+            <label htmlFor="register-legal-terms" className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-700">
               <input
+                id="register-legal-terms"
                 type="checkbox"
                 checked={register.acceptedLegalTerms}
                 onChange={(event) => register.setAcceptedLegalTerms(event.target.checked)}

@@ -2,7 +2,7 @@
 
 import { routes } from "@/lib/routes";
 
-const AUTH_ROUTES = new Set([routes.login, routes.register]);
+const AUTH_ROUTES = new Set([routes.login, routes.register, routes.resetPassword]);
 const SAFE_ROUTE_HISTORY_KEY = "conectajus:safe-route-history";
 const SAFE_ROUTE_HISTORY_LIMIT = 12;
 

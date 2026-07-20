@@ -13,7 +13,7 @@ ui-v6-premium
 Status geral estimado após validação local de go-live e antes da rodada final com perfis reais no ambiente alvo:
 
 ```text
-88%
+90%
 ```
 
 Leitura correta desse percentual:
@@ -23,7 +23,7 @@ Leitura correta desse percentual:
 - a aplicação local está validada com `npm run go-live:check`;
 - o código principal do MVP está próximo do fechamento;
 - o bundle Supabase consolidado contém 34 migrations;
-- o build atual gera 19 rotas;
+- o build atual gera 20 rotas;
 - o que falta para 100% é aplicar/confirmar o Supabase alvo, validar o preview online atual e concluir testes logados de cidadão, advogado e administrador.
 
 ## Evolução por área
@@ -48,7 +48,7 @@ Leitura correta desse percentual:
 - `npm run preflight:preview` aprovado.
 - Bundle Supabase gerado com 34 migrations.
 - Build Next.js aprovado.
-- 19 rotas geradas.
+- 20 rotas geradas.
 - GitHub branch `ui-v6-premium` sincronizada.
 - Vercel configurada para usar `npm run validate`.
 - `.env.example` e `.gitignore` protegidos por preflight.
@@ -79,6 +79,7 @@ https://conectajus-app-git-ui-v6-premium-conectajus.vercel.app
 - `/marketplace`
 - `/privacidade`
 - `/processos`
+- `/redefinir-senha`
 - `/regras-marketplace`
 - `/relatorios`
 - `/termos`

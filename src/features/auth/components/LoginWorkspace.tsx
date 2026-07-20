@@ -31,9 +31,10 @@ export function LoginWorkspace() {
           </div>
 
           <form onSubmit={login.handleLogin} className="mt-8 space-y-4">
-            <label className="block">
+            <label htmlFor="login-email" className="block">
               <span className="mb-2 block text-sm font-black text-slate-700">E-mail</span>
               <input
+                id="login-email"
                 type="email"
                 required
                 value={login.form.email}
@@ -42,9 +43,10 @@ export function LoginWorkspace() {
               />
             </label>
 
-            <label className="block">
+            <label htmlFor="login-password" className="block">
               <span className="mb-2 block text-sm font-black text-slate-700">Senha</span>
               <input
+                id="login-password"
                 type="password"
                 required
                 value={login.form.password}
@@ -54,7 +56,7 @@ export function LoginWorkspace() {
             </label>
 
             {login.message && (
-              <div className="rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700">
+              <div className={login.messageTone === "success" ? "rounded-2xl bg-emerald-50 p-4 text-sm font-bold text-emerald-700" : "rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700"}>
                 {login.message}
               </div>
             )}
@@ -65,6 +67,15 @@ export function LoginWorkspace() {
               className="w-full rounded-2xl bg-[#07182F] px-5 py-4 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-60"
             >
               {login.loading ? "Entrando..." : "Entrar"}
+            </button>
+
+            <button
+              type="button"
+              onClick={login.handlePasswordReset}
+              disabled={login.loading}
+              className="w-full rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-black text-[#07182F] hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              Esqueci minha senha
             </button>
           </form>
 

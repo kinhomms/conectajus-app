@@ -749,3 +749,82 @@ Andamento atualizado estimado:
   - botão “Voltar” não retorna para login;
   - botão “Oportunidades” funciona como início operacional do advogado;
   - cidadão continua com Portal do cidadão, triagem e documentos.
+
+## Atualização 2026-07-20 — Diagnóstico de contas reais e recuperação de senha
+
+Solicitação do usuário: prosseguir com as etapas e manter o checkpoint atualizado a cada novo teste.
+
+Testes realizados nesta rodada:
+
+- Tentativa de login com a conta de advogado previamente autorizada:
+  - resultado: falha de autenticação com mensagem de e-mail/senha inválidos.
+- Tentativa de login com a conta admin previamente autorizada:
+  - resultado: falha de autenticação com mensagem de e-mail/senha inválidos.
+- Tentativa de cadastro da conta de advogada pelo fluxo `/cadastro`:
+  - resultado: o Supabase retornou que o e-mail já possui conta no ConectaJus.
+
+Diagnóstico:
+
+- A conta de advogada existe no Supabase Auth, mas a senha informada nesta conversa não autentica.
+- O bloqueio atual para teste logado de advogado/admin é externo ao layout: é necessário confirmar/redefinir senha das contas no Supabase Auth ou usar contas já confirmadas.
+- Durante o teste, foi identificado um ponto de melhoria no formulário: os campos não tinham associação `id/htmlFor` completa, o que prejudicava acessibilidade e teste automatizado.
+
+Correções aplicadas nesta rodada:
+
+- `src/features/auth/components/LoginWorkspace.tsx`
+  - adicionados `id/htmlFor` nos campos de e-mail e senha;
+  - adicionado botão “Esqueci minha senha”.
+- `src/features/auth/components/RegisterWorkspace.tsx`
+  - adicionados `id/htmlFor` nos campos de nome, perfil, OAB, UF, e-mail, senha e aceite legal;
+  - adicionados `type="text"` explícitos em nome e número da OAB.
+- `src/features/auth/repositories/auth.repository.ts`
+  - adicionadas funções para solicitar recuperação de senha e atualizar senha.
+- `src/features/auth/services/auth.service.ts`
+  - adicionada validação de e-mail para recuperação;
+  - adicionada validação de nova senha e confirmação.
+- `src/features/auth/hooks/useLoginWorkspace.ts`
+  - adicionada ação para envio do link de recuperação.
+- `src/features/auth/hooks/useResetPasswordWorkspace.ts`
+  - criado hook da tela de redefinição.
+- `src/features/auth/components/ResetPasswordWorkspace.tsx`
+  - criada tela de definição de nova senha.
+- `src/app/redefinir-senha/page.tsx`
+  - criada rota pequena, delegando para feature.
+- `src/lib/routes.ts`, `src/lib/navigation.ts`, `src/components/layout/AppShell.tsx`
+  - rota `/redefinir-senha` adicionada ao mapa e tratada como rota pública/auth.
+
+Validações realizadas:
+
+```bash
+npm run lint
+npm run validate
+```
+
+Resultado:
+
+- `lint`: aprovado.
+- `preflight:preview`: aprovado.
+- Migrations conferidas: 34.
+- Migration mais recente: `20260716100000_grant_lawyer_public_profiles_access.sql`.
+- `build`: aprovado.
+- Rotas geradas: 20, incluindo `/redefinir-senha`.
+
+Smoke visual local:
+
+- `/login`
+  - botão “Esqueci minha senha” visível;
+  - campos com IDs semânticos presentes.
+- `/redefinir-senha`
+  - página renderiza sem erro;
+  - heading “Definir nova senha” presente;
+  - campos “Nova senha” e “Confirmar nova senha” presentes;
+  - sem erros de console.
+
+Andamento atualizado estimado:
+
+- Plataforma funcional em desenvolvimento: ~90%.
+- Próximo foco obrigatório para avançar nos testes logados:
+  - redefinir/confirmar senha das contas reais no Supabase Auth;
+  - confirmar que o advogado possui perfil `advogado` e OAB verificada;
+  - confirmar que o admin está em `public.admin_users`;
+  - repetir login e smoke test dos painéis `/marketplace`, `/financeiro`, `/clientes`, `/documentos`, `/configuracoes`.

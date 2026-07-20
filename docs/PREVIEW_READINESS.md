@@ -17,7 +17,7 @@ https://github.com/kinhomms/conectajus-app.git
 ## Estado do código
 
 - `npm run validate` passando localmente, incluindo `preflight:preview`.
-- Build Next.js gerando 19 rotas.
+- Build Next.js gerando 20 rotas, incluindo recuperação de senha em `/redefinir-senha`.
 - `npm run go-live:check` aprovado em 2026-07-20, com bundle Supabase de 34 migrations, preflight, lint e build.
 - Branch `ui-v6-premium` publicada no GitHub.
 - Arquitetura por features preservada.
@@ -54,6 +54,7 @@ Antes de testar o preview, confirmar:
 1. Visitante:
    - `/`;
    - `/login`;
+   - `/redefinir-senha`;
    - `/cadastro`.
 2. Cidadão:
    - criar conta;

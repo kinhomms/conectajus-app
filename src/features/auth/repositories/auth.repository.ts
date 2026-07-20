@@ -48,6 +48,16 @@ export async function signUp(input: SignUpInput) {
   });
 }
 
+export async function resetPasswordForEmail(email: string, redirectTo: string) {
+  return supabase.auth.resetPasswordForEmail(email, {
+    redirectTo,
+  });
+}
+
+export async function updatePassword(password: string) {
+  return supabase.auth.updateUser({ password });
+}
+
 export async function signOut() {
   return supabase.auth.signOut();
 }

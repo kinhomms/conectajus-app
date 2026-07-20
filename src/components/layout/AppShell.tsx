@@ -7,7 +7,7 @@ import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { MobileNavigation } from "./MobileNavigation";
 
-const publicRoutes = ["/", "/login", "/cadastro", "/privacidade", "/termos", "/regras-marketplace"];
+const publicRoutes = ["/", "/login", "/redefinir-senha", "/cadastro", "/privacidade", "/termos", "/regras-marketplace"];
 const publicRoutePrefixes = ["/advogados/"];
 
 type AppShellProps = {
