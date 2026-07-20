@@ -456,3 +456,63 @@ Próxima etapa recomendada:
 
 1. Teste visual final no navegador em `/`, `/triagem`, `/privacidade`, `/termos` e `/regras-marketplace`.
 2. Se visualmente aprovado, executar uma rodada final de `npm run validate` e preparar checkpoint final de go-live/teste online.
+## Atualização 2026-07-20 — Validação final e correção de Configurações
+
+Solicitação do usuário: prosseguir com a revisão das telas, manter o padrão visual claro/dark, garantir que advogados não recebam atalhos indevidos de triagem e atualizar o checkpoint a cada novo teste.
+
+O que foi verificado nesta rodada:
+
+- Status Git inicial limpo na branch `ui-v6-premium`, exceto logs temporários criados pelo servidor de teste local.
+- Servidor local iniciado em `http://localhost:3000` para teste visual.
+- Teste visual no navegador em:
+  - `/`
+  - `/triagem`
+  - `/privacidade`
+  - `/termos`
+  - `/regras-marketplace`
+- Confirmação de que a rota `/triagem` renderiza `TriageWorkspace` corretamente.
+- Confirmação de que o texto “Portal do cidadão” visto na triagem é parte do cabeçalho/atalho da própria tela, não uma troca indevida pela dashboard.
+- Encerramento do servidor dev aberto durante o teste e remoção dos logs temporários `.codex-dev-server.log` e `.codex-dev-server.err.log`.
+
+Correção implementada nesta rodada:
+
+- Correção de textos mojibake reais em `src/features/settings/components/SettingsWorkspace.tsx`, incluindo:
+  - `Configurações`
+  - `Conta, privacidade e operação`
+  - `Perfil público do advogado`
+  - `Foto e apresentação para clientes`
+  - `Dados e preferências`
+  - `Notificações por e-mail`
+  - `Exclusão da conta`
+  - `Proteção de dados`
+  - `Segurança da sessão`
+  - `Créditos/OAB`
+  - marcador visual `✓` no checklist.
+
+Validações realizadas:
+
+```bash
+rg "Ã|�|â€|â†|âœ" src\features\triage src\features\settings -g "*.tsx" -g "*.ts"
+npm run validate
+```
+
+Resultado:
+
+- Busca precisa de mojibake em Triagem/Configurações: sem ocorrências após a correção.
+- `npm run validate`: aprovado.
+  - `preflight:preview`: aprovado; 34 migrations conferidas; migration mais recente `20260716100000_grant_lawyer_public_profiles_access.sql`.
+  - `npm run lint`: aprovado com 0 erros e 2 warnings conhecidos de `<img>` em perfil público/configurações.
+  - `npm run build`: aprovado; 19 rotas geradas.
+
+Andamento atualizado estimado:
+
+- Plataforma funcional em desenvolvimento: ~86%.
+- Núcleo marketplace/triagem/CRM/documentos/configurações/autenticação: implementado e validado em build.
+- Restante para chegar a 100%: testes manuais completos com contas reais nos três perfis, revisão fina de responsividade/mobile em todo o fluxo, testes Supabase em produção/preview, fluxo real de créditos/pagamento, endurecimento final de políticas/RLS e deploy final em ambiente online.
+
+Próxima etapa recomendada:
+
+1. Testar login real de cidadão, advogado e admin no ambiente local/preview.
+2. Confirmar visual da página inicial do advogado com oportunidades qualificadas como primeira tela pós-login.
+3. Testar envio de triagem, publicação mascarada, visualização pelo advogado, desbloqueio com créditos e abertura dos dados privados.
+4. Depois disso, preparar checklist de go-live e deploy para teste online.
