@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useCurrentUserProfile } from "@/features/auth/hooks/useCurrentUserProfile";
 import { navigateBackSafely } from "@/lib/navigation";
 import { routes } from "@/lib/routes";
 
@@ -12,11 +13,15 @@ type PageNavigationProps = {
 };
 
 export function PageNavigation({
-  dashboardHref = routes.dashboard,
-  dashboardLabel = "Painel",
+  dashboardHref,
+  dashboardLabel,
   showDashboard = true,
   tone = "light",
 }: PageNavigationProps) {
+  const { isLegalOperator } = useCurrentUserProfile();
+  const resolvedDashboardHref = dashboardHref ?? (isLegalOperator ? routes.marketplace : routes.dashboard);
+  const resolvedDashboardLabel = dashboardLabel ?? (isLegalOperator ? "Oportunidades" : "Painel");
+
   const buttonClass = tone === "light"
     ? "rounded-2xl border border-slate-300 bg-white px-4 py-2 text-sm font-black text-slate-800 shadow-sm hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
     : "rounded-2xl border border-white/20 bg-white/15 px-4 py-2 text-sm font-black text-white shadow-sm hover:bg-white/20";
@@ -31,15 +36,15 @@ export function PageNavigation({
 
   return (
     <nav className="mb-5 flex flex-wrap items-center gap-3" aria-label="Navegação da página">
-      <button type="button" onClick={() => navigateBackSafely(dashboardHref)} className={buttonClass}>
+      <button type="button" onClick={() => navigateBackSafely(resolvedDashboardHref)} className={buttonClass}>
         ← Voltar
       </button>
       <Link href={routes.home} className={homeClass}>
         Início
       </Link>
       {showDashboard ? (
-        <Link href={dashboardHref} className={dashboardClass}>
-          {dashboardLabel}
+        <Link href={resolvedDashboardHref} className={dashboardClass}>
+          {resolvedDashboardLabel}
         </Link>
       ) : null}
     </nav>

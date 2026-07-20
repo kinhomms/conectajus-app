@@ -703,3 +703,49 @@ Andamento atualizado estimado:
 
 - Plataforma funcional em desenvolvimento: ~89%.
 - Próximo foco recomendado: teste real no preview/ambiente online com contas cidadão, advogado e admin, especialmente fluxos de login, Marketplace, Financeiro, desbloqueio, CRM e admin.
+
+## Atualização 2026-07-20 — Navegação segura pós-login e painel inicial do advogado
+
+Solicitação do usuário: prosseguir, corrigir palavras escritas erradas e verificar o caso em que, no painel do advogado, o botão voltar levava para a página de login.
+
+Correções aplicadas nesta rodada:
+
+- `src/lib/navigation.ts`
+  - substituído o uso direto de `window.history.back()` por um histórico interno seguro em `sessionStorage`;
+  - rotas de autenticação (`/login` e `/cadastro`) passam a ser ignoradas pelo botão “Voltar”;
+  - quando não houver rota interna segura anterior, o botão usa o fallback do painel correto.
+- `src/components/layout/AppShell.tsx`
+  - passou a registrar automaticamente cada rota interna visitada no histórico seguro da plataforma.
+- `src/components/navigation/PageNavigation.tsx`
+  - quando o perfil autenticado é advogado/admin e nenhum destino específico é informado, o botão de painel passa a apontar para `routes.marketplace`;
+  - o rótulo padrão para advogado/admin passa a ser “Oportunidades”, reforçando que a página inicial operacional do advogado é o Marketplace/Oportunidades qualificadas.
+- `src/features/marketplace/hooks/useMarketplaceWorkspace.ts`
+  - corrigida mensagem sem acentuação: “Não foi possível carregar os dados privados liberados...”.
+
+Validação realizada:
+
+```bash
+npm run validate
+```
+
+Resultado:
+
+- `preflight:preview`: aprovado.
+- Migrations conferidas: 34.
+- Migration mais recente: `20260716100000_grant_lawyer_public_profiles_access.sql`.
+- `lint`: aprovado.
+- `build`: aprovado.
+- Rotas geradas: 19.
+
+Observação importante:
+
+- O smoke test anterior mostrou que, em algumas rotas internas, o cabeçalho “Portal do cidadão” aparecia antes do conteúdo específico. Pelo código, isso é compatível com o estado inicial do hook de perfil enquanto a sessão Supabase ainda está carregando. A correção desta rodada reduz o impacto comercial principal: o advogado, após login, continua sendo direcionado para `/marketplace`, e os botões de navegação deixam de retornar para `/login`.
+
+Andamento atualizado estimado:
+
+- Plataforma funcional em desenvolvimento: ~90%.
+- Próximo foco recomendado: novo teste real com login de advogado e cidadão para confirmar:
+  - advogado entra direto em Oportunidades qualificadas;
+  - botão “Voltar” não retorna para login;
+  - botão “Oportunidades” funciona como início operacional do advogado;
+  - cidadão continua com Portal do cidadão, triagem e documentos.

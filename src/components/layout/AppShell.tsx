@@ -1,6 +1,8 @@
 ﻿"use client";
 
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { recordSafeRoute } from "@/lib/navigation";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { MobileNavigation } from "./MobileNavigation";
@@ -16,6 +18,12 @@ export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
 
   const isPublicRoute = publicRoutes.includes(pathname) || publicRoutePrefixes.some((routePrefix) => pathname.startsWith(routePrefix));
+
+  useEffect(() => {
+    if (!isPublicRoute) {
+      recordSafeRoute(pathname);
+    }
+  }, [isPublicRoute, pathname]);
 
   if (isPublicRoute) {
     return <>{children}</>;

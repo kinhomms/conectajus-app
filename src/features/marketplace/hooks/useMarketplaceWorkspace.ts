@@ -71,7 +71,7 @@ export function useMarketplaceWorkspace() {
     setOpportunities(opportunityResponse.data ?? []);
     if (detailsResponse.error) {
       setPrivateDetails([]);
-      setMessage(`Nao foi possivel carregar os dados privados liberados: ${detailsResponse.error.message}`);
+      setMessage(`Não foi possível carregar os dados privados liberados: ${detailsResponse.error.message}`);
     } else {
       setPrivateDetails(Array.isArray(detailsResponse.data)
         ? detailsResponse.data as MarketplaceOpportunityPrivateDetails[]
