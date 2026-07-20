@@ -31,7 +31,7 @@ export function TriageWorkspace() {
         <section>
           <Card>
             <div className="mb-6">
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-[#C9A227]">
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-teal-600">
                 {triage.isComplementary ? "Triagem Jurídica Complementar" : "Triagem Jurídica Inteligente"}
               </p>
               <h1 className="mt-3 text-4xl font-black tracking-[-0.04em] text-[#07182F]">
@@ -43,7 +43,7 @@ export function TriageWorkspace() {
             </div>
 
             {triage.isComplementary && !triage.isPublished ? (
-              <div className="mb-5 rounded-3xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+              <div className="mb-5 rounded-3xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-900">
                 Esta é uma triagem complementar. Ela cria um novo dossiê relacionado ao caso anterior, sem alterar o relato original já publicado.
               </div>
             ) : null}
@@ -53,7 +53,7 @@ export function TriageWorkspace() {
                 Esta demanda já foi publicada no Marketplace. Para preservar a integridade do lead visto pelos advogados, a edição direta fica bloqueada. Se precisar complementar, envie documentos ou inicie uma nova triagem.
               </div>
             ) : triage.dossier ? (
-              <div className="mb-5 rounded-3xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+              <div className="mb-5 rounded-3xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-900">
                 Antes de publicar, você ainda pode editar a demanda. Ajuste o relato no formulário e gere o dossiê novamente.
               </div>
             ) : null}
@@ -68,7 +68,7 @@ export function TriageWorkspace() {
                     value={triage.city}
                     onChange={(event) => triage.setCity(event.target.value)}
                     disabled={triage.isPublished}
-                    className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+                    className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
                     placeholder="Ex.: Salvador"
                   />
                 </label>
@@ -81,7 +81,7 @@ export function TriageWorkspace() {
                     value={triage.state}
                     onChange={(event) => triage.setState(event.target.value.toUpperCase().slice(0, 2))}
                     disabled={triage.isPublished}
-                    className="w-full rounded-2xl border border-slate-300 bg-white p-4 uppercase outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+                    className="w-full rounded-2xl border border-slate-300 bg-white p-4 uppercase outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
                     placeholder="BA"
                   />
                 </label>
@@ -102,7 +102,7 @@ export function TriageWorkspace() {
                       value={triage.fullName}
                       onChange={(event) => triage.setFullName(event.target.value)}
                       disabled={triage.isPublished}
-                      className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+                      className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
                       placeholder="Nome do cidadão"
                     />
                   </label>
@@ -113,7 +113,7 @@ export function TriageWorkspace() {
                       value={triage.email}
                       onChange={(event) => triage.setEmail(event.target.value)}
                       disabled={triage.isPublished}
-                      className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+                      className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
                       placeholder="email@exemplo.com"
                     />
                   </label>
@@ -124,7 +124,7 @@ export function TriageWorkspace() {
                       value={triage.phone}
                       onChange={(event) => triage.setPhone(event.target.value)}
                       disabled={triage.isPublished}
-                      className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+                      className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
                       placeholder="(00) 00000-0000"
                     />
                   </label>
@@ -135,7 +135,7 @@ export function TriageWorkspace() {
                       value={triage.whatsapp}
                       onChange={(event) => triage.setWhatsapp(event.target.value)}
                       disabled={triage.isPublished}
-                      className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+                      className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
                       placeholder="WhatsApp para contato"
                     />
                   </label>
@@ -148,7 +148,7 @@ export function TriageWorkspace() {
                     onChange={(event) => triage.setDocumentNotes(event.target.value)}
                     disabled={triage.isPublished}
                     rows={3}
-                    className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+                    className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
                     placeholder="Ex.: contrato, prints, extratos, notificações..."
                   />
                 </label>
@@ -157,7 +157,7 @@ export function TriageWorkspace() {
               <div className="rounded-3xl border border-slate-200 bg-white p-4">
                 <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#C9A227]">
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-600">
                       Documentos enviados
                     </p>
                     <h2 className="mt-1 text-lg font-black text-[#07182F]">Vincular arquivos ao caso</h2>
@@ -184,14 +184,14 @@ export function TriageWorkspace() {
                       return (
                         <label
                           key={document.id}
-                          className={`flex gap-3 rounded-2xl border p-4 transition ${triage.isPublished ? "cursor-not-allowed border-slate-200 bg-slate-100 opacity-80" : checked ? "cursor-pointer border-[#C9A227] bg-[#C9A227]/10" : "cursor-pointer border-slate-200 bg-slate-50 hover:bg-white"}`}
+                          className={`flex gap-3 rounded-2xl border p-4 transition ${triage.isPublished ? "cursor-not-allowed border-slate-200 bg-slate-100 opacity-80" : checked ? "cursor-pointer border-teal-500 bg-teal-500/10" : "cursor-pointer border-slate-200 bg-slate-50 hover:bg-white"}`}
                         >
                           <input
                             type="checkbox"
                             checked={checked}
                             disabled={triage.isPublished}
                             onChange={() => triage.toggleCitizenDocument(document.id)}
-                            className="mt-1 h-4 w-4 accent-[#C9A227] disabled:cursor-not-allowed"
+                            className="mt-1 h-4 w-4 accent-teal-600 disabled:cursor-not-allowed"
                           />
                           <span>
                             <span className="block break-words text-sm font-black text-[#07182F]">{document.file_name}</span>
@@ -215,7 +215,7 @@ export function TriageWorkspace() {
                   onChange={(event) => triage.setDescription(event.target.value)}
                   disabled={triage.isPublished}
                   rows={12}
-                  className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
+                  className="w-full rounded-2xl border border-slate-300 bg-white p-4 outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500"
                   placeholder="Ex.: Meu banco começou a descontar valores do meu benefício, mas eu não reconheço esse contrato..."
                 />
               </label>
@@ -236,7 +236,7 @@ export function TriageWorkspace() {
                 <button
                   type="submit"
                   disabled={triage.isPublished}
-                  className="rounded-2xl bg-[#07182F] px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#0B2545] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-2xl bg-[#07182F] px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {triage.isComplementary ? (triage.dossier ? "Gerar dossiê complementar novamente" : "Gerar dossiê complementar") : triage.dossier ? "Gerar dossiê novamente" : "Gerar dossiê preliminar"}
                 </button>
@@ -267,10 +267,10 @@ export function TriageWorkspace() {
           {triage.dossier ? (
             <>
               <TriageResult dossier={triage.dossier} />
-              <Card className="border border-[#C9A227]/20 bg-white">
+              <Card className="border border-teal-500/20 bg-white">
                 <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#C9A227]">
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-600">
                       Marketplace
                     </p>
                     <h3 className="mt-2 text-xl font-black text-[#07182F]">
@@ -281,7 +281,7 @@ export function TriageWorkspace() {
                     </p>
                     {!triage.isPublished ? (
                       <div className="mt-3 space-y-3">
-                        <p className="rounded-2xl bg-amber-50 p-3 text-sm font-bold text-amber-800">
+                        <p className="rounded-2xl bg-teal-50 p-3 text-sm font-bold text-teal-800">
                           Revise com calma. Até publicar, você pode editar o relato e gerar o dossiê novamente.
                         </p>
                         <label className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-700">
@@ -289,7 +289,7 @@ export function TriageWorkspace() {
                             type="checkbox"
                             checked={triage.acceptedPublicationRules}
                             onChange={(event) => triage.setAcceptedPublicationRules(event.target.checked)}
-                            className="mt-1 h-4 w-4 accent-[#C9A227]"
+                            className="mt-1 h-4 w-4 accent-teal-600"
                           />
                           <span>
                             Confirmo que revisei as informações, compreendo que a triagem por IA é preliminar e autorizo a publicação mascarada conforme a{" "}
@@ -320,14 +320,14 @@ export function TriageWorkspace() {
                       type="button"
                       onClick={triage.handlePublishOpportunity}
                       disabled={triage.publishing || Boolean(triage.publishedOpportunityId) || !triage.acceptedPublicationRules}
-                      className="rounded-2xl bg-[#C9A227] px-5 py-3 text-sm font-black text-[#07182F] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="rounded-2xl bg-teal-600 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {triage.publishing ? "Publicando..." : triage.publishedOpportunityId ? "Publicado" : "Publicar no Marketplace"}
                     </button>
                     {triage.publishedOpportunityId ? (
                       <Link
                         href={routes.dashboard}
-                        className="rounded-2xl border border-[#C9A227]/30 px-5 py-3 text-center text-sm font-black text-[#07182F] transition hover:-translate-y-0.5 hover:bg-[#C9A227]/10"
+                        className="rounded-2xl border border-teal-500/30 px-5 py-3 text-center text-sm font-black text-[#07182F] transition hover:-translate-y-0.5 hover:bg-teal-500/10"
                       >
                         Acompanhar no portal
                       </Link>
@@ -335,7 +335,7 @@ export function TriageWorkspace() {
                       <button
                         type="button"
                         onClick={triage.handleEditDemand}
-                        className="rounded-2xl border border-[#C9A227]/30 px-5 py-3 text-center text-sm font-black text-[#07182F] transition hover:-translate-y-0.5 hover:bg-[#C9A227]/10"
+                        className="rounded-2xl border border-teal-500/30 px-5 py-3 text-center text-sm font-black text-[#07182F] transition hover:-translate-y-0.5 hover:bg-teal-500/10"
                       >
                         Editar antes de publicar
                       </button>
@@ -347,7 +347,7 @@ export function TriageWorkspace() {
           ) : (
             <Card className="flex min-h-[560px] items-center justify-center bg-[#07182F] text-white">
               <div className="max-w-md text-center">
-                <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-3xl bg-[#C9A227] text-2xl font-black text-[#07182F]">
+                <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-3xl bg-teal-500 text-2xl font-black text-white">
                   IA
                 </div>
                 <h2 className="text-3xl font-black">Dossiê Inteligente</h2>

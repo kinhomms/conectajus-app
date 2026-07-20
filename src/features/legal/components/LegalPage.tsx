@@ -21,7 +21,7 @@ export function LegalPage({ content }: { content: LegalPageContent }) {
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
           <Link href={routes.home} className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#C9A227] font-black text-[#07182F]">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-500 font-black text-[#07182F]">
               CJ
             </span>
             <span>
@@ -46,7 +46,7 @@ export function LegalPage({ content }: { content: LegalPageContent }) {
 
       <section className="mx-auto max-w-5xl px-6 py-12">
         <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
-          <p className="text-xs font-black uppercase tracking-[0.24em] text-[#C9A227]">
+          <p className="text-xs font-black uppercase tracking-[0.24em] text-teal-600">
             {content.eyebrow}
           </p>
           <h1 className="mt-3 text-4xl font-black tracking-[-0.03em] md:text-5xl">
@@ -59,7 +59,7 @@ export function LegalPage({ content }: { content: LegalPageContent }) {
             <div className="rounded-2xl bg-slate-50 p-4">
               Última atualização: {content.lastUpdated}
             </div>
-            <div className="rounded-2xl bg-amber-50 p-4 text-amber-900">
+            <div className="rounded-2xl bg-teal-50 p-4 text-teal-900">
               {content.reviewNote}
             </div>
           </div>

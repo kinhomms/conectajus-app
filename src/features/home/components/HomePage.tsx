@@ -43,7 +43,7 @@ export function HomePage() {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#07182F]/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#C9A227] font-black text-[#07182F]">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-500 font-black text-[#07182F]">
               CJ
             </div>
             <div>
@@ -65,7 +65,7 @@ export function HomePage() {
             <Link href="/login" className="rounded-xl border border-white/20 px-4 py-2 text-sm font-bold text-white">
               Entrar
             </Link>
-            <Link href="/triagem" className="rounded-xl bg-[#C9A227] px-4 py-2 text-sm font-black text-[#07182F]">
+            <Link href="/triagem" className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-black text-white">
               Iniciar triagem
             </Link>
           </div>
@@ -75,7 +75,7 @@ export function HomePage() {
       <section className="relative overflow-hidden">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-[1.15fr_.85fr]">
           <div>
-            <div className="mb-6 inline-flex rounded-full border border-[#C9A227]/30 bg-white px-4 py-2 text-sm font-bold text-[#102542] shadow-sm">
+            <div className="mb-6 inline-flex rounded-full border border-teal-500/30 bg-white px-4 py-2 text-sm font-bold text-[#102542] shadow-sm">
               Plataforma jurídica inteligente para múltiplas áreas do Direito
             </div>
 
@@ -107,7 +107,7 @@ export function HomePage() {
             <div className="rounded-[1.5rem] bg-[#07182F] p-5 text-white">
               <div className="mb-4 flex items-center justify-between">
                 <strong>Dossiê Inteligente</strong>
-                <span className="rounded-full bg-[#C9A227] px-3 py-1 text-xs font-black text-[#07182F]">IA</span>
+                <span className="rounded-full bg-teal-500 px-3 py-1 text-xs font-black text-[#07182F]">IA</span>
               </div>
 
               <div className="space-y-3">
@@ -144,7 +144,7 @@ export function HomePage() {
         <div className="grid gap-5 md:grid-cols-4">
           {steps.map(([num, title, text]) => (
             <div key={num} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A227] font-black">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-500 font-black">
                 {num}
               </div>
               <h3 className="text-xl font-black">{title}</h3>
@@ -157,7 +157,7 @@ export function HomePage() {
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <div className="rounded-[2rem] border border-slate-200 bg-[#07182F] p-8 text-white shadow-xl shadow-slate-900/10">
           <div className="mb-8 max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#C9A227]">Marketplace jurídico</p>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-teal-600">Marketplace jurídico</p>
             <h2 className="mt-3 text-4xl font-black tracking-[-0.03em]">Oportunidades com privacidade desde a origem</h2>
             <p className="mt-4 leading-8 text-slate-300">
               O cidadão conta o caso, a IA organiza a demanda e o advogado analisa oportunidades qualificadas sem receber dados pessoais antes do desbloqueio.
@@ -204,7 +204,7 @@ export function HomePage() {
             Advogados podem acessar oportunidades qualificadas, usar créditos para desbloqueio,
             converter leads em CRM e acompanhar a rotina jurídica em uma operação integrada.
           </p>
-          <Link href="/cadastro" className="mt-6 inline-flex rounded-2xl bg-[#C9A227] px-6 py-4 font-black text-[#07182F]">
+          <Link href="/cadastro" className="mt-6 inline-flex rounded-2xl bg-teal-600 px-6 py-4 font-black text-white">
             Criar conta de advogado
           </Link>
         </div>
