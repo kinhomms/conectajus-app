@@ -54,9 +54,9 @@ export function FinanceWorkspace() {
           <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
             Financeiro
           </p>
-          <h1 className="mt-2 text-3xl font-bold">CrÃ©ditos e faturamento</h1>
+          <h1 className="mt-2 text-3xl font-bold">Créditos e faturamento</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-            Saldo, histÃ³rico e solicitaÃ§Ãµes reais de crÃ©ditos para desbloqueio de oportunidades.
+            Saldo, histórico e solicitações reais de créditos para desbloqueio de oportunidades.
           </p>
         </div>
 
@@ -84,12 +84,12 @@ export function FinanceWorkspace() {
       )}
 
       <div className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-6">
-        <Metric label="Saldo atual" value={finance.account?.balance ?? 0} helper="crÃ©ditos disponÃ­veis" />
+        <Metric label="Saldo atual" value={finance.account?.balance ?? 0} helper="créditos disponíveis" />
         <Metric label="Desbloqueios" value={finance.financeInsights.estimatedUnlocks} helper="estimativa com saldo atual" />
-        <Metric label="Comprados" value={finance.purchasedCredits} helper="crÃ©ditos adicionados" />
+        <Metric label="Comprados" value={finance.purchasedCredits} helper="créditos adicionados" />
         <Metric label="Consumidos" value={finance.consumedCredits} helper="desbloqueios realizados" />
-        <Metric label="Pendentes" value={finance.pendingCredits} helper="crÃ©ditos solicitados" />
-        <Metric label="Pedidos" value={finance.financeInsights.pendingRequests} helper="solicitaÃ§Ãµes em aberto" />
+        <Metric label="Pendentes" value={finance.pendingCredits} helper="créditos solicitados" />
+        <Metric label="Pedidos" value={finance.financeInsights.pendingRequests} helper="solicitações em aberto" />
       </div>
 
       <CreditHealthPanel
@@ -103,18 +103,18 @@ export function FinanceWorkspace() {
             <section className="rounded-3xl border border-slate-200 bg-white dark:border-amber-400/20 dark:bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
               <div className="mb-5">
                 <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
-                  AdministraÃ§Ã£o
+                  Administração
                 </p>
-                <h2 className="mt-2 text-2xl font-bold">AprovaÃ§Ã£o de crÃ©ditos</h2>
+                <h2 className="mt-2 text-2xl font-bold">Aprovação de créditos</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  Aprovar uma solicitaÃ§Ã£o adiciona crÃ©ditos ao usuÃ¡rio e registra uma transaÃ§Ã£o de compra.
+                  Aprovar uma solicitação adiciona créditos ao usuário e registra uma transação de compra.
                 </p>
               </div>
 
               {finance.adminPendingRequests.length === 0 ? (
                 <EmptyState
-                  title="Nenhuma solicitaÃ§Ã£o pendente"
-                  description="Pedidos aguardando aprovaÃ§Ã£o aparecerÃ£o aqui para administradores."
+                  title="Nenhuma solicitação pendente"
+                  description="Pedidos aguardando aprovação aparecerão aqui para administradores."
                 />
               ) : (
                 <div className="space-y-3">
@@ -136,18 +136,18 @@ export function FinanceWorkspace() {
             <section className="rounded-3xl border border-sky-400/20 bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
               <div className="mb-5">
                 <p className="text-xs uppercase tracking-[0.25em] text-sky-300">
-                  ValidaÃ§Ã£o OAB
+                  Validação OAB
                 </p>
-                <h2 className="mt-2 text-2xl font-bold">Advogados aguardando conferÃªncia</h2>
+                <h2 className="mt-2 text-2xl font-bold">Advogados aguardando conferência</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  O Marketplace e o Financeiro ficam bloqueados atÃ© a OAB ser marcada como verificada. Confira nome, UF e nÃºmero em fonte externa confiÃ¡vel antes de aprovar.
+                  O Marketplace e o Financeiro ficam bloqueados até a OAB ser marcada como verificada. Confira nome, UF e número em fonte externa confiável antes de aprovar.
                 </p>
               </div>
 
               {finance.lawyerProfilesPendingVerification.length === 0 ? (
                 <EmptyState
                   title="Nenhuma OAB pendente"
-                  description="Cadastros de advogados aguardando validaÃ§Ã£o aparecerÃ£o aqui."
+                  description="Cadastros de advogados aguardando validação aparecerão aqui."
                 />
               ) : (
                 <div className="space-y-3">
@@ -171,16 +171,16 @@ export function FinanceWorkspace() {
                 <p className="text-xs uppercase tracking-[0.25em] text-red-200">
                   Privacidade e LGPD
                 </p>
-                <h2 className="mt-2 text-2xl font-bold">SolicitaÃ§Ãµes de exclusÃ£o de conta</h2>
+                <h2 className="mt-2 text-2xl font-bold">Solicitações de exclusão de conta</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  Aprovar aqui nÃ£o apaga automaticamente o usuÃ¡rio do Auth. A aprovaÃ§Ã£o registra a decisÃ£o para tratamento administrativo de retenÃ§Ãµes legais, documentos, crÃ©ditos, auditoria e dados vinculados.
+                  Aprovar aqui não apaga automaticamente o usuário do Auth. A aprovação registra a decisão para tratamento administrativo de retenções legais, documentos, créditos, auditoria e dados vinculados.
                 </p>
               </div>
 
               {finance.accountDeletionRequests.length === 0 ? (
                 <EmptyState
-                  title="Nenhuma exclusÃ£o pendente"
-                  description="SolicitaÃ§Ãµes feitas pelos usuÃ¡rios aparecerÃ£o aqui para anÃ¡lise administrativa."
+                  title="Nenhuma exclusão pendente"
+                  description="Solicitações feitas pelos usuários aparecerão aqui para análise administrativa."
                 />
               ) : (
                 <div className="space-y-3">
@@ -201,11 +201,11 @@ export function FinanceWorkspace() {
           <section className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
             <div className="mb-5">
               <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
-                Solicitar crÃ©ditos
+                Solicitar créditos
               </p>
-              <h2 className="mt-2 text-2xl font-bold">Pacotes disponÃ­veis</h2>
+              <h2 className="mt-2 text-2xl font-bold">Pacotes disponíveis</h2>
               <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                A solicitaÃ§Ã£o fica pendente. Nenhum crÃ©dito Ã© adicionado e nenhuma cobranÃ§a Ã© feita automaticamente nesta etapa.
+                A solicitação fica pendente. Nenhum crédito é adicionado e nenhuma cobrança é feita automaticamente nesta etapa.
               </p>
             </div>
 
@@ -214,7 +214,7 @@ export function FinanceWorkspace() {
                 <div key={creditPackage.id} className="rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19] p-5">
                   <p className="text-sm font-bold text-slate-950 dark:text-white">{creditPackage.label}</p>
                   <p className="mt-2 text-3xl font-black text-teal-700 dark:text-teal-200">{creditPackage.credits}</p>
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">crÃ©ditos</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">créditos</p>
                   <p className="mt-3 min-h-12 text-sm leading-6 text-slate-600 dark:text-slate-400">{creditPackage.description}</p>
                   <p className="mt-3 rounded-xl bg-white dark:bg-white/5 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
                     Valor a confirmar
@@ -235,15 +235,15 @@ export function FinanceWorkspace() {
           <section className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
             <div className="mb-5">
               <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
-                HistÃ³rico
+                Histórico
               </p>
-              <h2 className="mt-2 text-2xl font-bold">MovimentaÃ§Ãµes de crÃ©ditos</h2>
+              <h2 className="mt-2 text-2xl font-bold">Movimentações de créditos</h2>
             </div>
 
             {finance.transactions.length === 0 ? (
               <EmptyState
-                title="Nenhuma movimentaÃ§Ã£o registrada"
-                description="Quando houver compra aprovada, consumo, estorno ou ajuste de crÃ©ditos, o histÃ³rico aparecerÃ¡ aqui."
+                title="Nenhuma movimentação registrada"
+                description="Quando houver compra aprovada, consumo, estorno ou ajuste de créditos, o histórico aparecerá aqui."
               />
             ) : (
               <div className="space-y-3">
@@ -258,7 +258,7 @@ export function FinanceWorkspace() {
         <aside className="space-y-6">
           <section className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
             <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
-              SolicitaÃ§Ãµes
+              Solicitações
             </p>
             <h3 className="mt-2 text-xl font-bold">Pedidos de compra</h3>
 
@@ -266,7 +266,7 @@ export function FinanceWorkspace() {
               <div className="mt-5">
                 <EmptyState
                   title="Nenhum pedido"
-                  description="SolicitaÃ§Ãµes de compra de crÃ©ditos aparecerÃ£o aqui antes da aprovaÃ§Ã£o."
+                  description="Solicitações de compra de créditos aparecerão aqui antes da aprovação."
                   compact
                 />
               </div>
@@ -288,7 +288,7 @@ export function FinanceWorkspace() {
             <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
               Pagamentos
             </p>
-            <h3 className="mt-2 text-xl font-bold">IntegraÃ§Ã£o futura</h3>
+            <h3 className="mt-2 text-xl font-bold">Integração futura</h3>
             <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-400">
               {integration.message}
             </p>
@@ -315,14 +315,14 @@ export function FinanceWorkspace() {
 function RestrictedFinance() {
   return (
     <section className="text-slate-950 dark:text-white">
-      <PageNavigation dashboardLabel="Portal do cidadÃ£o" />
+      <PageNavigation dashboardLabel="Portal do cidadão" />
       <div className="rounded-3xl border border-slate-200 bg-white dark:border-amber-400/20 dark:bg-[#111827] p-8 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
         <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
           Acesso restrito
         </p>
         <h1 className="mt-3 text-3xl font-black">Financeiro exclusivo para advogados parceiros</h1>
         <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-          CrÃ©ditos sÃ£o usados para desbloquear oportunidades jurÃ­dicas no Marketplace. Advogados recÃ©m-cadastrados precisam aguardar a validaÃ§Ã£o administrativa da OAB antes de acessar crÃ©ditos. Se vocÃª Ã© cidadÃ£o, continue pela triagem para organizar seu caso.
+          Créditos são usados para desbloquear oportunidades jurídicas no Marketplace. Advogados recém-cadastrados precisam aguardar a validação administrativa da OAB antes de acessar créditos. Se você é cidadão, continue pela triagem para organizar seu caso.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link
@@ -378,10 +378,10 @@ function CreditHealthPanel({
           <p className={`text-xs font-black uppercase tracking-[0.25em] ${
             shouldRecharge ? "text-teal-700 dark:text-teal-200" : "text-emerald-300"
           }`}>
-            SaÃºde dos crÃ©ditos
+            Saúde dos créditos
           </p>
           <h2 className="mt-2 text-xl font-black text-slate-950 dark:text-white">
-            {shouldRecharge ? "Saldo baixo para novas oportunidades" : "Saldo operacional saudÃ¡vel"}
+            {shouldRecharge ? "Saldo baixo para novas oportunidades" : "Saldo operacional saudável"}
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-700 dark:text-slate-300">
             {shouldRecharge
@@ -391,18 +391,18 @@ function CreditHealthPanel({
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19]/80 p-4 text-sm">
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Ãšltima movimentaÃ§Ã£o</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Última movimentação</p>
           {lastTransaction ? (
             <div className="mt-2">
               <p className="font-black text-slate-950 dark:text-white">
-                {transactionLabels[lastTransaction.transaction_type]} Â· {lastTransaction.amount > 0 ? "+" : ""}{lastTransaction.amount} crÃ©ditos
+                {transactionLabels[lastTransaction.transaction_type]} · {lastTransaction.amount > 0 ? "+" : ""}{lastTransaction.amount} créditos
               </p>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 {new Date(lastTransaction.created_at).toLocaleString("pt-BR")}
               </p>
             </div>
           ) : (
-            <p className="mt-2 font-semibold text-slate-700 dark:text-slate-300">Nenhuma movimentaÃ§Ã£o registrada.</p>
+            <p className="mt-2 font-semibold text-slate-700 dark:text-slate-300">Nenhuma movimentação registrada.</p>
           )}
         </div>
       </div>
@@ -433,7 +433,7 @@ function PurchaseRequestCard({
     <article className="rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19] p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="font-bold text-slate-950 dark:text-white">{request.requested_credits} crÃ©ditos</p>
+          <p className="font-bold text-slate-950 dark:text-white">{request.requested_credits} créditos</p>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
             {new Date(request.created_at).toLocaleString("pt-BR")}
           </p>
@@ -474,9 +474,9 @@ function AdminPurchaseRequestCard({
     <article className="rounded-2xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19] p-4">
       <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
         <div>
-          <p className="font-bold text-slate-950 dark:text-white">{request.requested_credits} crÃ©ditos solicitados</p>
+          <p className="font-bold text-slate-950 dark:text-white">{request.requested_credits} créditos solicitados</p>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            UsuÃ¡rio: {request.requester_email || request.user_id}
+            Usuário: {request.requester_email || request.user_id}
           </p>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
             {new Date(request.created_at).toLocaleString("pt-BR")}
@@ -597,7 +597,7 @@ function AccountDeletionRequestCard({
             disabled={deciding}
             className="rounded-xl bg-red-300 px-3 py-2 text-xs font-black text-white dark:text-slate-950 hover:bg-red-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {deciding ? "Processando..." : "Aprovar anÃ¡lise"}
+            {deciding ? "Processando..." : "Aprovar análise"}
           </button>
         </div>
       </div>
@@ -625,7 +625,7 @@ function TransactionCard({ transaction }: { transaction: LawyerCreditTransaction
         ) : null}
       </div>
       <span className={positive ? "font-black text-emerald-300" : "font-black text-teal-700 dark:text-teal-200"}>
-        {positive ? "+" : ""}{transaction.amount} crÃ©ditos
+        {positive ? "+" : ""}{transaction.amount} créditos
       </span>
     </article>
   );
@@ -646,7 +646,7 @@ function getTransactionMetadataText(transaction: LawyerCreditTransaction) {
   }
 
   if (typeof requestId === "string" && requestId) {
-    return `SolicitaÃ§Ã£o vinculada: ${requestId}`;
+    return `Solicitação vinculada: ${requestId}`;
   }
 
   return "";

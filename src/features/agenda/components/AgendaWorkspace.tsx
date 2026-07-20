@@ -9,23 +9,23 @@ import type { AgendaEventPriority, AgendaEventStatus, AgendaEventType, LegalAgen
 
 const eventTypeLabels: Record<AgendaEventType, string> = {
   deadline: "Prazo",
-  hearing: "AudiÃªncia",
+  hearing: "Audiência",
   task: "Tarefa",
-  meeting: "ReuniÃ£o",
+  meeting: "Reunião",
   other: "Outro",
 };
 
 const statusLabels: Record<AgendaEventStatus, string> = {
   pending: "Pendente",
-  completed: "ConcluÃ­do",
+  completed: "Concluído",
   canceled: "Cancelado",
 };
 
 const priorityLabels: Record<AgendaEventPriority, string> = {
   low: "Baixa",
-  medium: "MÃ©dia",
+  medium: "Média",
   high: "Alta",
-  critical: "CrÃ­tica",
+  critical: "Crítica",
 };
 
 export function AgendaWorkspace() {
@@ -42,15 +42,15 @@ export function AgendaWorkspace() {
 
   return (
     <section className="text-slate-950 dark:text-white">
-      <PageNavigation dashboardLabel="Portal do cidadÃ£o" />
+      <PageNavigation dashboardLabel="Portal do cidadão" />
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
           <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
             Agenda
           </p>
-          <h1 className="mt-2 text-3xl font-bold">Agenda jurÃ­dica</h1>
+          <h1 className="mt-2 text-3xl font-bold">Agenda jurídica</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-            Central de prazos, audiÃªncias, reuniÃµes e tarefas vinculadas Ã  operaÃ§Ã£o jurÃ­dica.
+            Central de prazos, audiências, reuniões e tarefas vinculadas à operação jurídica.
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export function AgendaWorkspace() {
           type="search"
           value={agenda.search}
           onChange={(event) => agenda.setSearch(event.target.value)}
-          placeholder="Buscar por tÃ­tulo, descriÃ§Ã£o, local, tipo, prioridade ou status..."
+          placeholder="Buscar por título, descrição, local, tipo, prioridade ou status..."
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-600 dark:text-slate-400 focus:border-teal-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-950 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-teal-300"
         />
 
@@ -85,8 +85,8 @@ export function AgendaWorkspace() {
             <div className="flex flex-wrap gap-2">
               <FilterButton active={agenda.typeFilter === "all"} label="Todos" onClick={() => agenda.setTypeFilter("all")} />
               <FilterButton active={agenda.typeFilter === "deadline"} label="Prazos" onClick={() => agenda.setTypeFilter("deadline")} />
-              <FilterButton active={agenda.typeFilter === "hearing"} label="AudiÃªncias" onClick={() => agenda.setTypeFilter("hearing")} />
-              <FilterButton active={agenda.typeFilter === "meeting"} label="ReuniÃµes" onClick={() => agenda.setTypeFilter("meeting")} />
+              <FilterButton active={agenda.typeFilter === "hearing"} label="Audiências" onClick={() => agenda.setTypeFilter("hearing")} />
+              <FilterButton active={agenda.typeFilter === "meeting"} label="Reuniões" onClick={() => agenda.setTypeFilter("meeting")} />
               <FilterButton active={agenda.typeFilter === "task"} label="Tarefas" onClick={() => agenda.setTypeFilter("task")} />
             </div>
             <div className="flex flex-wrap gap-2">
@@ -94,7 +94,7 @@ export function AgendaWorkspace() {
               <FilterButton active={agenda.statusFilter === "pending"} label="Pendentes" onClick={() => agenda.setStatusFilter("pending")} />
               <FilterButton active={agenda.statusFilter === "upcoming"} label="7 dias" onClick={() => agenda.setStatusFilter("upcoming")} />
               <FilterButton active={agenda.statusFilter === "overdue"} label="Atrasados" onClick={() => agenda.setStatusFilter("overdue")} />
-              <FilterButton active={agenda.statusFilter === "completed"} label="ConcluÃ­dos" onClick={() => agenda.setStatusFilter("completed")} />
+              <FilterButton active={agenda.statusFilter === "completed"} label="Concluídos" onClick={() => agenda.setStatusFilter("completed")} />
               <FilterButton active={agenda.statusFilter === "canceled"} label="Cancelados" onClick={() => agenda.setStatusFilter("canceled")} />
             </div>
           </div>
@@ -105,17 +105,17 @@ export function AgendaWorkspace() {
         <Metric label="7 dias" value={agenda.metrics.upcoming} />
         <Metric label="Atrasados" value={agenda.metrics.overdue} />
         <Metric label="Pendentes" value={agenda.metrics.pending} />
-        <Metric label="CrÃ­ticos" value={agenda.metrics.critical} />
+        <Metric label="Críticos" value={agenda.metrics.critical} />
       </div>
 
       {agenda.metrics.overdue > 0 ? (
         <div className="mb-6 rounded-3xl border border-red-400/30 bg-red-500/10 p-5">
           <p className="text-xs font-black uppercase tracking-[0.25em] text-red-200">
-            AtenÃ§Ã£o operacional
+            Atenção operacional
           </p>
           <h2 className="mt-2 text-xl font-black text-slate-950 dark:text-white">Existem compromissos pendentes em atraso</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-red-100">
-            Revise prazos, audiÃªncias e tarefas vencidas antes de avanÃ§ar para novos atendimentos.
+            Revise prazos, audiências e tarefas vencidas antes de avançar para novos atendimentos.
           </p>
         </div>
       ) : null}
@@ -155,15 +155,15 @@ export function AgendaWorkspace() {
 
         <aside className="rounded-3xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
           <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
-            OperaÃ§Ã£o jurÃ­dica
+            Operação jurídica
           </p>
           <h3 className="mt-2 text-xl font-bold">Escopo conectado</h3>
 
           <div className="mt-5 space-y-3">
             <ChecklistItem text="Prazos processuais vinculados ao cliente e ao processo." />
-            <ChecklistItem text="AudiÃªncias com data, horÃ¡rio, tribunal/local e responsÃ¡vel." />
-            <ChecklistItem text="Tarefas internas com prioridade e status de execuÃ§Ã£o." />
-            <ChecklistItem text="Base pronta para alertas futuros e visÃ£o diÃ¡ria do escritÃ³rio." />
+            <ChecklistItem text="Audiências com data, horário, tribunal/local e responsável." />
+            <ChecklistItem text="Tarefas internas com prioridade e status de execução." />
+            <ChecklistItem text="Base pronta para alertas futuros e visão diária do escritório." />
           </div>
         </aside>
       </div>
@@ -226,7 +226,7 @@ function AgendaEventCard({
           </div>
           <h2 className="mt-4 text-xl font-bold text-slate-950 dark:text-white">{event.title}</h2>
           <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
-            {event.description || "Nenhuma descriÃ§Ã£o cadastrada."}
+            {event.description || "Nenhuma descrição cadastrada."}
           </p>
         </div>
 

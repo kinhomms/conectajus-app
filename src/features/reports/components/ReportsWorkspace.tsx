@@ -11,7 +11,7 @@ export function ReportsWorkspace() {
   if (reports.loading) {
     return (
       <main className="flex min-h-[60vh] items-center justify-center text-slate-950 dark:text-white">
-        <p className="font-black">Carregando relatÃ³rios...</p>
+        <p className="font-black">Carregando relatórios...</p>
       </main>
     );
   }
@@ -27,10 +27,10 @@ export function ReportsWorkspace() {
       <div className="mb-8 overflow-hidden rounded-[2rem] border border-slate-200 bg-white dark:border-teal-400/20 dark:bg-gradient-to-br dark:from-[#111827] dark:via-[#0B0F19] dark:to-[#07182F] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/30 md:p-8">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-start">
           <div className="max-w-3xl">
-            <p className="text-xs font-black uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">RelatÃ³rios executivos</p>
+            <p className="text-xs font-black uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">Relatórios executivos</p>
             <h1 className="mt-3 text-3xl font-black tracking-[-0.04em] md:text-5xl">Pulso do ecossistema ConectaJus</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-700 dark:text-slate-300">
-              Uma visÃ£o de gestÃ£o para acompanhar captaÃ§Ã£o, crÃ©ditos, conversÃ£o em CRM, documentos, processos e agenda sem expor dados sensÃ­veis do cidadÃ£o.
+              Uma visão de gestão para acompanhar captação, créditos, conversão em CRM, documentos, processos e agenda sem expor dados sensíveis do cidadão.
             </p>
           </div>
 
@@ -63,7 +63,7 @@ export function ReportsWorkspace() {
               <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-600 dark:text-teal-300">Funil operacional</p>
               <h2 className="mt-2 text-2xl font-black">Da triagem ao relacionamento</h2>
               <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                Indicadores agregados para entender se a operaÃ§Ã£o estÃ¡ captando, convertendo e acompanhando bem.
+                Indicadores agregados para entender se a operação está captando, convertendo e acompanhando bem.
               </p>
             </div>
             <Link href={routes.marketplace} className="w-fit rounded-2xl bg-teal-600 dark:bg-teal-300 px-5 py-3 text-sm font-black text-white dark:text-slate-950 hover:bg-teal-500 dark:hover:bg-teal-200">
@@ -75,17 +75,17 @@ export function ReportsWorkspace() {
             <FunnelPill label="Oportunidades totais" value={reports.state.marketplaceOpportunities} />
             <FunnelPill label="Complementos publicados" value={reports.state.marketplaceComplements} />
             <FunnelPill label="Contatos desbloqueados" value={reports.state.marketplaceUnlocked} />
-            <FunnelPill label="ConversÃµes para CRM" value={reports.state.crmConversions} />
+            <FunnelPill label="Conversões para CRM" value={reports.state.crmConversions} />
             <FunnelPill label="Clientes no CRM" value={reports.state.clients} />
-            <FunnelPill label="Documentos jurÃ­dicos" value={reports.state.documents} />
+            <FunnelPill label="Documentos jurídicos" value={reports.state.documents} />
             <FunnelPill label="Processos monitorados" value={reports.state.processes} />
             <FunnelPill label="Eventos de agenda" value={reports.state.agendaEvents} />
           </div>
         </div>
 
         <div className="rounded-[2rem] border border-slate-200 bg-white dark:border-white/10 dark:bg-[#111827] p-6 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-600 dark:text-teal-300">Ãreas em destaque</p>
-          <h2 className="mt-2 text-2xl font-black">Demanda por Ã¡rea jurÃ­dica</h2>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-teal-600 dark:text-teal-300">Áreas em destaque</p>
+          <h2 className="mt-2 text-2xl font-black">Demanda por área jurídica</h2>
           <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
             Ranking baseado nas oportunidades carregadas do Marketplace.
           </p>
@@ -97,7 +97,7 @@ export function ReportsWorkspace() {
               ))
             ) : (
               <div className="rounded-3xl border border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0B0F19] p-5 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                Ainda nÃ£o hÃ¡ oportunidades suficientes para formar um ranking de Ã¡reas.
+                Ainda não há oportunidades suficientes para formar um ranking de áreas.
               </div>
             )}
           </div>
@@ -123,13 +123,13 @@ export function ReportsWorkspace() {
 function RestrictedReports() {
   return (
     <section className="text-slate-950 dark:text-white">
-      <PageNavigation dashboardLabel="Portal do cidadÃ£o" />
+      <PageNavigation dashboardLabel="Portal do cidadão" />
 
       <div className="rounded-3xl border border-slate-200 bg-white dark:border-amber-400/20 dark:bg-[#111827] p-8 shadow-xl shadow-slate-200/70 dark:shadow-black/20">
         <p className="text-xs font-black uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">Acesso restrito</p>
-        <h1 className="mt-3 text-3xl font-black">RelatÃ³rios executivos sÃ£o exclusivos da operaÃ§Ã£o jurÃ­dica</h1>
+        <h1 className="mt-3 text-3xl font-black">Relatórios executivos são exclusivos da operação jurídica</h1>
         <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-          Esta Ã¡rea consolida indicadores de Marketplace, CRM, crÃ©ditos, processos e agenda para advogados parceiros e administradores. Para o cidadÃ£o, o fluxo correto Ã© acompanhar casos, complementar relatos e organizar documentos pelo portal seguro.
+          Esta área consolida indicadores de Marketplace, CRM, créditos, processos e agenda para advogados parceiros e administradores. Para o cidadão, o fluxo correto é acompanhar casos, complementar relatos e organizar documentos pelo portal seguro.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -207,8 +207,8 @@ function SignalBadge({ signal }: { signal: ReportSignal }) {
   }[signal];
 
   const label = {
-    attention: "atenÃ§Ã£o",
-    critical: "crÃ­tico",
+    attention: "atenção",
+    critical: "crítico",
     healthy: "ok",
   }[signal];
 

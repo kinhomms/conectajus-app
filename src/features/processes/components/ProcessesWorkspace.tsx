@@ -25,9 +25,9 @@ export function ProcessesWorkspace() {
           <p className="text-xs uppercase tracking-[0.25em] text-teal-600 dark:text-teal-300">
             Processos
           </p>
-          <h1 className="mt-2 text-3xl font-bold">GestÃ£o processual</h1>
+          <h1 className="mt-2 text-3xl font-bold">Gestão processual</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-            Acompanhe os processos vinculados aos clientes cadastrados no CRM jurÃ­dico.
+            Acompanhe os processos vinculados aos clientes cadastrados no CRM jurídico.
           </p>
         </div>
 
@@ -60,7 +60,7 @@ export function ProcessesWorkspace() {
           type="search"
           value={processes.search}
           onChange={(event) => processes.setSearch(event.target.value)}
-          placeholder="Buscar por tÃ­tulo, nÃºmero, Ã¡rea, vara ou status..."
+          placeholder="Buscar por título, número, área, vara ou status..."
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none placeholder:text-slate-600 dark:text-slate-400 focus:border-teal-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-950 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-teal-300"
         />
 
@@ -77,7 +77,7 @@ export function ProcessesWorkspace() {
             />
             <FilterButton
               active={processes.statusFilter === "missing_data"}
-              label="PendÃªncias"
+              label="Pendências"
               onClick={() => processes.setStatusFilter("missing_data")}
             />
             <FilterButton
@@ -90,7 +90,7 @@ export function ProcessesWorkspace() {
 
         <Metric label="Total" value={processes.processStats.total} />
         <Metric label="Ativos" value={processes.processStats.active} />
-        <Metric label="PendÃªncias" value={processes.processStats.missingData} />
+        <Metric label="Pendências" value={processes.processStats.missingData} />
         <Metric label="Encerrados" value={processes.processStats.closed} />
         <Metric label="Exibidos" value={processes.processStats.displayed} />
       </div>
@@ -98,10 +98,10 @@ export function ProcessesWorkspace() {
       {processes.processStats.missingData > 0 ? (
         <div className="mb-6 rounded-3xl border border-amber-400/30 bg-amber-400/10 p-5">
           <p className="text-xs font-black uppercase tracking-[0.25em] text-teal-700 dark:text-teal-200">
-            PendÃªncia cadastral
+            Pendência cadastral
           </p>
           <h2 className="mt-2 text-xl font-black text-slate-950 dark:text-white">
-            Existem processos sem nÃºmero ou vara/tribunal
+            Existem processos sem número ou vara/tribunal
           </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-amber-900 dark:text-amber-100">
             Complete esses dados no CRM para melhorar controle processual, agenda de prazos e auditoria do atendimento.
@@ -119,7 +119,7 @@ export function ProcessesWorkspace() {
         <div className="rounded-3xl border border-dashed border-slate-300 bg-white dark:border-white/10 dark:bg-[#111827] p-10 text-center">
           <h2 className="text-xl font-semibold">Nenhum processo encontrado</h2>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-            Quando um processo for vinculado no painel de um cliente, ele aparecerÃ¡ aqui para acompanhamento consolidado.
+            Quando um processo for vinculado no painel de um cliente, ele aparecerá aqui para acompanhamento consolidado.
           </p>
         </div>
       ) : (
@@ -172,7 +172,7 @@ function ProcessCard({ process }: { process: LegalProcess }) {
       <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-300">
-            {process.practice_area || "Ãrea a confirmar"}
+            {process.practice_area || "Área a confirmar"}
           </p>
           <h2 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">{process.case_title}</h2>
         </div>
@@ -183,12 +183,12 @@ function ProcessCard({ process }: { process: LegalProcess }) {
       </div>
 
       <div className="grid gap-3 text-sm text-slate-700 dark:text-slate-300 md:grid-cols-2">
-        <Info label="NÃºmero" value={process.case_number || "NÃ£o informado"} />
-        <Info label="Vara/Tribunal" value={process.court || "NÃ£o informado"} />
+        <Info label="Número" value={process.case_number || "Não informado"} />
+        <Info label="Vara/Tribunal" value={process.court || "Não informado"} />
       </div>
 
       <p className="mt-5 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
-        {process.description || "Nenhuma descriÃ§Ã£o cadastrada."}
+        {process.description || "Nenhuma descrição cadastrada."}
       </p>
 
       <p className="mt-5 text-xs text-slate-500">

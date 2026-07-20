@@ -662,3 +662,44 @@ Próxima etapa recomendada:
 2. Testar login real com as contas finais de cidadão, advogado e admin.
 3. Corrigir somente falhas encontradas no teste real.
 4. Depois disso, decidir limpeza de legados e promoção para produção.
+
+## Atualização 2026-07-20 — Revisão ortográfica e correção de acentuação em telas operacionais
+
+Solicitação do usuário: prosseguir com as etapas e aproveitar para corrigir palavras escritas erradas.
+
+Correções aplicadas nesta rodada:
+
+- Revisão e correção de textos corrompidos por encoding/mojibake em telas ativas:
+  - `src/features/agenda/components/AgendaWorkspace.tsx`
+  - `src/features/finance/components/FinanceWorkspace.tsx`
+  - `src/features/processes/components/ProcessesWorkspace.tsx`
+  - `src/features/reports/components/ReportsWorkspace.tsx`
+- Exemplos corrigidos:
+  - `Audiência`, `Reunião`, `Concluído`, `Média`, `Crítica`;
+  - `Agenda jurídica`, `operação jurídica`, `visão diária do escritório`;
+  - `Créditos`, `histórico`, `solicitações`, `aprovação`, `usuário`, `transação`;
+  - `Validação OAB`, `conferência`, `retenções legais`, `exclusão de conta`;
+  - `Gestão processual`, `Pendências`, `Número`, `Não informado`;
+  - `Relatórios executivos`, `captação`, `conversão`, `área jurídica`, `atenção`, `crítico`.
+- O arquivo legado `src/app/clientes/page.backup.v5.tsx` ainda possui textos antigos, mas não foi alterado porque é backup legado e a orientação do projeto é não remover/recriar arquivos antigos sem autorização explícita.
+
+Validações realizadas:
+
+```bash
+rg "Ã|�|â€|â†|âœ|ðŸ|Â·|\?[a-zA-ZÀ-ÿ]|[a-zA-ZÀ-ÿ]\?|\?\?" src\features\agenda src\features\finance src\features\processes src\features\reports -g "*.tsx" -g "*.ts"
+npm run lint
+npm run validate
+```
+
+Resultado:
+
+- A varredura final nos módulos corrigidos só retornou operadores normais do TypeScript (`??`, `?:`) e não texto quebrado de interface.
+- `npm run lint`: aprovado com 0 erros e 0 warnings.
+- `npm run validate`: aprovado.
+  - `preflight:preview`: aprovado; 34 migrations conferidas.
+  - `build`: aprovado; 19 rotas geradas.
+
+Andamento atualizado estimado:
+
+- Plataforma funcional em desenvolvimento: ~89%.
+- Próximo foco recomendado: teste real no preview/ambiente online com contas cidadão, advogado e admin, especialmente fluxos de login, Marketplace, Financeiro, desbloqueio, CRM e admin.
